@@ -1,0 +1,18 @@
+========================================================================================
+SCENE-CONTENT NEAREST-NEIGHBOUR AUDIT (reviewer P0-3)
+Could a confirmatory frame be a near-duplicate of a development frame?
+Measured on ground-truth object sets, so no images move and no model is involved.
+========================================================================================
+confirmatory frames audited            : 1327
+frames whose GT object set is IDENTICAL: 0  (0.0000)
+
+ego displacement proxy = median shift of class-matched objects, in metres
+  P05 1.23  P25 1.72  median 2.32  P75 3.27  P95 6.01  max 13.74
+  shift <  0.5 m : 0.0068
+  shift <  1.0 m : 0.0301
+  shift <  2.0 m : 0.3768
+  shift <  5.0 m : 0.9005
+
+Jaccard overlap of the GT object sets (exact x,y to 0.1 m)
+  P05 0.000  median 0.000  P95 0.000
+  frames with Jaccard > 0.5 : 0.0015

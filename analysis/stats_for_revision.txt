@@ -1,0 +1,47 @@
+==============================================================================================
+P0-4  STATISTICAL STATUS OF THE TWO CONFIRMATORY ENDPOINTS
+==============================================================================================
+  A1 7B: +0.0429 [+0.0073,+0.0690]  two-sided bootstrap p=0.02470  n=1328
+  A2 3B: +0.0761 [+0.0403,+0.0996]  two-sided bootstrap p=0.00060  n=1328
+
+  Holm, m=2 (for the INDIVIDUAL claims):
+    A2 3B: raw p=0.00060 -> Holm-adjusted 0.00120  PASS at .05
+    A1 7B: raw p=0.02470 -> Holm-adjusted 0.02470  PASS at .05
+
+  Intersection-union (for the CONJUNCTIVE claim 'holds at both scales'):
+    both endpoints must reject at alpha; no adjustment is required and the
+    test rejects iff max(p) < .05 -> max p = 0.02470
+
+==============================================================================================
+P1-3  PER-FAMILY CONTRASTS WITH CIs, both endpoints
+==============================================================================================
+
+A1 7B  v15 - pixel
+  counting        +0.1358 [+0.0541,+0.2022] n=302  *
+  direction       -0.0242 [-0.0996,+0.0393] n=289
+  nearest_class   -0.0617 [-0.1429,-0.0089] n=243  <-- RESOLVED LOSS
+  nearest_dist    +0.1890 [+0.1053,+0.2766] n=254  *
+  path_object     -0.0417 [-0.1224,+0.0126] n=240
+
+A2 3B  v15 - pixel
+  counting        +0.1358 [+0.0413,+0.2240] n=302  *
+  direction       -0.0381 [-0.1308,+0.0338] n=289
+  nearest_class   +0.0412 [-0.0265,+0.0940] n=243
+  nearest_dist    +0.2362 [+0.0821,+0.3750] n=254  *
+  path_object     +0.0042 [-0.0563,+0.0530] n=240
+
+==============================================================================================
+P1-1  V9 -> V15 OPERATOR LADDER at 3B (development bank, already measured)
+==============================================================================================
+  v9 -> v12  (+ corrected rules, cross-type & path arg-min, runner-up) 0.7518 vs 0.6969  +0.0549 [+0.0292,+0.0758]* n=1366
+  v12 -> v14 (+ per-object rows on EVERY family)     0.7350 vs 0.7518  -0.0168 [-0.0335,+0.0054]  n=1366
+  v14 -> v15 (rows scoped to counting only)          0.7606 vs 0.7350  +0.0256 [+0.0023,+0.0394]* n=1366
+  v9 -> v15  (net)                                   0.7606 vs 0.6969  +0.0637 [+0.0308,+0.0869]* n=1366
+
+==============================================================================================
+P1-5  REPRODUCIBILITY FLOOR, derivation
+==============================================================================================
+  7B: flip rate f=0.014, N=1366; if flips are sign-symmetric then the paired
+      run-to-run difference has SD = sqrt(f/N) = 0.0032, so 1.96*SD = 0.0063
+  3B: flip rate f=0.023, N=1366; if flips are sign-symmetric then the paired
+      run-to-run difference has SD = sqrt(f/N) = 0.0041, so 1.96*SD = 0.0080

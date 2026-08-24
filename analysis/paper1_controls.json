@@ -1,0 +1,783 @@
+{
+ "controlB": {
+  "label": "anno-image - raw-image",
+  "accA": 0.8316,
+  "accB": 0.7335,
+  "delta": 0.0981,
+  "ci": [
+   0.0789,
+   0.1231
+  ],
+  "n": 1366,
+  "sig": true,
+  "by_family": {
+   "counting": {
+    "n": 298,
+    "delta": 0.3087,
+    "ci": [
+     0.2394,
+     0.3528
+    ],
+    "accA": 0.7685,
+    "accB": 0.4597
+   },
+   "direction": {
+    "n": 309,
+    "delta": 0.0097,
+    "ci": [
+     -0.04,
+     0.0566
+    ],
+    "accA": 0.8026,
+    "accB": 0.7929
+   },
+   "nearest_class": {
+    "n": 239,
+    "delta": 0.046,
+    "ci": [
+     0.0071,
+     0.1014
+    ],
+    "accA": 0.9707,
+    "accB": 0.9247
+   },
+   "nearest_dist": {
+    "n": 248,
+    "delta": 0.0363,
+    "ci": [
+     -0.0392,
+     0.124
+    ],
+    "accA": 0.6452,
+    "accB": 0.6089
+   },
+   "path_object": {
+    "n": 272,
+    "delta": 0.0699,
+    "ci": [
+     0.0352,
+     0.1364
+    ],
+    "accA": 0.9816,
+    "accB": 0.9118
+   }
+  }
+ },
+ "controlB_vs_v9": {
+  "label": "v9 text - anno-image",
+  "accA": 0.8031,
+  "accB": 0.8316,
+  "delta": -0.0286,
+  "ci": [
+   -0.0681,
+   -0.0015
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "gtv9_vs_anno": {
+  "label": "GT+v9 text - GT-anno image (content-matched)",
+  "accA": 0.9553,
+  "accB": 0.8316,
+  "delta": 0.1237,
+  "ci": [
+   0.1001,
+   0.1552
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "gtv9_vs_raw": {
+  "label": "GT+v9 text - raw image",
+  "accA": 0.9553,
+  "accB": 0.7335,
+  "delta": 0.2218,
+  "ci": [
+   0.1952,
+   0.2585
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "gtv9_vs_v9": {
+  "label": "GT+v9 text - real-perception v9",
+  "accA": 0.9553,
+  "accB": 0.8031,
+  "delta": 0.1523,
+  "ci": [
+   0.1169,
+   0.2057
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "gtv9_vs_gtv3": {
+  "label": "GT+v9 serializer - GT+v3 serializer",
+  "accA": 0.9553,
+  "accB": 0.8565,
+  "delta": 0.0988,
+  "ci": [
+   0.0675,
+   0.1234
+  ],
+  "n": 1366,
+  "sig": true,
+  "by_family": {
+   "counting": {
+    "n": 298,
+    "delta": -0.0101,
+    "ci": [
+     -0.0466,
+     0.0226
+    ],
+    "accA": 0.8826,
+    "accB": 0.8926
+   },
+   "direction": {
+    "n": 309,
+    "delta": 0.2427,
+    "ci": [
+     0.1795,
+     0.2882
+    ],
+    "accA": 0.9385,
+    "accB": 0.6958
+   },
+   "nearest_class": {
+    "n": 239,
+    "delta": 0.0,
+    "ci": [
+     -0.0148,
+     0.0088
+    ],
+    "accA": 0.9958,
+    "accB": 0.9958
+   },
+   "nearest_dist": {
+    "n": 248,
+    "delta": 0.246,
+    "ci": [
+     0.1807,
+     0.3169
+    ],
+    "accA": 0.996,
+    "accB": 0.75
+   },
+   "path_object": {
+    "n": 272,
+    "delta": 0.0074,
+    "ci": [
+     -0.0078,
+     0.0217
+    ],
+    "accA": 0.9816,
+    "accB": 0.9743
+   }
+  }
+ },
+ "controlA": {
+  "label": "VL-7B on text - 7B on text (=v9)",
+  "accA": 0.7943,
+  "accB": 0.8031,
+  "delta": -0.0088,
+  "ci": [
+   -0.0288,
+   0.0068
+  ],
+  "n": 1366,
+  "sig": false
+ },
+ "controlA_vs_pixel": {
+  "label": "VL-7B on text - VL-7B on pixels",
+  "accA": 0.7943,
+  "accB": 0.7474,
+  "delta": 0.0469,
+  "ci": [
+   0.0072,
+   0.0772
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "real3b_vs_pixel": {
+  "label": "3B on real state - 7B VLM on pixels",
+  "accA": 0.6969,
+  "accB": 0.7474,
+  "delta": -0.0505,
+  "ci": [
+   -0.0755,
+   -0.0301
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "real3b_vs_v9": {
+  "label": "3B on real state - 7B on real state",
+  "accA": 0.6969,
+  "accB": 0.8031,
+  "delta": -0.1061,
+  "ci": [
+   -0.1306,
+   -0.0812
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "ladder_acc": {
+  "L0": 0.6076,
+  "L1": 0.6332,
+  "L2": 0.7584,
+  "L3": 0.7555,
+  "L4": 0.724,
+  "L5": 0.7965,
+  "L6": 0.806,
+  "L7": 0.8031
+ },
+ "ladder_increments": {
+  "L1-L0": {
+   "label": "  L1-L0 +distance ordering",
+   "accA": 0.6332,
+   "accB": 0.6076,
+   "delta": 0.0256,
+   "ci": [
+    0.0108,
+    0.0377
+   ],
+   "n": 1366,
+   "sig": true
+  },
+  "L2-L1": {
+   "label": "  L2-L1 +side/view words",
+   "accA": 0.7584,
+   "accB": 0.6332,
+   "delta": 0.1252,
+   "ci": [
+    0.1094,
+    0.1431
+   ],
+   "n": 1366,
+   "sig": true,
+   "by_family": {
+    "counting": {
+     "n": 298,
+     "delta": 0.0034,
+     "ci": [
+      -0.0102,
+      0.0207
+     ],
+     "accA": 0.5705,
+     "accB": 0.5671
+    },
+    "direction": {
+     "n": 309,
+     "delta": 0.5372,
+     "ci": [
+      0.4784,
+      0.5981
+     ],
+     "accA": 0.7994,
+     "accB": 0.2621
+    },
+    "nearest_class": {
+     "n": 239,
+     "delta": 0.0167,
+     "ci": [
+      0.0042,
+      0.0349
+     ],
+     "accA": 0.9331,
+     "accB": 0.9163
+    },
+    "nearest_dist": {
+     "n": 248,
+     "delta": -0.0121,
+     "ci": [
+      -0.0515,
+      0.0282
+     ],
+     "accA": 0.5806,
+     "accB": 0.5927
+    },
+    "path_object": {
+     "n": 272,
+     "delta": 0.011,
+     "ci": [
+      -0.0054,
+      0.0247
+     ],
+     "accA": 0.9265,
+     "accB": 0.9154
+    }
+   }
+  },
+  "L3-L2": {
+   "label": "  L3-L2 +counts header",
+   "accA": 0.7555,
+   "accB": 0.7584,
+   "delta": -0.0029,
+   "ci": [
+    -0.0157,
+    0.0092
+   ],
+   "n": 1366,
+   "sig": false
+  },
+  "L4-L3": {
+   "label": "  L4-L3 +nearest-of-type block",
+   "accA": 0.724,
+   "accB": 0.7555,
+   "delta": -0.0315,
+   "ci": [
+    -0.0411,
+    -0.0174
+   ],
+   "n": 1366,
+   "sig": true
+  },
+  "L5-L4": {
+   "label": "  L5-L4 +pre-banding",
+   "accA": 0.7965,
+   "accB": 0.724,
+   "delta": 0.0725,
+   "ci": [
+    0.053,
+    0.0895
+   ],
+   "n": 1366,
+   "sig": true,
+   "by_family": {
+    "counting": {
+     "n": 298,
+     "delta": 0.0,
+     "ci": [
+      -0.0176,
+      0.0219
+     ],
+     "accA": 0.5805,
+     "accB": 0.5805
+    },
+    "direction": {
+     "n": 309,
+     "delta": 0.11,
+     "ci": [
+      0.0539,
+      0.1474
+     ],
+     "accA": 0.7896,
+     "accB": 0.6796
+    },
+    "nearest_class": {
+     "n": 239,
+     "delta": 0.0126,
+     "ci": [
+      -0.0141,
+      0.0408
+     ],
+     "accA": 0.9247,
+     "accB": 0.9121
+    },
+    "nearest_dist": {
+     "n": 248,
+     "delta": 0.2581,
+     "ci": [
+      0.1954,
+      0.3197
+     ],
+     "accA": 0.7984,
+     "accB": 0.5403
+    },
+    "path_object": {
+     "n": 272,
+     "delta": -0.0074,
+     "ci": [
+      -0.0306,
+      0.019
+     ],
+     "accA": 0.9265,
+     "accB": 0.9338
+    }
+   }
+  },
+  "L6-L5": {
+   "label": "  L6-L5 +confidence split",
+   "accA": 0.806,
+   "accB": 0.7965,
+   "delta": 0.0095,
+   "ci": [
+    -0.0026,
+    0.0209
+   ],
+   "n": 1366,
+   "sig": false
+  },
+  "L7-L6": {
+   "label": "  L7-L6 +boundary flags",
+   "accA": 0.8031,
+   "accB": 0.806,
+   "delta": -0.0029,
+   "ci": [
+    -0.013,
+    0.0067
+   ],
+   "n": 1366,
+   "sig": false
+  }
+ },
+ "L0_vs_pixel": {
+  "label": "  L0 (raw object list) - pixel VLM",
+  "accA": 0.6076,
+  "accB": 0.7474,
+  "delta": -0.1398,
+  "ci": [
+   -0.1629,
+   -0.1162
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "xfam_llama3.1:8b  [PAPER CONTROL]": {
+  "label": "  llama3.1:8b  [PAPER CONTROL] - Mac qwen2.5:7b anchor",
+  "accA": 0.776,
+  "accB": 0.8016,
+  "delta": -0.0256,
+  "ci": [
+   -0.0456,
+   -0.0097
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "xfam_gpt-oss:20b        [log only]": {
+  "label": "  gpt-oss:20b        [log only] - Mac qwen2.5:7b anchor",
+  "accA": 0.713,
+  "accB": 0.8016,
+  "delta": -0.0886,
+  "ci": [
+   -0.108,
+   -0.0647
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "xfam_gemma4:26b         [log only]": {
+  "label": "  gemma4:26b         [log only] - Mac qwen2.5:7b anchor",
+  "accA": 0.5637,
+  "accB": 0.8016,
+  "delta": -0.2379,
+  "ci": [
+   -0.2611,
+   -0.2112
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "m7": {
+  "label": "  7B: real-state text - pixel VLM",
+  "accA": 0.8031,
+  "accB": 0.7474,
+  "delta": 0.0556,
+  "ci": [
+   0.0258,
+   0.0795
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "m3": {
+  "label": "  3B: real-state text - pixel VLM",
+  "accA": 0.6969,
+  "accB": 0.4978,
+  "delta": 0.1991,
+  "ci": [
+   0.0135,
+   0.3613
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "slope_text": {
+  "label": "  text  7B - text  3B",
+  "accA": 0.8031,
+  "accB": 0.6969,
+  "delta": 0.1061,
+  "ci": [
+   0.0812,
+   0.1306
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "slope_pix": {
+  "label": "  pixel 7B - pixel 3B",
+  "accA": 0.7474,
+  "accB": 0.4978,
+  "delta": 0.2496,
+  "ci": [
+   0.0674,
+   0.4126
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "did_real_state": {
+  "slope_text": 0.1061,
+  "slope_pixel": 0.2496,
+  "did": -0.1435,
+  "ci": [
+   -0.3052,
+   0.0345
+  ],
+  "n": 1366,
+  "sig": false
+ },
+ "did_gt_state": {
+  "slope_text": 0.1113,
+  "slope_pixel": 0.2496,
+  "did": -0.1384,
+  "ci": [
+   -0.3102,
+   0.0508
+  ],
+  "n": 1366,
+  "sig": false
+ },
+ "loo_banding": {
+  "label": "  v9 - (v9 minus pre-banding)",
+  "accA": 0.8031,
+  "accB": 0.7592,
+  "delta": 0.0439,
+  "ci": [
+   0.0316,
+   0.0612
+  ],
+  "n": 1366,
+  "sig": true,
+  "by_family": {
+   "counting": {
+    "n": 298,
+    "delta": 0.0134,
+    "ci": [
+     -0.0092,
+     0.0349
+    ],
+    "accA": 0.604,
+    "accB": 0.5906
+   },
+   "direction": {
+    "n": 309,
+    "delta": -0.0129,
+    "ci": [
+     -0.0377,
+     0.0108
+    ],
+    "accA": 0.7896,
+    "accB": 0.8026
+   },
+   "nearest_class": {
+    "n": 239,
+    "delta": 0.0084,
+    "ci": [
+     -0.0075,
+     0.0336
+    ],
+    "accA": 0.9331,
+    "accB": 0.9247
+   },
+   "nearest_dist": {
+    "n": 248,
+    "delta": 0.2298,
+    "ci": [
+     0.1811,
+     0.2965
+    ],
+    "accA": 0.7984,
+    "accB": 0.5685
+   },
+   "path_object": {
+    "n": 272,
+    "delta": 0.0037,
+    "ci": [
+     -0.01,
+     0.0192
+    ],
+    "accA": 0.9265,
+    "accB": 0.9228
+   }
+  }
+ },
+ "loo_bearing": {
+  "label": "  v9 - (v9 minus bearing discretization)",
+  "accA": 0.8031,
+  "accB": 0.6786,
+  "delta": 0.1245,
+  "ci": [
+   0.1094,
+   0.138
+  ],
+  "n": 1366,
+  "sig": true,
+  "by_family": {
+   "counting": {
+    "n": 298,
+    "delta": -0.0034,
+    "ci": [
+     -0.0189,
+     0.012
+    ],
+    "accA": 0.604,
+    "accB": 0.6074
+   },
+   "direction": {
+    "n": 309,
+    "delta": 0.534,
+    "ci": [
+     0.4749,
+     0.5913
+    ],
+    "accA": 0.7896,
+    "accB": 0.2557
+   },
+   "nearest_class": {
+    "n": 239,
+    "delta": 0.0167,
+    "ci": [
+     0.0037,
+     0.0413
+    ],
+    "accA": 0.9331,
+    "accB": 0.9163
+   },
+   "nearest_dist": {
+    "n": 248,
+    "delta": 0.0081,
+    "ci": [
+     -0.0074,
+     0.0255
+    ],
+    "accA": 0.7984,
+    "accB": 0.7903
+   },
+   "path_object": {
+    "n": 272,
+    "delta": 0.0,
+    "ci": [
+     -0.0127,
+     0.0117
+    ],
+    "accA": 0.9265,
+    "accB": 0.9265
+   }
+  }
+ },
+ "m7_retry": {
+  "label": "  7B: text - pixel (retry ladder)",
+  "accA": 0.8031,
+  "accB": 0.7482,
+  "delta": 0.0549,
+  "ci": [
+   0.0251,
+   0.0788
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "m3_retry": {
+  "label": "  3B: text - pixel (retry ladder)",
+  "accA": 0.6969,
+  "accB": 0.4978,
+  "delta": 0.1991,
+  "ci": [
+   0.0135,
+   0.3613
+  ],
+  "n": 1366,
+  "sig": true
+ },
+ "did_retry": {
+  "slope_text": 0.1061,
+  "slope_pixel": 0.2504,
+  "did": -0.1442,
+  "ci": [
+   -0.3052,
+   0.0336
+  ],
+  "n": 1366,
+  "sig": false
+ },
+ "exact_content": {
+  "label": "  same bytes: tokens - pixels (VL-7B)",
+  "accA": 0.9641,
+  "accB": 0.981,
+  "delta": -0.0168,
+  "ci": [
+   -0.0261,
+   -0.0068
+  ],
+  "n": 1366,
+  "sig": true,
+  "by_family": {
+   "counting": {
+    "n": 298,
+    "delta": -0.0537,
+    "ci": [
+     -0.0997,
+     -0.012
+    ],
+    "accA": 0.8893,
+    "accB": 0.943
+   },
+   "direction": {
+    "n": 309,
+    "delta": -0.0032,
+    "ci": [
+     -0.0175,
+     0.011
+    ],
+    "accA": 0.9871,
+    "accB": 0.9903
+   },
+   "nearest_class": {
+    "n": 239,
+    "delta": 0.0,
+    "ci": [
+     0.0,
+     0.0
+    ],
+    "accA": 1.0,
+    "accB": 1.0
+   },
+   "nearest_dist": {
+    "n": 248,
+    "delta": -0.0202,
+    "ci": [
+     -0.0551,
+     0.0
+    ],
+    "accA": 0.9718,
+    "accB": 0.9919
+   },
+   "path_object": {
+    "n": 272,
+    "delta": -0.0037,
+    "ci": [
+     -0.0131,
+     0.0
+    ],
+    "accA": 0.9816,
+    "accB": 0.9853
+   }
+  }
+ },
+ "gt_decoder_swap": {
+  "label": "  GT text: 7B text-only - VL-7B",
+  "accA": 0.9553,
+  "accB": 0.9641,
+  "delta": -0.0088,
+  "ci": [
+   -0.0211,
+   0.0061
+  ],
+  "n": 1366,
+  "sig": false
+ }
+}

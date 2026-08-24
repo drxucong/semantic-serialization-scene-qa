@@ -1,0 +1,62 @@
+{
+ "counting": {
+  "qa_id": "coda_0_421_counting",
+  "question": "How many objects of type 'Trash Can' are visible in the camera view?",
+  "choices": {
+   "A": "3",
+   "B": "1",
+   "C": "2",
+   "D": "Cannot be determined from this view"
+  },
+  "gold": "B",
+  "serialized_state_D0": "Counts by type: Bench=2 (2 uncertain), Bike=4, Bollard=6 (2 uncertain), Chair=2 (2 uncertain), Cone=1 (1 uncertain), Door=1 (1 uncertain), Pole=2 (2 uncertain), Tree=2 (2 uncertain)\nClosest to the robot's forward path: Bollard\nNearest object overall: Bollard (next nearest: Door)\nNearest of each type: Bench: over 15 meters away, in the center; Bike: over 15 meters away, on the left side; Bollard: 5 to 15 meters away, on the left side; Chair: over 15 meters away, in the center; Cone: over 15 meters away, in the center; Door: over 15 meters away, in the center; Pole: over 15 meters away, in the center; Tree: over 15 meters away, on the left side\nVisible objects (nearest first):\n#1 [Bollard] dist=7.81m bearing=36.2deg (left) view=left (uncertain)\n#2 [Door] dist=16.97m bearing=-11.2deg (center) view=center (uncertain)\n#3 [Pole] dist=17.71m bearing=-8.4deg (center) view=center (uncertain)\n#4 [Cone] dist=17.85m bearing=-8.3deg (center) view=center (uncertain)\n#5 [Bollard] dist=17.91m bearing=-35.8deg (right) view=right (uncertain)\n#6 [Bench] dist=18.2m bearing=-7.7deg (center) view=center (uncertain)\n#7 [Tree] dist=18.56m bearing=36.2deg (left) view=left (uncertain)\n#8 [Bollard] dist=18.75m bearing=4.8deg (center) view=center\n#9 [Bollard] dist=19.26m bearing=25.1deg (left) view=left\n#10 [Chair] dist=19.68m bearing=6.9deg (center) view=center (uncertain)\n#11 [Bike] dist=21.02m bearing=26.3deg (left) view=left\n#12 [Bollard] dist=21.1m bearing=30.1deg (left) view=left\n#13 [Bike] dist=21.21m bearing=24.3deg (left) view=left\n#14 [Pole] dist=21.21m bearing=24.4deg (left) view=left (uncertain)\n#15 [Bike] dist=21.53m bearing=17.3deg (left) view=left\n#16 [Bench] dist=21.78m bearing=-16.3deg (right) view=right (uncertain)\n#17 [Bollard] dist=22.22m bearing=34.3deg (left) view=left\n#18 [Chair] dist=23.59m bearing=25.3deg (left) view=left (uncertain)\n#19 [Bike] dist=27.31m bearing=35.6deg (left) view=left\n#20 [Tree] dist=30.7m bearing=36.2deg (left) view=left (uncertain)"
+ },
+ "nearest_dist": {
+  "qa_id": "coda_0_422_nearest_dist",
+  "question": "How far is the nearest 'Railing' from the robot?",
+  "choices": {
+   "A": "under 5 meters away",
+   "B": "over 15 meters away",
+   "C": "Cannot be determined from this view",
+   "D": "5 to 15 meters away"
+  },
+  "gold": "B",
+  "serialized_state_D0": "Counts by type: Bench=2 (2 uncertain), Bike=4, Bollard=7 (2 uncertain), Door=2 (2 uncertain), Floor Sign=2 (2 uncertain), Pole=2 (2 uncertain), Tree=2 (2 uncertain)\nClosest to the robot's forward path: Bollard\nNearest object overall: Floor Sign (next nearest: Bollard)\nNearest of each type: Bench: over 15 meters away, in the center; Bike: over 15 meters away, on the left side; Bollard: 5 to 15 meters away, on the left side; Door: over 15 meters away, in the center; Floor Sign: 5 to 15 meters away, on the left side; Pole: over 15 meters away, in the center; Tree: over 15 meters away, on the left side"
+ },
+ "direction": {
+  "qa_id": "coda_0_436_direction",
+  "question": "Where is the nearest 'Railing' located in the camera view?",
+  "choices": {
+   "A": "Cannot be determined from this view",
+   "B": "on the right side",
+   "C": "on the left side",
+   "D": "in the center"
+  },
+  "gold": "D",
+  "serialized_state_D0": "Counts by type: Bench=2 (2 uncertain), Bike=4, Bollard=4, Chair=1 (1 uncertain), Door=2 (2 uncertain), Floor Sign=1 (1 uncertain), Pole=1 (1 uncertain), Railing=1, Scooter=1, Tree=1 (1 uncertain)\nClosest to the robot's forward path: Floor Sign (next closest: Bollard)\nNearest object overall: Floor Sign (next nearest: Bollard)\nNearest of each type: Bench: over 15 meters away, on the right side; Bike: over 15 meters away, on the left side; Bollard: over 15 meters away, in the center; Chair: over 15 meters away, on the left side; Door: over 15 meters away, in the center; Floor Sign: 5 to 15 meters away, on the left side; Pole: over 15 meters away, on the left side; Railing: over 15 meters away, on the left side; Scooter: over 15 meters away, on the left side; Tree: over 15 meters away, on the left side"
+ },
+ "path_object": {
+  "qa_id": "coda_0_4797_path_object",
+  "question": "Which type of object is closest to the robot's forward path?",
+  "choices": {
+   "A": "Car",
+   "B": "Newspaper Dispenser",
+   "C": "Railing",
+   "D": "Cannot be determined from this view"
+  },
+  "gold": "C",
+  "serialized_state_D0": "Counts by type: Bench=2 (2 uncertain), Car=2 (2 uncertain), Chair=4, Door=2 (2 uncertain), Pole=2 (2 uncertain), Railing=1, Scooter=1 (1 uncertain), Table=2\nClosest to the robot's forward path: Railing (next closest: Door)\nNearest object overall: Railing (next nearest: Door)\nNearest of each type: Bench: over 15 meters away, in the center; Car: 5 to 15 meters away, on the right side; Chair: 5 to 15 meters away, on the right side; Door: 5 to 15 meters away, on the right side; Pole: 5 to 15 meters away, on the right side; Railing: under 5 meters away, on the right side; Scooter: 5 to 15 meters away, on the left side; Table: 5 to 15 meters away, in the center"
+ },
+ "nearest_class": {
+  "qa_id": "coda_0_4804_nearest_class",
+  "question": "What type of object is nearest to the robot in the camera view?",
+  "choices": {
+   "A": "Railing",
+   "B": "Cannot be determined from this view",
+   "C": "Delivery Truck",
+   "D": "Door"
+  },
+  "gold": "A",
+  "serialized_state_D0": "Counts by type: Bench=1 (1 uncertain), Car=1 (1 uncertain), Chair=5 (1 uncertain), Door=2 (2 uncertain), Pole=2 (2 uncertain), Table=3, Tree=2 (2 uncertain)\nClosest to the robot's forward path: Tree (next closest: Chair)\nNearest object overall: Tree (next nearest: Chair)\nNearest of each type: Bench: over 15 meters away, in the center; Car: 5 to 15 meters away, on the right side; Chair: 5 to 15 meters away, on the right side; Door: 5 to 15 meters away, in the center; Pole: 5 to 15 meters away, in the center; Table: 5 to 15 meters away, in the center; Tree: under 5 meters away, on the right side"
+ }
+}

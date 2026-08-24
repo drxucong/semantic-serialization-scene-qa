@@ -1,0 +1,24 @@
+================================================================================================
+CONFIRMATORY BANK -- 1328 questions over 1329 frames, every frame at least 15 frames
+(1.5 s) from EVERY development frame. Same generator, same gate, new seed.
+Criteria frozen before the bank was generated. Out-of-fold, paired, 21 scene clusters.
+================================================================================================
+                      7B        3B
+v15 (ours)        0.7892    0.7673
+v9                0.7824    0.6920
+pixel VLM         0.7462    0.6913
+
+A1  v15 - pixel VLM, 7B   [PRIMARY]                0.7892 vs 0.7462  +0.0429 [+0.0073,+0.0690]* n=1328
+A2  v15 - pixel VLM, 3B   [PRIMARY]                0.7673 vs 0.6913  +0.0761 [+0.0403,+0.0996]* n=1328
+A3a v15 - v9, 7B          [DECISION]               0.7892 vs 0.7824  +0.0068 [-0.0080,+0.0174]  n=1328
+A3b v15 - v9, 3B          [DECISION]               0.7673 vs 0.6920  +0.0753 [+0.0449,+0.1025]* n=1328
+    v9  - pixel VLM, 7B                            0.7824 vs 0.7462  +0.0361 [+0.0037,+0.0632]* n=1328
+    v9  - pixel VLM, 3B                            0.6920 vs 0.6913  +0.0008 [-0.0295,+0.0235]  n=1328   <- below the +0.008 floor
+
+A1 PASS   (bar: CI lo > 0 AND delta > +.006)
+A2 PASS   (bar: CI lo > 0 AND delta > +.008)
+A3 LEAD WITH v15 -- not worse than v9 above the floor at either scale
+
+Instrument note: the 3B pixel arm's first run parsed at .244 (one image breaks the
+model; without a reload the fault propagates) and would have reported +.601 for us.
+The number above is the re-run through the reload instrument, parse .9977.

@@ -1,0 +1,67 @@
+{
+ "SCOPED 7B": {
+  "R": 5,
+  "N": 1328,
+  "accs": [
+   0.7892,
+   0.7892,
+   0.7892,
+   0.7892,
+   0.7892
+  ],
+  "spread": 0.0,
+  "sd_diff": 0.0,
+  "scale_1p96sd": 0.0,
+  "max_abs_diff": 0.0,
+  "flip_median": 0.0015,
+  "flip_range": [
+   0.0,
+   0.0015
+  ],
+  "old_scale": 0.0063,
+  "pending": []
+ },
+ "SCOPED 3B": {
+  "R": 5,
+  "N": 1328,
+  "accs": [
+   0.7673,
+   0.7673,
+   0.7658,
+   0.7658,
+   0.7658
+  ],
+  "spread": 0.0015,
+  "sd_diff": 0.00074,
+  "scale_1p96sd": 0.0014,
+  "max_abs_diff": 0.0015,
+  "flip_median": 0.009,
+  "flip_range": [
+   0.0,
+   0.009
+  ],
+  "old_scale": 0.008,
+  "pending": []
+ },
+ "FLAT 7B": {
+  "R": 2,
+  "N": 1328,
+  "accs": [
+   0.7824,
+   0.7824
+  ],
+  "spread": 0.0,
+  "sd_diff": NaN,
+  "scale_1p96sd": NaN,
+  "max_abs_diff": 0.0,
+  "flip_median": 0.0,
+  "flip_range": [
+   0.0,
+   0.0
+  ],
+  "old_scale": 0.0063,
+  "pending": [
+   "results_rep_v9_7b_r3"
+  ]
+ }
+}

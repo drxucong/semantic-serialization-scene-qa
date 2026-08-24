@@ -1,0 +1,78 @@
+{
+ "Qwen2.5-VL 7B: text - own image": {
+  "accA": 0.7839,
+  "accB": 0.7462,
+  "delta": 0.0377,
+  "ci": [
+   0.0043,
+   0.0654
+  ],
+  "n": 1328,
+  "sig": true,
+  "parsed_only": {
+   "delta": 0.058,
+   "ci": [
+    0.0295,
+    0.0844
+   ],
+   "n": 1294
+  }
+ },
+ "Qwen2.5-VL 3B: text - own image": {
+  "accA": 0.7861,
+  "accB": 0.6913,
+  "delta": 0.0949,
+  "ci": [
+   0.0497,
+   0.1244
+  ],
+  "n": 1328,
+  "sig": true,
+  "parsed_only": {
+   "delta": 0.12,
+   "ci": [
+    0.0886,
+    0.1404
+   ],
+   "n": 1283
+  }
+ },
+ "VL-7B on text - text-only 7B (decoder swap)": {
+  "accA": 0.7839,
+  "accB": 0.7892,
+  "delta": -0.0053,
+  "ci": [
+   -0.017,
+   0.0072
+  ],
+  "n": 1328,
+  "sig": false,
+  "parsed_only": {
+   "delta": 0.0031,
+   "ci": [
+    -0.0057,
+    0.0159
+   ],
+   "n": 1289
+  }
+ },
+ "VL-3B on text - text-only 3B (decoder swap)": {
+  "accA": 0.7861,
+  "accB": 0.7673,
+  "delta": 0.0188,
+  "ci": [
+   -0.0019,
+   0.036
+  ],
+  "n": 1328,
+  "sig": false,
+  "parsed_only": {
+   "delta": 0.0297,
+   "ci": [
+    0.0149,
+    0.044
+   ],
+   "n": 1280
+  }
+ }
+}

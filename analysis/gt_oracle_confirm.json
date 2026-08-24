@@ -1,0 +1,172 @@
+{
+ "health": {
+  "SCOPED 7B (real perception)": {
+   "n": 1328,
+   "acc": 0.7892,
+   "acc_parsed": 0.7951,
+   "parse": 0.9925,
+   "longest_unparsed_run": 1,
+   "arm_tag": "v15_d5"
+  },
+  "SCOPED 3B (real perception)": {
+   "n": 1328,
+   "acc": 0.7673,
+   "acc_parsed": 0.7714,
+   "parse": 0.9947,
+   "longest_unparsed_run": 1,
+   "arm_tag": "v15_d5"
+  },
+  "GT oracle 7B": {
+   "n": 1328,
+   "acc": 0.9699,
+   "acc_parsed": 0.9699,
+   "parse": 1.0,
+   "longest_unparsed_run": 0,
+   "arm_tag": "v15_d5"
+  },
+  "GT oracle 3B": {
+   "n": 1328,
+   "acc": 0.9247,
+   "acc_parsed": 0.9254,
+   "parse": 0.9992,
+   "longest_unparsed_run": 1,
+   "arm_tag": "v15_d5"
+  },
+  "record v16 7B": {
+   "n": 1328,
+   "acc": 0.7078,
+   "acc_parsed": 0.7121,
+   "parse": 0.994,
+   "longest_unparsed_run": 1,
+   "arm_tag": "v16_record"
+  },
+  "record v16 3B": {
+   "n": 1328,
+   "acc": 0.6905,
+   "acc_parsed": 0.6958,
+   "parse": 0.9925,
+   "longest_unparsed_run": 1,
+   "arm_tag": "v16_record"
+  },
+  "record v16 1.5B": {
+   "n": 1328,
+   "acc": 0.6867,
+   "acc_parsed": 0.6867,
+   "parse": 1.0,
+   "longest_unparsed_run": 0,
+   "arm_tag": "v16_record"
+  },
+  "record v16 0.5B": {
+   "n": 1328,
+   "acc": 0.5806,
+   "acc_parsed": 0.5806,
+   "parse": 1.0,
+   "longest_unparsed_run": 0,
+   "arm_tag": "v16_record"
+  },
+  "Qwen2.5-VL 7B on text": {
+   "n": 1328,
+   "acc": 0.7839,
+   "acc_parsed": 0.8045,
+   "parse": 0.9744,
+   "longest_unparsed_run": 3,
+   "arm_tag": "v15_d5"
+  },
+  "Qwen2.5-VL 3B on text": {
+   "n": 1328,
+   "acc": 0.7861,
+   "acc_parsed": 0.8118,
+   "parse": 0.9684,
+   "longest_unparsed_run": 3,
+   "arm_tag": "v15_d5"
+  }
+ },
+ "contrasts": {
+  "gt_7b": {
+   "label": "GT oracle - SCOPED, 7B  [same bank]",
+   "accA": 0.9699,
+   "accB": 0.7892,
+   "delta": 0.1807,
+   "ci": [
+    0.139,
+    0.2421
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "gt_3b": {
+   "label": "GT oracle - SCOPED, 3B  [same bank]",
+   "accA": 0.9247,
+   "accB": 0.7673,
+   "delta": 0.1574,
+   "ci": [
+    0.1111,
+    0.2164
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "gt_scale": {
+   "label": "GT oracle 7B - GT oracle 3B",
+   "accA": 0.9699,
+   "accB": 0.9247,
+   "delta": 0.0452,
+   "ci": [
+    0.0337,
+    0.0551
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "record - SCOPED, 7B": {
+   "label": "record - SCOPED, 7B",
+   "accA": 0.7078,
+   "accB": 0.7892,
+   "delta": -0.0813,
+   "ci": [
+    -0.1003,
+    -0.056
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "record - SCOPED, 3B": {
+   "label": "record - SCOPED, 3B",
+   "accA": 0.6905,
+   "accB": 0.7673,
+   "delta": -0.0768,
+   "ci": [
+    -0.102,
+    -0.0473
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "rec_slope": {
+   "label": "record 7B - record 0.5B  (slope)",
+   "accA": 0.7078,
+   "accB": 0.5806,
+   "delta": 0.1273,
+   "ci": [
+    0.0849,
+    0.155
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "scoped_slope_ref": {
+   "label": "SCOPED 7B - SCOPED 3B  (slope ref)",
+   "accA": 0.7892,
+   "accB": 0.7673,
+   "delta": 0.0218,
+   "ci": [
+    0.0053,
+    0.0363
+   ],
+   "n": 1328,
+   "sig": true
+  },
+  "if2_7b": null,
+  "if2_3b": null
+ }
+}

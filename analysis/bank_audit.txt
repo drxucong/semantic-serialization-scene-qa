@@ -1,0 +1,36 @@
+========================================================================================
+CONFIRMATORY BANK COMPOSITION AUDIT (reviewer P0-3 / P0-4)
+========================================================================================
+questions in bank            : 1328
+distinct frames used         : 1328
+questions per frame          : 1.000
+distinct qa_ids              : 1328
+
+development sequences        : 21  ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+confirmatory sequences       : 21  ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+SHARED sequence IDs          : 21   <-- SAME recordings
+confirmatory-only sequences  : []
+frame-ID overlap dev vs conf : 0
+
+temporal separation from the NEAREST development frame (frames; 10 Hz)
+  min 15  P05 15  P25 17  median 21  P75 28  P95 47  max 114
+  in seconds: min 1.5s  median 2.1s  max 11.4s
+  >=  15 frames ( 1.5s): 1.000
+  >=  20 frames ( 2.0s): 0.586
+  >=  30 frames ( 3.0s): 0.211
+  >=  50 frames ( 5.0s): 0.046
+  >= 100 frames (10.0s): 0.004
+
+family composition
+  counting          302  (0.227)
+  direction         289  (0.218)
+  nearest_class     243  (0.183)
+  nearest_dist      254  (0.191)
+  path_object       240  (0.181)
+
+per-sequence question counts (the 21 bootstrap clusters)
+  0:44  1:39  2:61  3:27  4:35  5:3  6:126  7:72  8:1  9:77  10:43  11:53  12:39  13:188  14:13  15:17  16:155  17:52  18:13  19:16  20:254
+  min 1  median 43  max 254
+
+gold-letter balance (surface-cue guard)
+   {'B': 356, 'D': 319, 'C': 316, 'A': 337}

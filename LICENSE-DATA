@@ -1,0 +1,13 @@
+The contents of banks/, states/, results/, summaries/, and exemplars/ are
+derivative annotations and evaluation records built on the UT Campus Object
+Dataset (CODa), which is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+
+These directories are therefore released under the same license:
+CC BY-NC-SA 4.0 — https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Attribution: (1) the CODa dataset (Zhang et al., IEEE Transactions on Robotics,
+vol. 40, pp. 3322-3340, 2024; https://amrl.cs.utexas.edu/coda/), and (2) the
+paper "Free the Language Model From the Vision Encoder: Semantic Serialization
+as a Perception Interface for Small Language Models" (Xu and Sankar, submitted
+to IEEE Access, 2026). No CODa images are redistributed here.
