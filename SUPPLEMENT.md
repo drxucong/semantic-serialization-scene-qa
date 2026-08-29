@@ -8,7 +8,8 @@ This file is the supplementary material for
 
 Wherever the paper says "the supplement", it means this document and the files it
 points to in this repository. Every path below is relative to the repository root and
-was checked to exist at the time of writing.
+was checked to exist at the time of writing. Every analysis script runs from the
+repository root, for example `python analysis/v12_rule_fix.py`.
 
 The repository is an **evaluation release**. It contains the question banks, the
 per-item prediction log of every arm, the perceived states, the frozen preregistration
@@ -76,15 +77,19 @@ accuracies in the reader-scale table.
    confirmatory blind runs are in `results/exp3_infer/blind_cf_3b` and
    `results/exp3_infer/blind_cf_7b`, and the paper's 0.4142 / 0.4089 come from them.
    Use the per-item logs, not that summary.
-2. **Some analysis scripts carry absolute paths from the machine they were written on.**
-   `v10_argmin_audit.py`, `v12_rule_fix.py` and `m1_exact.py` point at an old
-   `/mnt/user-data/uploads/...` root, and `check_965.py` looks for
-   `coda/states_kf_v9.json` where this release stores `states/states_kf_v9.json`. Edit
-   the path constant at the top of the file before running. `check_sector.py` and
-   `reattribute.py` run against this release unmodified.
-3. **`analysis/check_sector.py` and `analysis/v12_rule_fix.py` compute the same-named
-   sector agreement two ways** and therefore give different numbers. The paper's
-   question-level values (0.553 / 0.761) are `v12_rule_fix.py`'s.
+2. **`analysis/check_sector.py` and `analysis/v12_rule_fix.py` compute the same-named
+   sector agreement two different ways**, so they report different numbers and both are
+   right for what they measure. The paper's question-level figures come from
+   `v12_rule_fix.py`, which scores each rule on the direction family with unparsed items
+   counted as failures: `171/309 = 0.5534` for the shipped bearing rule and
+   `235/309 = 0.7605` for the generator's image-column rule. `check_sector.py` measures
+   rule-versus-rule agreement instead and reports object-level `18821/19130 = 0.984`.
+3. **The Section VIII attribution counts follow `reattribute.py` as released** - 43
+   undetected classes, 40 ordering errors, no sector flips, summing to the 83 items on
+   which the option-blind rule fails. An earlier run of the same analysis, which is not
+   archived here, split one borderline item the other way and reported 39 ordering errors
+   with 1 sector flip; the totals were identical either way. The released script is the
+   one to trust, and its counts are stable across its own tolerance sweep.
 
 ## Not included in this release
 
