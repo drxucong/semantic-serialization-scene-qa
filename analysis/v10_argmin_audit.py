@@ -23,10 +23,10 @@ New file; run_serializer_v10.py is untouched.
 import json, math, sys, collections
 from pathlib import Path
 
-UP = Path("/mnt/user-data/uploads/lvcworld/outputs")
+UP = Path(".")  # repo root: banks/, states/, results/
 CODA = UP / "phase10" / "coda"
-STATES = json.load(open(UP / "coda" / "states_kf_v9.json", encoding="utf-8"))
-QA = [json.loads(l) for l in open(UP / "coda" / "qa_coda.jsonl", encoding="utf-8")]
+STATES = json.load(open(UP / "states" / "states_kf_v9.json", encoding="utf-8"))
+QA = [json.loads(l) for l in open(UP / "banks" / "qa_coda.jsonl", encoding="utf-8")]
 
 
 # ---- the exact v10 field definitions, copied verbatim from the serializer ----

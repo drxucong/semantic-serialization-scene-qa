@@ -4,8 +4,8 @@ among the three offered (non-abstain) options?  (paper: 0.965)"""
 import json, math
 from pathlib import Path
 UP = Path(".")  # repo root: banks/, states/, results/
-STATES = json.load(open(UP / "coda" / "states_kf_v9.json", encoding="utf-8"))
-QA = [json.loads(l) for l in open(UP / "coda" / "qa_coda.jsonl", encoding="utf-8")]
+STATES = json.load(open(UP / "states" / "states_kf_v9.json", encoding="utf-8"))
+QA = [json.loads(l) for l in open(UP / "banks" / "qa_coda.jsonl", encoding="utf-8")]
 
 def lateral(g): return abs(g["dist"] * math.sin(math.radians(g["bearing"])))
 def path_rank(g): return lateral(g) + g["dist"] / 10.0

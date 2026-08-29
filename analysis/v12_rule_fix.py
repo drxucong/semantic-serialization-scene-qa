@@ -22,9 +22,9 @@ perceived states the readers were given.
 import json, math, re, collections
 from pathlib import Path
 
-UP = Path("/mnt/user-data/uploads/lvcworld/outputs")
-ST = json.load(open(UP / "coda" / "states_kf_v9.json", encoding="utf-8"))
-QA = [json.loads(l) for l in open(UP / "coda" / "qa_coda.jsonl", encoding="utf-8")]
+UP = Path(".")  # repo root: banks/, states/, results/
+ST = json.load(open(UP / "states" / "states_kf_v9.json", encoding="utf-8"))
+QA = [json.loads(l) for l in open(UP / "banks" / "qa_coda.jsonl", encoding="utf-8")]
 
 
 def norm(s): return (s or "").strip().lower()

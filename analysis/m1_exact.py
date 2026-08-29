@@ -8,11 +8,11 @@ repair was aimed at rather than on the whole family.
 import json, math, re, random, collections
 from pathlib import Path
 
-UP = Path("/mnt/user-data/uploads/lvcworld/outputs")
+UP = Path(".")  # repo root: banks/, states/, results/
 CODA = UP / "phase10" / "coda"
-STATES = json.load(open(UP / "coda" / "states_kf_v9.json", encoding="utf-8"))
+STATES = json.load(open(UP / "states" / "states_kf_v9.json", encoding="utf-8"))
 QA = {json.loads(l)["qa_id"]: json.loads(l)
-      for l in open(UP / "coda" / "qa_coda.jsonl", encoding="utf-8")}
+      for l in open(UP / "banks" / "qa_coda.jsonl", encoding="utf-8")}
 B, SEED = 20000, 0
 
 
