@@ -4,13 +4,18 @@ Public evidence package for the paper:
 
 > **Free the Language Model From the Vision Encoder: Semantic Serialization as a
 > Perception Interface for Small Language Models**
-> Cong Xu and Ravi Sankar, iCONS Research Group, Department of Electrical and
+> Cong Xu and Ravi Sankar, iCONS Lab, Department of Electrical and
 > Computer Engineering, University of South Florida. *Submitted to IEEE Access, 2026.*
 
-This repository contains everything needed to **verify every number in the paper**
-— question banks, per-item prediction logs for every evaluation arm, the perceived-state
-files the serializer consumed, the frozen pre-registration amendments, and the
-statistical analysis scripts — without redistributing the system implementation.
+This repository contains what is needed to **recompute every statistic reported in the
+paper** — question banks, per-item prediction logs for every evaluation arm, the
+perceived-state files the serializer consumed, the frozen pre-registration amendments,
+and the statistical analysis scripts — without redistributing the system implementation.
+
+**Start with [`SUPPLEMENT.md`](SUPPLEMENT.md).** It is the supplementary material the
+paper refers to: it locates the file behind every "see the supplement" pointer in the
+text, records which of the two bootstrap runs the reported numbers come from, and states
+plainly what this release does *not* contain.
 
 ## What is here
 
