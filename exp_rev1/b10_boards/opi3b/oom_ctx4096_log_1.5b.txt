@@ -1,0 +1,7 @@
+[qwen2.5-1.5b] 1/50 160.73s pred=B
+[qwen2.5-1.5b] 2/50 43.66s pred=B
+[qwen2.5-1.5b] 3/50 42.66s pred=C
+[qwen2.5-1.5b] 4/50 48.29s pred=B
+[qwen2.5-1.5b] 5/50 47.48s pred=C
+[qwen2.5-1.5b] 6/50 140.12s pred=B
+{"name": "qwen2.5-1.5b", "model": "models/qwen2.5-1.5b-q4km.gguf", "mmproj": null, "threads": 4, "mem_max": "1450M", "mem_available_before_kb": 1629916, "load_status": "ok", "load_s": 64.9, "run_error": "RemoteDisconnected('Remote end closed connection without response')", "oom_in_journal": true, "peak_rss_mb": 1437.8, "n": 6, "acc": 0.8333333333333334, "parse": 1.0, "agree_laptop": 1.0, "latency_median_s": 48.288, "latency_p95_s": 140.116, "latency_mean_s": 80.49016666666667}

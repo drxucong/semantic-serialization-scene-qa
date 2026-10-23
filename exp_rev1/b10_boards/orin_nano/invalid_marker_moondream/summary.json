@@ -1,0 +1,28 @@
+{
+ "name": "moondream",
+ "model": "models/moondream2-text.gguf",
+ "mmproj": "models/moondream2-mmproj.gguf",
+ "threads": 6,
+ "cpus": "",
+ "server": "/home/cong/rev1/llama.cpp-11fe021/build-cuda/bin/llama-server",
+ "mem_max": "none",
+ "mem_available_before_kb": 6089348,
+ "load_status": "ok",
+ "load_s": 24.2,
+ "run_error": "<HTTPError 400: 'Bad Request'>",
+ "t_measure_end": 1792790484.7611053,
+ "power_idle_mw": {
+  "VDD_CPU_GPU_CV": 572,
+  "VDD_IN": 3991,
+  "VDD_SOC": 1174
+ },
+ "power_run_mw": {},
+ "power_samples": {
+  "idle": 46,
+  "run": 0
+ },
+ "peak_sys_used_mb": 2084.5,
+ "nvpmodel": "NV Power Mode: 25W\n1",
+ "oom_in_journal": false,
+ "peak_rss_mb": 314.2
+}

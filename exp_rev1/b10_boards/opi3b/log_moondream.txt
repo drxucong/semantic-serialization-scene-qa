@@ -1,0 +1,1 @@
+{"name": "moondream", "model": "models/moondream2-text.gguf", "mmproj": "models/moondream2-mmproj.gguf", "threads": 4, "mem_max": "1450M", "mem_available_before_kb": 1676088, "load_status": "server exited during load (rc=-9)", "load_s": 43.6, "oom_in_journal": true, "peak_rss_mb": 1443.9}

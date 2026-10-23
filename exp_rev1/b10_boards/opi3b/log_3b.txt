@@ -1,0 +1,1 @@
+{"name": "qwen2.5-3b", "model": "models/qwen2.5-3b-q4km.gguf", "mmproj": null, "threads": 4, "mem_max": "1450M", "mem_available_before_kb": 1653244, "load_status": "server exited during load (rc=-9)", "load_s": 76.6, "oom_in_journal": true, "peak_rss_mb": 1455.5}

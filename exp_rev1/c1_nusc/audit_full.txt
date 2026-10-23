@@ -1,0 +1,27 @@
+SURFACE-CUE GATE v2 FAILED (split):
+  - [global] gold-is-shortest 0.432 off 0.333 by >0.06
+  - [nearest_class] gold-is-shortest 0.552 off 0.333 by >0.1
+  - [nearest_class] gold-is-longest 0.209 off 0.333 by >0.1
+  - [nearest_dist] gold-is-shortest 0.439 off 0.333 by >0.1
+  - [nearest_dist] gold-is-longest 0.439 off 0.333 by >0.1
+  - [path_object] gold-is-shortest 0.455 off 0.333 by >0.1
+  - [path_object] gold-is-longest 0.182 off 0.333 by >0.1
+[audit-v2] === split ===
+[audit] n=347  gold-is-shortest=0.432 gold-is-longest=0.343  (chance 0.333)
+[audit] hedge rate gold=0.000 distractor=0.000  gap=+0.000
+[audit-v2] per-family length/hedge (chance 0.333):
+    counting         n=  117 shortest=0.376 longest=0.376 hedge_gap=+0.000
+    direction        n=   64 shortest=0.391 longest=0.406 hedge_gap=+0.000
+    nearest_class    n=   67 shortest=0.552 longest=0.209 hedge_gap=+0.000
+    nearest_dist     n=   66 shortest=0.439 longest=0.439 hedge_gap=+0.000
+    path_object      n=   33 shortest=0.455 longest=0.182 hedge_gap=+0.000
+[audit-v2] numeric-position (median/min/max, chance ~0.333):
+    ALL              n=  117 median=0.350 min=0.350 max=0.299
+    counting         n=  117 median=0.350 min=0.350 max=0.299
+[audit-v2] stem echo (gold − distractor overlap with question):
+    ALL              n=  347 gold=0.000 distr=0.000 gap=+0.000
+    counting         n=  117 gold=0.000 distr=0.000 gap=+0.000
+    direction        n=   64 gold=0.000 distr=0.000 gap=+0.000
+    nearest_class    n=   67 gold=0.000 distr=0.000 gap=+0.000
+    nearest_dist     n=   66 gold=0.000 distr=0.000 gap=+0.000
+    path_object      n=   33 gold=0.000 distr=0.000 gap=+0.000

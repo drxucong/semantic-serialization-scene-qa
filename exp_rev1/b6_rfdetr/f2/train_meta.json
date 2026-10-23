@@ -1,0 +1,12 @@
+{
+ "fold": 2,
+ "dataset_dir": "C:\\Users\\drxuc\\Desktop\\phd\\publications\\llm navigation\\Conference\\NIPS2026\\lvcworld\\outputs\\coda\\detset_rfdetr\\f2",
+ "epochs": 30,
+ "batch_size": 4,
+ "grad_accum_steps": 4,
+ "output_dir": "C:\\Users\\drxuc\\Desktop\\phd\\publications\\llm navigation\\Conference\\NIPS2026\\lvcworld\\exp_rev1\\b6_rfdetr\\f2",
+ "checkpoint_interval": 5,
+ "tensorboard": false,
+ "wandb": false,
+ "wall_min": 41.39695601065954
+}

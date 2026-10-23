@@ -1,0 +1,3 @@
+{"qa_id": "coda_0_421_counting", "family": "counting", "raw": "C", "pred": "C", "correct": false, "laptop_pred": null, "agree_laptop": false, "latency_s": 0.544, "prompt_tokens": 884, "prompt_ms": 205.112, "predicted_ms": 272.629}
+{"qa_id": "coda_0_422_nearest_dist", "family": "nearest_dist", "raw": "C", "pred": "C", "correct": false, "laptop_pred": null, "agree_laptop": false, "latency_s": 0.458, "prompt_tokens": 281, "prompt_ms": 200.083, "predicted_ms": 191.702}
+{"qa_id": "coda_0_429_nearest_dist", "family": "nearest_dist", "raw": "C", "pred": "C", "correct": true, "laptop_pred": null, "agree_laptop": false, "latency_s": 0.427, "prompt_tokens": 297, "prompt_ms": 201.75, "predicted_ms": 189.237}

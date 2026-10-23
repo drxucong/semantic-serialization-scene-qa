@@ -1,0 +1,19 @@
+{
+ "name": "qwen2.5-0.5b-mem",
+ "model": "models/qwen2.5-0.5b-q4km.gguf",
+ "mmproj": null,
+ "threads": 4,
+ "mem_max": "1000M",
+ "mem_available_before_kb": 1631176,
+ "load_status": "ok",
+ "load_s": 23.4,
+ "oom_in_journal": false,
+ "peak_rss_mb": 661.5,
+ "n": 10,
+ "acc": 0.2,
+ "parse": 1.0,
+ "agree_laptop": 0.0,
+ "latency_median_s": 19.923,
+ "latency_p95_s": 64.021,
+ "latency_mean_s": 30.6197
+}

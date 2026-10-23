@@ -1,0 +1,65 @@
+{
+ "qwen2.5:0.5b": {
+  "idle_mib": 1915,
+  "loaded_mib": 3104,
+  "peak_mib": 3104,
+  "peak_delta_mib": 1189,
+  "ollama_size_vram_bytes": 936126709,
+  "ollama_size_bytes": 936126709,
+  "sec_per_query_warm": 0.05515589714050293
+ },
+ "qwen2.5:1.5b": {
+  "idle_mib": 1915,
+  "loaded_mib": 4239,
+  "peak_mib": 4239,
+  "peak_delta_mib": 2324,
+  "ollama_size_vram_bytes": 2122034708,
+  "ollama_size_bytes": 2122034708,
+  "sec_per_query_warm": 0.04035520553588867
+ },
+ "qwen2.5:3b": {
+  "idle_mib": 1913,
+  "loaded_mib": 5432,
+  "peak_mib": 5432,
+  "peak_delta_mib": 3519,
+  "ollama_size_vram_bytes": 3367879311,
+  "ollama_size_bytes": 3367879311,
+  "sec_per_query_warm": 0.04598402976989746
+ },
+ "qwen2.5:7b": {
+  "idle_mib": 1913,
+  "loaded_mib": 8531,
+  "peak_mib": 8531,
+  "peak_delta_mib": 6618,
+  "ollama_size_vram_bytes": 6608251780,
+  "ollama_size_bytes": 6608251780,
+  "sec_per_query_warm": 0.07333297729492187
+ },
+ "moondream": {
+  "idle_mib": 1915,
+  "loaded_mib": 4322,
+  "peak_mib": 4326,
+  "peak_delta_mib": 2411,
+  "ollama_size_vram_bytes": null,
+  "ollama_size_bytes": null,
+  "sec_per_query_warm": 0.27482118606567385
+ },
+ "qwen2.5vl:3b": {
+  "idle_mib": 1915,
+  "loaded_mib": 7319,
+  "peak_mib": 7323,
+  "peak_delta_mib": 5408,
+  "ollama_size_vram_bytes": 3965127229,
+  "ollama_size_bytes": 3965127229,
+  "sec_per_query_warm": 0.7136810779571533
+ },
+ "qwen2.5vl:7b": {
+  "idle_mib": 1914,
+  "loaded_mib": 10399,
+  "peak_mib": 10406,
+  "peak_delta_mib": 8492,
+  "ollama_size_vram_bytes": 7205636013,
+  "ollama_size_bytes": 7205636013,
+  "sec_per_query_warm": 0.8284250259399414
+ }
+}

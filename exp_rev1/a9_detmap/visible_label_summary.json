@@ -1,0 +1,21 @@
+{
+ "source_boxes_45m_all_occ": 20170,
+ "occlusion_hist_le40m": {
+  "None": 10291,
+  "Medium": 1467,
+  "Light": 3933,
+  "Heavy": 3231,
+  "Unknown": 486,
+  "Full": 761
+ },
+ "vis1": {
+  "frames": 1366,
+  "boxes": 19408,
+  "empty_frames": 0
+ },
+ "vis2": {
+  "frames": 1366,
+  "boxes": 18922,
+  "empty_frames": 0
+ }
+}

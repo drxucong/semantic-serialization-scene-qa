@@ -1,0 +1,22 @@
+0.00.076.216 I srv  llama_server: initializing ...
+0.00.076.282 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.078.279 W srv  llama_server: security: no API key is set and CORS allows all origins (see https://github.com/ggml-org/llama.cpp/pull/25655)
+0.00.082.754 I srv    load_model: loading model '/home/cong/rev1/models/moondream2-text.gguf'
+0.00.844.916 W load: missing pre-tokenizer type, using: 'default'
+0.00.844.935 W load:                                             
+0.00.844.936 W load: ************************************        
+0.00.844.938 W load: GENERATION QUALITY WILL BE DEGRADED!        
+0.00.844.939 W load: CONSIDER REGENERATING THE MODEL             
+0.00.844.939 W load: ************************************        
+0.00.844.940 W load:                                             
+0.10.678.639 W llama_context: n_ctx_seq (4096) > n_ctx_train (2048) -- possible training context overflow
+0.11.069.683 I cmn          init: llama threadpool init, n_threads = 6
+0.11.285.296 W load_tensors: ffn up/down are swapped
+0.22.564.943 I srv    load_model: loaded multimodal model, '/home/cong/rev1/models/moondream2-mmproj.gguf'
+0.22.565.043 W srv    load_model: the slot context (4096) exceeds the training context of the model (2048) - capping
+0.22.670.016 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 2048, kv_unified = 'false'
+0.22.670.157 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.22.679.034 I srv  llama_server: model loaded
+0.22.679.060 I srv  llama_server: listening on http://127.0.0.1:8099
+0.23.442.763 E mtmd_tokenize: error: number of media markers in text (0) does not match number of bitmaps (1)
+0.23.527.495 I srv    operator(): operator(): cleaning up before exit...

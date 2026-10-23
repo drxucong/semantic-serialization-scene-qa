@@ -1,0 +1,94 @@
+{
+ "scoped_bytes": {
+  "median": 764.0,
+  "mean": 993.6468373493976,
+  "p95": 2216,
+  "min": 372,
+  "max": 3783
+ },
+ "flat_bytes": {
+  "median": 1914.5,
+  "mean": 1974.7981927710844,
+  "p95": 2735,
+  "min": 784,
+  "max": 3783
+ },
+ "scoped_tokens": {
+  "median": 236.0,
+  "mean": 338.8426204819277,
+  "p95": 846,
+  "min": 104,
+  "max": 1447
+ },
+ "flat_tokens": {
+  "median": 731.0,
+  "mean": 761.7010542168674,
+  "p95": 1092,
+  "min": 266,
+  "max": 1493
+ },
+ "png_bytes": {
+  "median": 2088100.5,
+  "mean": 2055126.468373494,
+  "p95": 2406479,
+  "min": 1276038,
+  "max": 2566902
+ },
+ "jpeg90_bytes": {
+  "median": 330852.0,
+  "mean": 323623.0700301205,
+  "p95": 404166,
+  "min": 170153,
+  "max": 464369
+ },
+ "jpeg75_bytes": {
+  "median": 189817.5,
+  "mean": 186088.6513554217,
+  "p95": 235196,
+  "min": 94720,
+  "max": 268736
+ },
+ "jpeg75_640_bytes": {
+  "median": 64102.5,
+  "mean": 61793.79518072289,
+  "p95": 77330,
+  "min": 32279,
+  "max": 84944
+ },
+ "visual_tokens": {
+  "median": 1628.0,
+  "mean": 1628,
+  "p95": 1628,
+  "min": 1628,
+  "max": 1628
+ },
+ "n_objects": {
+  "median": 17.0,
+  "mean": 18.07831325301205,
+  "p95": 29,
+  "min": 5,
+  "max": 39
+ },
+ "per_family_scoped_bytes_median": {
+  "counting": 1839.5,
+  "direction": 729,
+  "nearest_class": 711,
+  "nearest_dist": 716.0,
+  "path_object": 702.0
+ },
+ "per_family_scoped_tokens_median": {
+  "counting": 700.5,
+  "direction": 227,
+  "nearest_class": 219,
+  "nearest_dist": 220.0,
+  "path_object": 216.5
+ },
+ "n_items": 1328,
+ "n_frames": 1328,
+ "vl_processor_defaults": {
+  "min_pixels": null,
+  "max_pixels": null,
+  "size": "SizeDict(height=None, width=None, longest_edge=12845056, shortest_edge=3136, max_height=None, max_width=None)",
+  "merge_size": 2
+ }
+}

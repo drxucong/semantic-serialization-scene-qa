@@ -36,6 +36,13 @@ implementation. What is and is not included is stated explicitly at the end.
 | 11 | Appendix A, arm glossary | the amendment ledger recording each arm's full configuration and any deviation | `amendments/` together with `summaries/arms_master_table.md` |
 | 12 | Data and Code Availability | the perception stack and serializer specified to reproduction detail | `amendments/d_ladder_spec.md` (the serializer variants D0–D3), `states/` (the frozen perceived states each arm actually read), and `README.md`. **The implementation source is not shipped** — see *Not included*. |
 
+## Resubmission material
+
+The revised manuscript (IEEE Access-2026-44226) adds Section VIII and Tables 4, 6, 8–17.
+Their per-item logs, measurements, pre-registration note (`exp_rev1/B123_PREREG.md`),
+incident logs and analysis scripts are in `exp_rev1/`; `exp_rev1/README.md` maps each
+folder to its section and table.
+
 ## Other material worth knowing about
 
 | Topic | File |
