@@ -1,0 +1,20 @@
+[audit-v2] === nusc2 ===
+[audit] n=2718  gold-is-shortest=0.350 gold-is-longest=0.336  (chance 0.333)
+[audit] hedge rate gold=0.000 distractor=0.000  gap=+0.000
+[audit-v2] per-family length/hedge (chance 0.333):
+    counting         n=  553 shortest=0.325 longest=0.325 hedge_gap=+0.000
+    direction        n=  600 shortest=0.333 longest=0.333 hedge_gap=+0.000
+    nearest_class    n=  587 shortest=0.341 longest=0.334 hedge_gap=+0.000
+    nearest_dist     n=  574 shortest=0.364 longest=0.364 hedge_gap=+0.000
+    path_object      n=  404 shortest=0.401 longest=0.314 hedge_gap=+0.000
+[audit-v2] numeric-position (median/min/max, chance ~0.333):
+    ALL              n=  553 median=0.333 min=0.335 max=0.333
+    counting         n=  553 median=0.333 min=0.335 max=0.333
+[audit-v2] stem echo (gold − distractor overlap with question):
+    ALL              n= 2718 gold=0.000 distr=0.000 gap=+0.000
+    counting         n=  553 gold=0.000 distr=0.000 gap=+0.000
+    direction        n=  600 gold=0.000 distr=0.000 gap=+0.000
+    nearest_class    n=  587 gold=0.000 distr=0.000 gap=+0.000
+    nearest_dist     n=  574 gold=0.000 distr=0.000 gap=+0.000
+    path_object      n=  404 gold=0.000 distr=0.000 gap=+0.000
+[audit-v2] surface-cue gate v2 PASSED (nusc2)

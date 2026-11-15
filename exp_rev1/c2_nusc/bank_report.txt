@@ -1,0 +1,8 @@
+questions 2718; frames 2718; scenes 829 of 840
+questions per scene: {"1": 14, "2": 35, "3": 486, "4": 294}
+counting: 1=100/100, 2=100/100, 3=100/100, 4=100/100, 5=100/100, 6=53/100
+nearest_class: Pedestrian=100/100, Car=100/100, Truck=100/100, Bus=100/100, Bicycle=91/100, Motorcycle=96/100
+nearest_dist: under 5 meters away=24/50, 5 to 15 meters away=275/275, over 15 meters away=275/275
+direction: on the left side=200/200, in the center=200/200, on the right side=200/200
+path_object: Pedestrian=100/100, Car=100/100, Truck=100/100, Bus=62/100, Bicycle=15/100, Motorcycle=27/100
+questions per location: {"boston-seaport": 1550, "singapore-hollandvillage": 260, "singapore-onenorth": 573, "singapore-queenstown": 335}
