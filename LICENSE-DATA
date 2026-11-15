@@ -11,3 +11,10 @@ vol. 40, pp. 3322-3340, 2024; https://amrl.cs.utexas.edu/coda/), and (2) the
 paper "Free the Language Model From the Vision Encoder: Semantic Serialization
 as a Perception Interface for Small Language Models" (Xu and Sankar, submitted
 to IEEE Access, 2026). No CODa images are redistributed here.
+
+Added 2026-11-15. The data files under exp_rev1/ and serializer/ are records of the same
+kind and are released under the same license. The folders exp_rev1/c1_nusc/ and
+exp_rev1/c2_nusc/ are built on nuScenes (Caesar et al., CVPR 2020; https://www.nuscenes.org),
+which is licensed under CC BY-NC-SA 4.0 as well; no nuScenes images are redistributed here.
+The paper was revised under the title "Semantic Serialization as a Perception Interface for
+Small Language Models in Closed-Set, Task-Aware Embodied Question Answering".

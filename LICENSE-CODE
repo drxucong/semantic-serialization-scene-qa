@@ -1,7 +1,8 @@
 MIT License
 
 Copyright (c) 2026 Cong Xu and Ravi Sankar (iCONS Research Group, University of
-South Florida). Applies to the contents of the analysis/ directory.
+South Florida). Applies to the program files of this repository: analysis/, exp_rev1/analysis/,
+exp_rev1/scripts/, and serializer/.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

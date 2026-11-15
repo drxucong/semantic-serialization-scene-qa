@@ -2,9 +2,10 @@
 
 Every experiment that the revised manuscript adds, under the release policy of this
 repository: the evaluation is public (question banks, per-question predictions,
-perceived states, measurements, analysis scripts); the perception stack, the
-serializer, the question generators, detector weights, and the images of CODa and
-nuScenes are not redistributed. Section and table numbers refer to the revised
+perceived states, measurements, analysis scripts), and since 2026-11-15 the source of
+the serializer is public too (folder `serializer/` of the repository); the perception
+stack, the question generators, detector weights, and the images of CODa and nuScenes
+are not redistributed. Section and table numbers refer to the revised
 manuscript, *Semantic Serialization as a Perception Interface for Small Language
 Models in Closed-Set, Task-Aware Embodied Question Answering*. "Supplement" is
 `SUPPLEMENT.pdf` in the repository root.
@@ -24,7 +25,9 @@ Models in Closed-Set, Task-Aware Embodied Question Answering*. "Supplement" is
 | `b10_boards/opi3b/`, `b10_boards/hps_agilex5/` | reader alone on two boards without a GPU | Table 13(a) |
 | `b10_boards/orin_nano_e2e/` | Jetson Orin Nano, one session: one-pass detector pair on the board, serializer, reader on the board's own states, VLMs, one question per frame and five questions per frame, board power | Table 13(b); Supplement Section S8 |
 | `b10_boards/orin_nano/` | earlier Orin session (reader and VLMs only, desktop stopped); superseded by `orin_nano_e2e/`, kept for the record | not used |
-| `c1_nusc/` | nuScenes v1.0-mini front camera: question bank `qa_nusc.jsonl` (derived from nuScenes annotations, CC BY-NC-SA 4.0), predictions, surface-cue audit, `INCIDENTS.md` | Section VII-J, Table 14; Supplement Section S9 |
+| `c1_nusc/` | first check on nuScenes v1.0-mini (ten scenes): question bank `qa_nusc.jsonl` (derived from nuScenes annotations, CC BY-NC-SA 4.0), predictions, surface-cue audit, `INCIDENTS.md`; `fix_*` = the serialized arms run again with the image width of the nuScenes camera (`amendments/A6_addendum1.md`); `states/` = perceived and annotated states (`_u1224` = image column rescaled for the serializer) | Supplement Section S9 |
+| `c2_nusc/` | second nuScenes bank (v1.0-trainval, 829 scenes; derived from nuScenes annotations, CC BY-NC-SA 4.0): `qa_nusc2.jsonl`, `audit_nusc2.txt`, `bank_report.txt`, `scene_meta_nusc2.json`, `states/`; predictions: `s_*` serialized system, `sraw_*` the same with the CODa image width, `gt_*` annotated objects, `blind_*` reader without a scene, `hf_pixel_*` VLM (Transformers), `pixel_ollama_7b` VLM (Ollama), `hf_hybrid_*` VLM with image and serialized text, `readerR_*` and `hf_reason_*` protocol R; `cf_hf_pixel_*` = the VLM with Transformers on the confirmatory bank | Section VII-J, Table 14; Supplement Sections S13 and S14 |
+| `c3_reason/` | protocol R ("reason, then answer") on the confirmatory bank: VLM and reader at 3B and 7B, with the full output text | Section VII-B; Supplement Section S13 |
 | `scripts/` | measurement and evaluation harnesses (board benchmarks and builds, memory, size of the text, detector evaluation, runner for the VLM with added inputs) | |
 | `analysis/` | the statistics of the revised manuscript (see the next section) | |
 
@@ -35,7 +38,7 @@ From `exp_rev1/analysis/` (Python 3 with numpy and pandas):
     python rev2_analysis.py     # every accuracy and contrast of Section VII, the answer-prior
                                 # analysis, the checks of Table 9, nuScenes -> rev2_results.json
     python b10_e2e_numbers.py   # Table 13(b) and Supplement Table S8      -> b10_e2e_numbers.json
-    python build_supplement.py  # Supplement Tables S1, S2, S8, S9         -> ../supplement.tex
+    python build_supplement.py  # the Supplement (Sections S1 to S15)      -> ../supplement.tex
 
 All three read only files of this repository. `rev2_results.json` and `b10_e2e_numbers.json`
 are the files from which the tables of the manuscript and of the Supplement were filled.
@@ -66,8 +69,8 @@ order of the recordings in the bootstrap.
 - `b10_boards`: `peak_rss_mb` in the board summaries is MiB (kB/1024); the manuscript
   reports GB = 10^9 bytes. On the Orin, GPU buffers share system memory with the file
   cache, so no per-process peak is reported. Power is the mean of tegrastats VDD_IN while
-  the model works. `probe50_index.jsonl` lists the 50 probe questions; the prompt texts are
-  withheld with the serializer.
+  the model works. `probe50_index.jsonl` lists the 50 probe questions; the prompt texts can
+  be written again with `serializer/`.
 - `b10_boards/orin_nano_e2e`: the probe file on the board carried, as the laptop answers of
   Qwen2.5-VL 3B, those of the first run with the serving fault. `b10_e2e_numbers.py`
   recomputes the agreement against the guarded re-run (48 of 50), which is the 3B VLM arm of
@@ -77,6 +80,6 @@ order of the recordings in the bootstrap.
 
 ## Licences
 
-Data in this folder are derived from CODa and, in `c1_nusc/`, from nuScenes; both are
+Data in this folder are derived from CODa and, in `c1_nusc/` and `c2_nusc/`, from nuScenes; both are
 released under CC BY-NC-SA 4.0, and the derived data here are released under the same licence.
 Scripts are released under the MIT licence.

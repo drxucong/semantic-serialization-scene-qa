@@ -18,7 +18,7 @@ released as logs.
 
 **For the revised manuscript, start with [`SUPPLEMENT.pdf`](SUPPLEMENT.pdf) and
 [`exp_rev1/README.md`](exp_rev1/README.md).** `SUPPLEMENT.pdf` is the Supplement that the
-revised manuscript refers to (Tables S1 to S10, Section S3). `exp_rev1/README.md` maps
+revised manuscript refers to (Sections S1 to S15). `exp_rev1/README.md` maps
 every folder of the revision to a section and table and names the two scripts that
 recompute the numbers. [`SUPPLEMENT.md`](SUPPLEMENT.md) is the map of the material that
 accompanied the first submission; its section and table numbers refer to that version.
@@ -53,15 +53,17 @@ print(acc("results_cf_v15_3b"), acc("results_cf_px3b_robust"))  # 0.7673  0.6913
 
 Cluster-bootstrap confidence intervals: see `analysis/confirm_analysis.py`
 (21 sequence clusters, B=20000, percentile CIs; the seed is recorded in the summaries).
-The serializer's compiled-field behaviour can be audited **without its source** via
+The source of the serializer is in [`serializer/`](serializer/README.md), with a script that
+checks it against the released logs. Its compiled-field behaviour can also be audited via
 `analysis/v10_argmin_audit.py`, `analysis/v12_rule_fix.py`, `analysis/check_sector.py`,
 and `analysis/reattribute.py`, all of which run directly on `states/` + `banks/` +
 `results/`.
 
 ## What is deliberately not here
 
-The perception-stack implementation, the fine-tuned detector weights, the serializer
-source, and the question-bank generators are not distributed. The revised paper describes them (Sections IV and V); trained detector weights are available from the authors on reasonable
+The perception-stack implementation, the fine-tuned detector weights, and the
+question-bank generators are not distributed. The source of the serializer was added on
+2026-11-15 (`serializer/`). The revised paper describes them (Sections IV and V); trained detector weights are available from the authors on reasonable
 request. Images are not redistributed: obtain CODa from its official page and the
 `cam_front` paths in the banks resolve against it.
 

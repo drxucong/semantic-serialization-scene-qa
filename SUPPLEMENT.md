@@ -2,6 +2,8 @@
 
 > **Note for the revised manuscript.** The Supplement of the revised manuscript is [`SUPPLEMENT.pdf`](SUPPLEMENT.pdf). This file is the map of the release that accompanied the first submission; the section and table numbers in it refer to that version.
 
+> **Note of 2026-11-15.** The source of the serializer is now in [`serializer/`](serializer/README.md). Where this file says that the serializer source is withheld or not shipped, it describes the release that accompanied the first submission.
+
 This file is the supplementary material for
 
 > **Free the Language Model From the Vision Encoder: Semantic Serialization as a

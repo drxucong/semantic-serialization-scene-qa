@@ -1,6 +1,7 @@
 \documentclass[10pt]{article}
 \usepackage[margin=0.9in]{geometry}
 \usepackage{booktabs,longtable,array,amsmath,url}
+\usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage{times}
 \renewcommand{\thetable}{S\arabic{table}}
@@ -14,7 +15,7 @@
 \date{}
 \begin{document}
 \maketitle
-This supplement holds Tables S1, S2, S4 to S7, and S10 and Sections S2, S3, S8, and S11, to which the paper refers, and further details in Section S9. A table carries the number of its section; Section S3 has no table. All values are on the confirmatory bank (1328 questions, 21 recordings) unless a caption says otherwise. Intervals are 95\% intervals of the paired bootstrap over recordings that Section VI of the paper defines; $^{*}$ marks an interval that excludes zero. Tables S1, S2, S8, and S9 are computed from the released per-question predictions and logs by three scripts of the release (\texttt{exp\_rev1/analysis/rev2\_analysis.py}, \texttt{b10\_e2e\_numbers.py}, and \texttt{build\_supplement.py}).
+This supplement holds the tables and sections to which the paper refers: Tables S1, S2, S4 to S7, and S10, and Sections S2, S3, S8, S9, and S11 to S15. A table carries the number of its section; Section S3 has no table. All values are on the confirmatory bank (1328 questions, 21 recordings) unless a caption or a section says otherwise. Intervals are 95\% intervals of the paired bootstrap that Section VI of the paper defines, over the recordings of CODa or over the scenes of nuScenes; $^{*}$ marks an interval that excludes zero. Tables S1, S2, S8, S9, and S12 to S14 are computed from the released per-question predictions and logs by three scripts of the release (\texttt{exp\_rev1/analysis/rev2\_analysis.py}, \texttt{b10\_e2e\_numbers.py}, and \texttt{build\_supplement.py}).
 
 \section{Parse rates}
 Table~\ref{tab:s1} lists, for every arm on the confirmatory bank, the accuracy, the share of answers that contain a readable option letter (the parse rate), and the longest run of consecutive unreadable answers in bank order. An unreadable answer is counted as wrong. A long run indicates a fault of the serving software. The row ``first run'' of the 3B VLM had such a fault and is not used in the paper; the row ``run with the reload rule'' is its repetition with the rule that reloads the model after a degenerate answer.
@@ -361,6 +362,8 @@ The following results are exploratory. They were obtained on the development ban
 
 \emph{Another model family as the reader.} With the \textsc{Flat} text, Llama-3.1-8B scores $0.776$ and Qwen2.5-7B scores $0.802$ on one machine ($-0.0256^{*}$ $[-0.0456,\,-0.0097]$). Runs with three further models failed in the serving software and are not reported.
 
+\emph{The VLM with added inputs} (\texttt{exp\_rev1/B123\_PREREG.md}). The plan compared each arm with the archived run of the VLM and expected a control run to reproduce that run within $0.0015$. The control run of the 3B VLM differs from the archived run by $+0.0083$ (unresolved), so the paper compares each arm with the control runs. In the arm with the answer vocabulary, the prompt gives the band boundaries, the 40\,m scope, the question family, and this rule for the side: left if the object is more than $15^\circ$ to the left of the optical axis, right if it is more than $15^\circ$ to the right, and center otherwise. This rule agrees with the image thirds that define the correct answers for $98.4\%$ of the objects.
+
 \section{Classifiers on the serialized text}
 Table~\ref{tab:s4} gives the accuracy of three classifiers that score each option from features of the serialized text. They are fitted on the development bank and applied without change to the confirmatory bank and to the two probe banks. On the probe banks they fall to the level of a random choice, because their features use the exact option strings (\texttt{summaries/baselines.md}, \texttt{summaries/baselines\_n1n2.md}).
 \settab{4}\begin{table}[h]\centering\footnotesize
@@ -428,7 +431,7 @@ objects in the perceived state & 17 & 18 & 29 \\
 The \textsc{Scoped} text has 702 to 729 bytes (216 to 227 tokens) for the four families without object rows and 1840 bytes (700 tokens) for counting (medians). The text of the earlier serializer \textsc{Flat}, as it was run, has a median length of 1795 characters.
 
 \section{Details of the measurements on the Jetson Orin Nano}
-All values of the table of board measurements in the paper, part (b), come from one session (25\,W mode, desktop running, llama.cpp commit 11fe021 built with CUDA, all layers on the GPU, prompt cache in host memory disabled). Table~\ref{tab:s8} adds values that the paper does not show.
+All values of the table of board measurements in the paper, part (b), come from one session (25\,W mode, desktop running, llama.cpp commit 11fe021 built with CUDA, all layers on the GPU, prompt cache in host memory disabled). Table~\ref{tab:s8} adds values that the paper does not show. The board has 8\,GB of memory that the processor and the GPU share. For five questions about one frame the server keeps the encoded image (VLM) or the common part of the text (reader). The row in bold of part (b) of the table of the paper is the sum of the unrounded values of the detector pair and the 3B reader. The two boards without a GPU have no power monitor.
 \settab{8}\begin{table}[h]\centering\footnotesize
 \caption{Jetson Orin Nano, further values. ``Full-stack prompts'': the reader on the \textsc{Scoped} text of the perceived states that the full stack computed on the laptop (the timing set of 50 questions), median and mean time per question. ``Five questions'': median time of the first and of a later question about one frame, with the prompt cache of the server on; the first question of a frame is always a counting question, which has the longest text. ``Free memory'': lowest free system memory during the five-question run.}\label{tab:s8}
 \begin{tabular}{@{}lcccccc@{}}
@@ -453,17 +456,21 @@ On the two boards without a GPU, the mean and the 95th percentile of the time pe
 
 \emph{Note on an earlier table.} The file \texttt{summaries/compute\_table.md} of the release lists, for several questions about one frame, a session of the 7B VLM in which the image was already encoded before the first question (0.44, 0.82, 1.86, and 3.70\,s for 1, 2, 5, and 10 questions). The table of the paper adds the one encoding of the image that a new frame requires ($1.102$\,s for the first question and $0.371$\,s for each further one), and it uses the per-question medians of the module table for the readers.
 
-\section{The nuScenes-mini bank}
+\section{The first check on nuScenes (nuScenes-mini)}
+This check on the ten scenes of nuScenes-mini (347 questions) was run before the bank of Section~S14 was built, and the perception settings for nuScenes were fixed on it. It is not used for any criterion.
+
+\emph{Correction.} In its first run the serializer used the image width of the CODa camera (1224 pixels) for the 1600-pixel images of nuScenes, so that it placed the boundaries between left, center, and right at the wrong image columns. With annotated objects its sector differed from the correct sector in 11 of the 64 direction questions. The values of this section are from a second run with the image width of the camera (\texttt{amendments/A6\_addendum1.md}). The serialized system then scores 0.7781 at 3B and 0.8184 at 7B (first run: 0.7493 and 0.7867); in the direction family it scores 0.906 and 0.906 (first run: 0.734 and 0.750). With annotated objects the readers score 0.9222 and 0.9798 (first run: 0.9020 and 0.9452). The 7B VLM scores 0.6628. The serialized system minus the VLM at 7B is $+0.1556^{*}$ $[+0.0759,\,+0.2333]$ (first run: $+0.1239^{*}$ $[+0.0580,\,+0.1863]$). The 3B VLM, served by Ollama, returned a parsable answer for only 60\% of the questions and is not compared.
+
 \settab{9}\begin{table}[h]\centering\footnotesize
-\caption{nuScenes-mini bank, serialized system minus VLM at 7B, by family. ``Net'' is the number of questions that only the serialized system answers correctly minus the number that only the VLM answers correctly. Intervals resample the 10 scenes (8 scenes contain path-object questions).}\label{tab:s9}
+\caption{nuScenes-mini bank, serialized system (second run) minus VLM at 7B, by family. ``Net'' is the number of questions that only the serialized system answers correctly minus the number that only the VLM answers correctly. Intervals resample the 10 scenes (8 scenes contain path-object questions).}\label{tab:s9}
 \begin{tabular}{@{}lccccc@{}}
 \toprule family & questions & scenes & difference & 95\% interval & net \\ \midrule
-counting & 117 & 10 & $+0.0855$ & $[-0.0362,\,+0.2281]$ & +10 \\
-direction & 64 & 10 & $-0.1250$ & $[-0.2857,\,+0.0167]$ & -8 \\
-nearest-class & 67 & 10 & $+0.0299$ & $[-0.0317,\,+0.1014]$ & +2 \\
+counting & 117 & 10 & $+0.0855$ & $[-0.0328,\,+0.2277]$ & +10 \\
+direction & 64 & 10 & $+0.0312$ & $[-0.0882,\,+0.1552]$ & +2 \\
+nearest-class & 67 & 10 & $+0.0448$ & $[-0.0282,\,+0.1176]$ & +3 \\
 nearest-distance & 66 & 10 & $+0.5758^{*}$ & $[+0.3860,\,+0.7571]$ & +38 \\
 path-object & 33 & 8 & $+0.0303$ & $[+0.0000,\,+0.0833]$ & +1 \\
-\midrule all & 347 & 10 & $+0.1239^{*}$ & $[+0.0580,\,+0.1863]$ & +43 \\
+\midrule all & 347 & 10 & $+0.1556^{*}$ & $[+0.0759,\,+0.2333]$ & +54 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -493,10 +500,127 @@ perceived states and ground-truth states & \texttt{states/} \\
 per-question predictions, first submission & \texttt{results/} \\
 per-question predictions and logs, both revisions & \texttt{exp\_rev1/} (one folder per experiment; \texttt{README.md} there maps folders to tables) \\
 record of the primary criterion & folder \texttt{amendments/primary\_criterion/}: \texttt{go\_confirm.bat}, the script that generated the confirmatory bank and ran the arms, with the criterion in its header, and \texttt{confirm.log}, its log; \texttt{A0\_primary\_criterion.md} in \texttt{amendments/} gives the times \\
-later additions, as committed & \texttt{amendments/A3} to \texttt{A5}, \texttt{exp\_rev1/B123\_PREREG.md} \\
+later additions, as committed & \texttt{amendments/A3} to \texttt{A6} with \texttt{A6\_addendum1.md}, \texttt{exp\_rev1/B123\_PREREG.md} \\
+source of the serializer and its check & \texttt{serializer/} (\texttt{verify\_serializer.py}) \\
+protocol R, confirmatory bank & \texttt{exp\_rev1/c3\_reason/} \\
+second nuScenes bank, predictions, perceived states; VLM with the Transformers library & \texttt{exp\_rev1/c2\_nusc/} \\
 analysis of this paper (all comparisons) & \texttt{exp\_rev1/analysis/rev2\_analysis.py}, \texttt{rev2\_results.json} \\
 analysis of the two primary comparisons & \texttt{analysis/confirm\_analysis.py}, \texttt{analysis/stats\_for\_revision.txt} \\
 board measurements & \texttt{exp\_rev1/b10\_boards/} \\
 \bottomrule
 \end{tabular}
+\section{Accuracy balanced over correct answers}
+This analysis was made after the results were known (\texttt{amendments/A6\_amendment.md}, Part~3). Within a family, the accuracy is computed for each correct answer that occurs in at least $m$ questions of the confirmatory bank, and these values are averaged; the balanced accuracy is the mean of the five family values. A rule that always gives the most frequent answer of a family scores $1/K$ in a family with $K$ answers. Table~\ref{tab:s12} gives the result for $m=5$, which was fixed first, and for $m=10$ and $m=1$. With $m=5$ the families have 5 (counting), 3 (direction), 9 (nearest-class), 2 (nearest-distance), and 6 (path-object) answers, which cover 1269 of the 1328 questions; with $m=1$ the two class families have 20 and 18 answers, many of which occur in one to four questions. The intervals resample the 21 recordings ($B=20000$).
+
+\settab{12}\begin{table}[h]\centering\footnotesize
+\caption{Balanced accuracy on the confirmatory bank (top) and differences in balanced accuracy with 95\% intervals (bottom), for three values of the minimum number $m$ of questions per correct answer. A star marks an interval that excludes zero. The pairs are those of the table of further checks of the paper (Table 9), as the amendment specified, and \textsc{Flat} $-$ VLM. $^{\dagger}$: difference from a control run.}\label{tab:s12}
+\setlength{\tabcolsep}{3.5pt}\begin{tabular}{@{}lccc@{}}
+\toprule & $m=5$ & $m=10$ & $m=1$ \\ \midrule
+answer-prior rule & 0.5350 & 0.6228 & 0.4058 \\
+VLM, 3B & 0.6327 & 0.6778 & 0.6297 \\
+VLM, 7B & 0.7276 & 0.7594 & 0.7064 \\
+\textsc{Scoped}, 3B reader & 0.7196 & 0.7808 & 0.6698 \\
+\textsc{Scoped}, 7B reader & 0.7321 & 0.7984 & 0.6803 \\
+VLM with image and \textsc{Scoped} text, 3B & 0.7857 & 0.8109 & 0.7660 \\
+VLM with image and \textsc{Scoped} text, 7B & 0.8013 & 0.8350 & 0.7700 \\
+FT-VLM, 3B & 0.7682 & 0.8332 & 0.7089 \\
+FT-Text, 3B & 0.7916 & 0.8498 & 0.6836 \\
+ground-truth objects, 7B reader & 0.9471 & 0.9443 & 0.9485 \\ \midrule
+\textsc{Scoped} $-$ VLM (primary), 3B & $+0.0869^{*}$ $[+0.0327,\,+0.1333]$ & $+0.1030^{*}$ $[+0.0556,\,+0.1406]$ & $+0.0401$ $[-0.0194,\,+0.0865]$ \\
+7B & $+0.0045$ $[-0.0390,\,+0.0488]$ & $+0.0389^{*}$ $[+0.0038,\,+0.0780]$ & $-0.0261$ $[-0.0729,\,+0.0322]$ \\
+stereo cue off $-$ VLM, 3B & $+0.0572$ $[-0.0001,\,+0.1013]$ & $+0.0618^{*}$ $[+0.0196,\,+0.0971]$ & $+0.0112$ $[-0.0423,\,+0.0640]$ \\
+7B & $-0.0081$ $[-0.0527,\,+0.0313]$ & $+0.0193$ $[-0.0232,\,+0.0624]$ & $-0.0363$ $[-0.0842,\,+0.0298]$ \\
+one-pass pair $-$ VLM$^{\dagger}$, 3B & $+0.0479$ $[-0.0020,\,+0.0886]$ & $+0.0414$ $[-0.0170,\,+0.0854]$ & $+0.0269$ $[-0.0487,\,+0.0807]$ \\
+7B & $-0.0107$ $[-0.0540,\,+0.0141]$ & $+0.0076$ $[-0.0372,\,+0.0373]$ & $-0.0877$ $[-0.1371,\,+0.0165]$ \\
+RF-DETR stack $-$ VLM$^{\dagger}$, 3B & $+0.0537$ $[-0.0092,\,+0.1068]$ & $+0.0623$ $[-0.0005,\,+0.1216]$ & $+0.0455$ $[-0.0246,\,+0.1085]$ \\
+7B & $+0.0101$ $[-0.0352,\,+0.0535]$ & $+0.0292$ $[-0.0053,\,+0.0671]$ & $-0.0185$ $[-0.0661,\,+0.0518]$ \\
+VLM + text $-$ VLM$^{\dagger}$, 3B & $+0.1407^{*}$ $[+0.0931,\,+0.1804]$ & $+0.1229^{*}$ $[+0.0726,\,+0.1652]$ & $+0.1288^{*}$ $[+0.0645,\,+0.1720]$ \\
+7B & $+0.0750^{*}$ $[+0.0435,\,+0.1030]$ & $+0.0761^{*}$ $[+0.0491,\,+0.1024]$ & $+0.0572^{*}$ $[+0.0096,\,+0.1044]$ \\
+VLM + text $-$ \textsc{Scoped}$^{\dagger}$, 3B & $+0.0669^{*}$ $[+0.0324,\,+0.0993]$ & $+0.0296$ $[-0.0027,\,+0.0650]$ & $+0.0899^{*}$ $[+0.0501,\,+0.1247]$ \\
+7B & $+0.0706^{*}$ $[+0.0345,\,+0.0951]$ & $+0.0359^{*}$ $[+0.0034,\,+0.0613]$ & $+0.0875^{*}$ $[+0.0429,\,+0.1118]$ \\
+\textsc{Scoped} $-$ \textsc{Flat}, 3B & $+0.0523^{*}$ $[+0.0190,\,+0.0803]$ & $+0.0701^{*}$ $[+0.0367,\,+0.1004]$ & $+0.0624^{*}$ $[+0.0139,\,+0.0952]$ \\
+7B & $+0.0039$ $[-0.0114,\,+0.0237]$ & $+0.0109$ $[-0.0099,\,+0.0405]$ & $+0.0243$ $[-0.0101,\,+0.0518]$ \\
+FT-VLM $-$ \textsc{Scoped}, 3B & $+0.0486^{*}$ $[+0.0050,\,+0.1082]$ & $+0.0524^{*}$ $[+0.0215,\,+0.0944]$ & $+0.0390^{*}$ $[+0.0028,\,+0.1131]$ \\
+7B & $+0.0850^{*}$ $[+0.0408,\,+0.1272]$ & $+0.0530^{*}$ $[+0.0205,\,+0.0876]$ & $+0.0505^{*}$ $[+0.0070,\,+0.1042]$ \\
+FT-Text $-$ FT-VLM, 3B & $+0.0233$ $[-0.0343,\,+0.0646]$ & $+0.0166$ $[-0.0136,\,+0.0464]$ & $-0.0252$ $[-0.0663,\,+0.0235]$ \\
+1.5B reader $-$ moondream & $+0.1171^{*}$ $[+0.0664,\,+0.1547]$ & $+0.1601^{*}$ $[+0.1182,\,+0.1944]$ & $+0.1073^{*}$ $[+0.0370,\,+0.1694]$ \\
+1.5B reader $-$ Qwen3-VL 2B & $-0.0534^{*}$ $[-0.1049,\,-0.0120]$ & $-0.0142$ $[-0.0541,\,+0.0158]$ & $-0.0607^{*}$ $[-0.1119,\,-0.0158]$ \\
+Qwen3 reader $-$ Qwen3-VL, 4B & $+0.0069$ $[-0.0484,\,+0.0769]$ & $+0.0573^{*}$ $[+0.0142,\,+0.1000]$ & $-0.0175$ $[-0.0627,\,+0.0452]$ \\
+8B & $+0.0195$ $[-0.0519,\,+0.0608]$ & $+0.0332$ $[-0.0287,\,+0.0747]$ & $-0.0208$ $[-0.0838,\,+0.0258]$ \\
+\midrule \textsc{Flat} $-$ VLM, 3B & $+0.0346$ $[-0.0117,\,+0.0780]$ & $+0.0328$ $[-0.0056,\,+0.0665]$ & $-0.0223$ $[-0.0718,\,+0.0305]$ \\
+7B & $+0.0006$ $[-0.0432,\,+0.0404]$ & $+0.0280$ $[-0.0101,\,+0.0610]$ & $-0.0504$ $[-0.1118,\,+0.0250]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\section{Reasoning before the answer, and a second back end for the VLM}
+Both additions were written down in \texttt{amendments/A6\_amendment.md} and committed to the authors' repository before the runs. The commit carries the time of the authors' machine; it was not registered with a third party.
+
+\emph{Protocol R.} The last sentence of the system prompt of each route (``Reply with ONLY the option letter.'') is replaced by ``First reason step by step in a few sentences. Then give the final answer on a new last line in the form `Answer: X', where X is the option letter.'' The last line of the user prompt is replaced by ``Reason step by step, then end with a line of the form `Answer: X'.'' The temperature is 0, and at most 512 tokens are generated. The answer is the option letter that follows the last occurrence of the word ``answer'' in the output, with or without ``is'' and a colon (for example ``Answer: B'' or ``the correct answer is C''). If no letter follows any occurrence but the text after the last ``Answer:'' is exactly the text of one option, that option counts. Otherwise, if the last line has at most 20 characters, a letter in that line counts. Every other output is unparsed and is counted as wrong. The amendment describes the last-line rule as applying only when the output contains no ``Answer:''; the committed script, whose hash the amendment records, also applies it when the text after ``Answer:'' names no option, so that ``Answer: N/A'' is read as option A. This happened in 13 outputs of the 7B VLM on the second nuScenes bank (4 of them are counted as correct) and in 1 output of the 7B VLM on the confirmatory bank (counted as wrong); it favors the VLM. A server error without text is not scored: the model is unloaded and the question is asked again, at most three times. The reload rule of the VLM arms of the paper also applies (after four unparsed outputs in a row the model is reloaded and the question is asked once more). The wording and the rule were fixed on the first 40 questions of the development bank (25 questions for the 7B models).
+
+\settab{13}\begin{table}[h]\centering\footnotesize
+\caption{Confirmatory bank: the shipped arms, which answer with the option letter, and the same routes under protocol R. ``Parsed'' is the share of outputs from which an option could be read; the last column is the accuracy on those outputs. The median output has 366 and 613 characters for the VLM (3B and 7B) and 463 and 494 for the reader.}\label{tab:s13}
+\setlength{\tabcolsep}{3.5pt}\begin{tabular}{@{}lcccccccc@{}}
+\toprule arm & all & counting & direction & nearest-class & nearest-dist. & path-object & parsed & on parsed \\ \midrule
+VLM, 3B, letter & 0.6913 & 0.430 & 0.785 & 0.848 & 0.539 & 0.908 & \multicolumn{2}{c}{Table S1} \\
+VLM, 3B, protocol R & 0.6273 & 0.407 & 0.754 & 0.765 & 0.394 & 0.858 & 0.955 & 0.657 \\
+VLM, 7B, letter & 0.7462 & 0.447 & 0.875 & 0.942 & 0.579 & 0.946 & \multicolumn{2}{c}{Table S1} \\
+VLM, 7B, protocol R & 0.6589 & 0.430 & 0.834 & 0.741 & 0.531 & 0.787 & 0.990 & 0.665 \\ \midrule
+\textsc{Scoped}, 3B reader, letter & 0.7673 & 0.566 & 0.747 & 0.889 & 0.776 & 0.912 & \multicolumn{2}{c}{Table S1} \\
+\textsc{Scoped}, 3B reader, protocol R & 0.7651 & 0.520 & 0.830 & 0.872 & 0.787 & 0.863 & 0.964 & 0.794 \\
+\textsc{Scoped}, 7B reader, letter & 0.7892 & 0.583 & 0.851 & 0.881 & 0.768 & 0.904 & \multicolumn{2}{c}{Table S1} \\
+\textsc{Scoped}, 7B reader, protocol R & 0.7929 & 0.573 & 0.869 & 0.872 & 0.811 & 0.879 & 0.973 & 0.815 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:s13} gives the accuracies. The four comparisons that were fixed in advance are, at 3B and 7B respectively (paired bootstrap over the 21 recordings): reader under protocol R minus VLM under protocol R, $+0.1378^{*}$ $[+0.0981,\,+0.1613]$ and $+0.1340^{*}$ $[+0.0736,\,+0.1694]$; shipped serialized system minus VLM under protocol R, $+0.1401^{*}$ $[+0.1021,\,+0.1655]$ and $+0.1303^{*}$ $[+0.0686,\,+0.1667]$; VLM under protocol R minus shipped VLM, $-0.0640^{*}$ $[-0.0875,\,-0.0398]$ and $-0.0873^{*}$ $[-0.1194,\,-0.0445]$; reader under protocol R minus shipped serialized system, $-0.0023$ $[-0.0181,\,+0.0131]$ and $+0.0038$ $[-0.0065,\,+0.0160]$. These comparisons use the archived runs of the paper, as the amendment specified. Against the control runs of Section~VI of the paper, which were made on the present installation of the serving software, the VLM under protocol R changes by $-0.0723^{*}$ $[-0.0957,\,-0.0490]$ at 3B and $-0.0881^{*}$ $[-0.1217,\,-0.0440]$ at 7B, the reader by $-0.0030$ $[-0.0213,\,+0.0111]$ and $+0.0038$ $[-0.0070,\,+0.0164]$, and the control run of the serialized system leads the VLM under protocol R by $+0.1408^{*}$ $[+0.1081,\,+0.1640]$ and $+0.1303^{*}$ $[+0.0688,\,+0.1670]$. For the first three comparisons the sign-flip test gives $p<0.005$ at both sizes and no leave-one-recording-out interval includes zero; these two checks were not part of the amendment.
+
+The unparsed outputs are few. The 3B VLM has 60: 3 server errors that remained after three repetitions, 7 outputs cut at 512 tokens, and 50 outputs that name no offered option; most of the last group state that no option is correct or that the question cannot be answered from the image. The 7B VLM has 13 unparsed outputs, the 3B reader 48, and the 7B reader 36. The numbers of outputs cut at 512 tokens are 7 (3B VLM), 0 (7B VLM), 0 (3B reader), and 2 (7B reader). If the unparsed outputs are left out, the VLM under protocol R still scores below the shipped VLM on all questions (last column of Table~\ref{tab:s13}).
+
+\emph{The VLM with the Transformers library.} The VLM arms of the paper are served by Ollama with weights quantized to 4 bits. As a check of this back end, the same two VLMs were run on the confirmatory bank with the Transformers library, the weights of the model authors in 16-bit floating point (bfloat16), the image at its native resolution, and the shipped prompts, decoding, and parser. (Table~S1 lists an earlier run of the 3B VLM with this library, which used the prompt of the fine-tuned arms and scores $0.6920$.) They score 0.6935 at 3B and 0.7417 at 7B; the differences from the shipped VLM arms are $+0.0023$ $[-0.0116,\,+0.0192]$ and $-0.0045$ $[-0.0176,\,+0.0124]$. The serialized system, whose reader uses 4-bit weights, minus this VLM is $+0.0738^{*}$ $[+0.0333,\,+0.1001]$ at 3B and $+0.0474^{*}$ $[+0.0088,\,+0.0712]$ at 7B.
+\section{The second nuScenes bank}
+The bank, the arms, the analysis, the criterion, and the wording that follows from each outcome were written down in \texttt{amendments/A6\_amendment.md} and committed, together with the bank file, before any model was run on these scenes. An addendum on the image width (Section~S9) was committed before the runs as well. These are commits in the authors' repository with the time of the authors' machine; they were not registered with a third party.
+
+\emph{Bank.} The candidate scenes are the 840 scenes of nuScenes v1.0-trainval that are not among the ten scenes of v1.0-mini. An object is in scope if it belongs to one of six classes (pedestrian, car, truck, bus, bicycle, motorcycle), projects into the front-camera image, is within 40\,m, has a visibility of at least 40\%, and holds at least 10 LiDAR points. Every keyframe and every family is a candidate under the templates and margins of the paper. The selection draws, within each family, the same number of questions for every answer as far as candidates exist, with at most one question per frame and four per scene, on frames at least four keyframes apart. The keyframes are nominally 0.5\,s apart, and the amendment states this rule as ``at least 2\,s apart''; by the time stamps of the camera the smallest gap is 1.8\,s. For the two families whose options are class names, the two wrong options are chosen so that the correct name is the shortest, the middle, and the longest of the three about equally often. The result is 2718 questions on 2718 frames of 829 scenes (14 scenes with one question, 35 with two, 486 with three, 294 with four); 1550 questions are from Boston and 1168 from three areas of Singapore. Counting has 100 questions for each count from 1 to 5 and 53 for the count 6. Direction has 200 questions for each side. Nearest-class has 100 questions each for pedestrian, car, truck, and bus, 91 for bicycle, and 96 for motorcycle. Nearest-distance has 275 questions for each of the bands ``5 to 15 meters'' and ``over 15 meters'' and 24 for ``under 5 meters'', which is almost absent from a driving camera. Path-object has 100 questions each for pedestrian, car, and truck, 62 for bus, 27 for motorcycle, and 15 for bicycle. In the surface-cue audit the correct option is the shortest of the three in $0.350$ and the longest in $0.336$ of the questions; within the families the two values lie between $0.314$ and $0.401$ (\texttt{exp\_rev1/c2\_nusc/audit\_nusc2.txt}). The audit measures the length rank over all classes together. Within a class the rank is fixed by the construction (``Car'' and ``Bus'' are always the shortest of the three names, ``Pedestrian'' and ``Motorcycle'' always the longest), and the options of a counting question are three consecutive numbers. A rule that also looks at the option set can therefore score more than the answer-prior rule of the paper (0.402): learned on the other scenes in five folds, such a rule scores 0.418. The readers without a scene, which see the options, score 0.312 and 0.266.
+
+\emph{Systems.} Perception: RF-DETR-Medium with COCO weights, detections accepted at a confidence of 0.50; range is the median of a ground-plane cue (camera height 1.51\,m from the calibration), a class-height cue (median heights of the annotated boxes of nuScenes-mini), and UniDepthV2; the bearing comes from the image column and the intrinsics. The readers are served by Ollama with 4-bit weights, as in the paper. The VLMs are run with the Transformers library, the weights of the model authors in bfloat16, and the image at $1600{\times}900$; the 7B VLM was also run through Ollama.
+
+\settab{14}\begin{table}[h]\centering\footnotesize
+\caption{Second nuScenes bank: serialized system minus VLM (Transformers), with 95\% intervals over the scenes. ``Without'' rows leave out all scenes of one location. ``Night'' and ``rain'' are the scenes whose description in nuScenes contains that word.}\label{tab:s14}
+\begin{tabular}{@{}lccc@{}}
+\toprule questions & number & 3B & 7B \\ \midrule
+all & 2718 & $+0.1479^{*}$ $[+0.1292,\,+0.1667]$ & $+0.1078^{*}$ $[+0.0887,\,+0.1264]$ \\ \midrule
+without Boston seaport & 1168 & $+0.1455^{*}$ $[+0.1170,\,+0.1742]$ & $+0.1122^{*}$ $[+0.0834,\,+0.1408]$ \\
+without Singapore Holland Village & 2458 & $+0.1404^{*}$ $[+0.1207,\,+0.1600]$ & $+0.0997^{*}$ $[+0.0800,\,+0.1194]$ \\
+without Singapore One North & 2145 & $+0.1510^{*}$ $[+0.1298,\,+0.1719]$ & $+0.1105^{*}$ $[+0.0889,\,+0.1317]$ \\
+without Singapore Queenstown & 2383 & $+0.1540^{*}$ $[+0.1342,\,+0.1740]$ & $+0.1116^{*}$ $[+0.0920,\,+0.1314]$ \\ \midrule
+Boston seaport only & 1550 & $+0.1497^{*}$ $[+0.1251,\,+0.1746]$ & $+0.1045^{*}$ $[+0.0796,\,+0.1291]$ \\
+Singapore Holland Village only & 260 & $+0.2192^{*}$ $[+0.1603,\,+0.2786]$ & $+0.1846^{*}$ $[+0.1250,\,+0.2433]$ \\
+Singapore One North only & 573 & $+0.1361^{*}$ $[+0.0948,\,+0.1776]$ & $+0.0977^{*}$ $[+0.0589,\,+0.1361]$ \\
+Singapore Queenstown only & 335 & $+0.1045^{*}$ $[+0.0505,\,+0.1584]$ & $+0.0806^{*}$ $[+0.0212,\,+0.1380]$ \\ \midrule
+night & 299 & $+0.1639^{*}$ $[+0.0997,\,+0.2265]$ & $+0.1371^{*}$ $[+0.0737,\,+0.1980]$ \\
+rain & 543 & $+0.1805^{*}$ $[+0.1368,\,+0.2222]$ & $+0.1418^{*}$ $[+0.0998,\,+0.1844]$ \\ \midrule
+counting & 553 & $+0.0181$ $[-0.0252,\,+0.0620]$ & $+0.0579^{*}$ $[+0.0125,\,+0.1043]$ \\
+direction & 600 & $+0.1650^{*}$ $[+0.1261,\,+0.2033]$ & $+0.1017^{*}$ $[+0.0661,\,+0.1376]$ \\
+nearest-class & 587 & $-0.0273$ $[-0.0601,\,+0.0052]$ & $-0.0375^{*}$ $[-0.0716,\,-0.0035]$ \\
+nearest-distance & 574 & $+0.5105^{*}$ $[+0.4634,\,+0.5559]$ & $+0.3955^{*}$ $[+0.3478,\,+0.4427]$ \\
+path-object & 404 & $+0.0396^{*}$ $[+0.0024,\,+0.0777]$ & $-0.0124$ $[-0.0433,\,+0.0180]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{Criterion.} The two comparisons that were fixed in advance are in the first row of Table~\ref{tab:s14}. For both, the sign-flip test over the scenes with 20000 random sign assignments gives $p<0.001$ (no random assignment reached the observed difference), and the interval stays above zero when the scenes of each location are left out in turn. Both are therefore firm in the sense fixed in advance. The table also gives the difference within each location, in the scenes at night and in rain, and for each family; the split by location was not specified in advance.
+
+\emph{Further arms.} With the image width of the CODa camera, as in the first run of Section~S9, the serialized system scores 0.7344 at 3B and 0.7483 at 7B. The image width of the camera adds $+0.0335^{*}$ and $+0.0335^{*}$, and without it the system is still above the VLM ($+0.1144^{*}$ $[+0.0962,\,+0.1328]$ and $+0.0743^{*}$ $[+0.0557,\,+0.0931]$). The 7B VLM served by Ollama scores 0.6685; the VLM with the Transformers library differs from it by $+0.0055$ $[-0.0063,\,+0.0172]$, and the serialized system minus the Ollama VLM is $+0.1133^{*}$ $[+0.0947,\,+0.1317]$. The VLM that receives the image and the serialized text exceeds the reader alone by $+0.0169^{*}$ $[+0.0051,\,+0.0288]$ at 3B and $+0.0173^{*}$ $[+0.0066,\,+0.0279]$ at 7B, and the VLM alone by $+0.1648^{*}$ and $+0.1251^{*}$. With annotated objects the readers exceed the serialized system by $+0.1667^{*}$ and $+0.1869^{*}$. The readers without a scene answer every question with an option letter and score 0.3120 at 3B and 0.2664 at 7B. In the nearest-distance family the 3B VLM chooses a nearer band than the correct one in 369 of the 574 questions and a farther one in 23; the 7B VLM in 278 and 39; the serialized system at 7B in 62 and 28.
+
+\emph{Protocol R on this bank.} Amendment A6 specified that protocol R (Section~S13) is also run on this bank if it changes the accuracy of the VLM on the confirmatory bank by $0.02$ or more, which it did. Under protocol R the VLM scores 0.6273 at 3B and 0.6391 at 7B (parsed: 0.967 and 0.971), and the reader 0.7572 and 0.7645 (parsed: 0.980 and 0.964). Against the arms of the paper that answer with the letter, protocol R changes the VLM by $+0.0074$ $[-0.0110,\,+0.0253]$ at 3B and $-0.0350^{*}$ $[-0.0512,\,-0.0184]$ at 7B, and the reader by $-0.0107$ $[-0.0214,\,+0.0000]$ and $-0.0173^{*}$ $[-0.0266,\,-0.0078]$, respectively. No output of these four arms was cut at 512 tokens. The reader minus the VLM, both under protocol R, is $+0.1299^{*}$ $[+0.1092,\,+0.1507]$ at 3B and $+0.1255^{*}$ $[+0.1048,\,+0.1461]$ at 7B; the serialized system of the paper minus the VLM under protocol R is $+0.1405^{*}$ $[+0.1200,\,+0.1611]$ and $+0.1428^{*}$ $[+0.1226,\,+0.1629]$.
+\clearpage
+\section{Accuracy against model size}
+Fig.~S1 plots the values of the table of the paper that gives the accuracy by model size. The point to read from it is where each model lies relative to the answer-prior rule (horizontal line) and to the readers on ground-truth objects.
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{fig_scale.pdf}
+
+\small Fig.~S1. Accuracy on the confirmatory bank against model size. Filled circles: the serialized system. Squares: the same readers on ground-truth objects. Open triangles and diamonds: VLMs; the Qwen3-VL point is the run with 1,024 output tokens. Horizontal dashed line: the answer-prior rule, which sees no scene.
+\end{center}
 \end{document}

@@ -336,6 +336,249 @@ nus["prior_loso"] = {"acc": float(np.mean(pr)), "family": {f: float(np.mean([p f
 nus["nearest_dist_gold"] = collections.Counter(nb[i]["choices"][nb[i]["answer"]] for i in nids if nfam[i] == "nearest_dist").most_common()
 out["nuscenes"] = nus
 
+# ------------------------------------------------------------------ E. accuracy balanced over gold answers (A6 part 3, post hoc)
+# Within a family the accuracy is computed for each gold answer that has at least MINN
+# questions in the bank, and these are averaged; the balanced accuracy is the mean of the
+# five family values. A rule that always gives the most frequent answer of a family scores
+# 1/K in that family. Paired bootstrap over the 21 recordings, B = 20000.
+gold_txt = {i: cfd[i]["choices"][cfd[i]["answer"]] for i in ids}
+clusters = sorted(set(seq.values()))
+cidx = np.array([clusters.index(seq[i]) for i in ids])
+rngE = np.random.default_rng(SEED)
+WE = np.zeros((B, len(clusters)))
+for b_, draw in enumerate(rngE.integers(0, len(clusters), size=(B, len(clusters)))):
+    np.add.at(WE[b_], draw, 1.0)
+
+
+def bal_setup(minn):
+    cells = collections.Counter((fam[i], gold_txt[i]) for i in ids)
+    keep = sorted(k for k, n in cells.items() if n >= minn)
+    col = {k: j for j, k in enumerate(keep)}
+    M = np.zeros((len(ids), len(keep)))
+    for r_, i in enumerate(ids):
+        j = col.get((fam[i], gold_txt[i]))
+        if j is not None:
+            M[r_, j] = 1.0
+    Cn = np.zeros((len(clusters), len(keep)))
+    np.add.at(Cn, cidx, M)
+    fam_cols = {f: [j for j, k in enumerate(keep) if k[0] == f] for f in FAMS}
+    return keep, M, Cn, fam_cols
+
+
+def bal_value(S, N, fam_cols):
+    """S, N: (..., cells) sums of correct answers and of questions -> balanced accuracy (...)."""
+    with np.errstate(invalid="ignore", divide="ignore"):
+        acc = np.where(N > 0, S / N, np.nan)
+    return np.nanmean(np.stack([np.nanmean(acc[..., cols], axis=-1) for cols in fam_cols.values()], axis=-1), axis=-1)
+
+
+def bal_arm(name, setup):
+    keep, M, Cn, fam_cols = setup
+    v = np.array([float(ARMS[name][i]) for i in ids])
+    Cs = np.zeros_like(Cn); np.add.at(Cs, cidx, M * v[:, None])
+    return float(bal_value(Cs.sum(0), Cn.sum(0), fam_cols)), bal_value(WE @ Cs, WE @ Cn, fam_cols)
+
+
+bal_pairs = {"primary_3b": ("scoped_3b", "pixel_3b"), "primary_7b": ("scoped_7b", "pixel_7b"),
+             "fttext_vs_ftvlm_3b": ("fttext_3b", "ftvlm_3b"), "ftvlm_vs_scoped_3b": ("ftvlm_3b", "scoped_3b"),
+             "flat_vs_pixel_3b": ("flat_3b", "pixel_3b"), "flat_vs_pixel_7b": ("flat_7b", "pixel_7b"),
+             "nostereo_vs_pixel_3b": ("nostereo_3b", "pixel_3b"), "nostereo_vs_pixel_7b": ("nostereo_7b", "pixel_7b"),
+             "d1_vs_pixel_3b": ("d1_3b", "pixel_3b"), "d1_vs_pixel_7b": ("d1_7b", "pixel_7b"),
+             "scoped1.5b_vs_q3vl2b_think": ("scoped_1.5b", "q3vl2b_think")}
+for sc in ("3b", "7b"):
+    if f"ctrl_scoped_{sc}" in ARMS:
+        bal_pairs[f"hybrid_vs_ctrl_scoped_{sc}"] = (f"hybrid_{sc}", f"ctrl_scoped_{sc}")
+        bal_pairs[f"ctrl_scoped_vs_pixelrerun_{sc}"] = (f"ctrl_scoped_{sc}", f"pixel_rerun_{sc}")
+    bal_pairs[f"light1_vs_pixelrerun_{sc}"] = (f"light1_{sc}", f"pixel_rerun_{sc}")
+    bal_pairs[f"rfdetr_vs_pixelrerun_{sc}"] = (f"rfdetr_{sc}", f"pixel_rerun_{sc}")
+# A6 part 3 names "the pairs of Table 9 of the manuscript": add the pairs of that table that are not yet in the list
+for k in ("hybrid_vs_pixelrerun_3b", "hybrid_vs_pixelrerun_7b", "scoped_vs_flat_3b", "scoped_vs_flat_7b", "ftvlm_vs_scoped_7b",
+          "scoped1.5b_vs_moondream", "q3txt4b_vs_q3vl4b", "q3txt8b_vs_q3vl8b"):
+    bal_pairs[k] = pairs[k]
+out["balanced"] = {}
+for minn in (5, 1, 10):
+    setup = bal_setup(minn)
+    cache = {}
+    def ba(name):
+        if name not in cache:
+            cache[name] = bal_arm(name, setup)
+        return cache[name]
+    res = {"cells": {f: len(c) for f, c in setup[3].items()}, "n_in_cells": int(setup[1].sum()), "acc": {}, "contrast": {}}
+    for name in ("prior", "blind_3b", "blind_7b", "pixel_3b", "pixel_7b", "scoped_3b", "scoped_7b", "flat_3b", "flat_7b",
+                 "ftvlm_3b", "ftvlm_7b", "fttext_3b", "gt_3b", "gt_7b", "hybrid_3b", "hybrid_7b", "nostereo_3b", "nostereo_7b"):
+        res["acc"][name] = ba(name)[0]
+    for k, (a_, b_) in bal_pairs.items():
+        (pa, ra), (pb, rb) = ba(a_), ba(b_)
+        lo, hi = np.percentile(ra - rb, [2.5, 97.5])
+        res["contrast"][k] = {"delta": pa - pb, "lo": float(lo), "hi": float(hi), "star": bool(lo > 0 or hi < 0)}
+    out["balanced"][f"min{minn}"] = res
+
+
+# ------------------------------------------------------------------ F. protocol R and the Transformers back end (A6 part 1)
+def rows_of(pattern):
+    ps = glob.glob(str(pattern))
+    return {r["qa_id"]: r for r in jl(ps[0])} if ps else None
+
+
+RR = {"vlmR_3b": "c3_reason/cf_vlm_3b", "vlmR_7b": "c3_reason/cf_vlm_7b", "readerR_3b": "c3_reason/cf_text_3b",
+      "readerR_7b": "c3_reason/cf_text_7b", "hfpixel_3b": "c2_nusc/cf_hf_pixel_3b", "hfpixel_7b": "c2_nusc/cf_hf_pixel_7b"}
+prot = {"arms": {}, "contrast": {}}
+for name, d in RR.items():
+    rows = rows_of(E / d / "*forced.jsonl")
+    if rows is None or not set(ids) <= set(rows):
+        continue
+    ARMS[name] = {i: bool(rows[i]["correct"]) for i in ids}
+    parsed = [rows[i].get("pred") is not None for i in ids]
+    a_ = {"acc": float(np.mean([ARMS[name][i] for i in ids])), "parse": float(np.mean(parsed)), "n_unparsed": int(len(ids) - sum(parsed)),
+          "acc_parsed": float(np.mean([ARMS[name][i] for i, p in zip(ids, parsed) if p])),
+          "family": {f: float(np.mean([ARMS[name][i] for i in ids if fam[i] == f])) for f in FAMS},
+          "parse_family": {f: float(np.mean([p for i, p in zip(ids, parsed) if fam[i] == f])) for f in FAMS}}
+    if "raw" in rows[ids[0]]:
+        a_["cut_at_limit"] = int(sum(rows[i].get("finish") == "length" for i in ids))
+        un = [rows[i] for i in ids if rows[i].get("pred") is None]
+        a_["unparsed_error"] = int(sum(r_["raw"].startswith("__ERROR__") for r_ in un))
+        a_["unparsed_cut"] = int(sum(r_.get("finish") == "length" and not r_["raw"].startswith("__ERROR__") for r_ in un))
+        a_["unparsed_other"] = len(un) - a_["unparsed_error"] - a_["unparsed_cut"]
+        a_["median_chars"] = float(np.median([len(rows[i]["raw"]) for i in ids]))
+        a_["median_latency_s"] = float(np.median([rows[i]["latency_s"] for i in ids]))
+    prot["arms"][name] = a_
+for sc in ("3b", "7b"):
+    for key, (a_, b_) in {f"readerR_vs_vlmR_{sc}": (f"readerR_{sc}", f"vlmR_{sc}"), f"scoped_vs_vlmR_{sc}": (f"scoped_{sc}", f"vlmR_{sc}"),
+                          f"vlmR_vs_vlm_{sc}": (f"vlmR_{sc}", f"pixel_{sc}"), f"readerR_vs_scoped_{sc}": (f"readerR_{sc}", f"scoped_{sc}"),
+                          f"hfpixel_vs_vlm_{sc}": (f"hfpixel_{sc}", f"pixel_{sc}"), f"scoped_vs_hfpixel_{sc}": (f"scoped_{sc}", f"hfpixel_{sc}"),
+                          # against the control runs on the present installation of the serving software (Section VI)
+                          f"vlmR_vs_ctrlvlm_{sc}": (f"vlmR_{sc}", f"pixel_rerun_{sc}"), f"readerR_vs_ctrlscoped_{sc}": (f"readerR_{sc}", f"ctrl_scoped_{sc}"),
+                          f"ctrlscoped_vs_vlmR_{sc}": (f"ctrl_scoped_{sc}", f"vlmR_{sc}")}.items():
+        if a_ in ARMS and b_ in ARMS:
+            prot["contrast"][key] = battery(a_, b_)
+            prot["contrast"][key]["family"] = {f: contrast(a_, b_, [i for i in ids if fam[i] == f])[2] for f in FAMS}
+out["protocol_r"] = prot
+
+# ------------------------------------------------------------------ G. nuScenes, second bank (A6 part 2 and addendum 1)
+n2 = {}
+qa2p = REL / "exp_rev1/c2_nusc/qa_nusc2.jsonl"
+if qa2p.exists():
+    b2 = {r["qa_id"]: r for r in jl(qa2p)}
+    ids2 = list(b2); fam2 = {i: b2[i]["category"] for i in ids2}; sc2 = {i: b2[i]["scene_name"] for i in ids2}
+    meta2 = json.load(open(REL / "exp_rev1/c2_nusc/scene_meta_nusc2.json", encoding="utf-8"))
+    loc2 = {i: meta2[sc2[i]]["location"] for i in ids2}
+    n2 = {"n": len(ids2), "scenes": len(set(sc2.values())), "n_family": {f: sum(fam2[i] == f for i in ids2) for f in FAMS},
+          "n_location": dict(collections.Counter(loc2.values())), "arms": {}, "contrast": {}}
+    A2 = {}
+    for name in ("s_3b", "s_7b", "sraw_3b", "sraw_7b", "gt_3b", "gt_7b", "blind_3b", "blind_7b", "pixel_ollama_7b",
+                 "hf_pixel_3b", "hf_pixel_7b", "hf_hybrid_3b", "hf_hybrid_7b", "hf_reason_3b", "hf_reason_7b", "readerR_3b", "readerR_7b"):
+        rows = rows_of(E / f"c2_nusc/{name}/*forced.jsonl")
+        if rows is None or not set(ids2) <= set(rows):
+            continue
+        A2[name] = rows
+        best = cur = 0
+        for i in ids2:
+            cur = cur + 1 if rows[i].get("pred") is None else 0
+            best = max(best, cur)
+        if "raw" in rows[ids2[0]]:
+            n2.setdefault("cut_at_limit", {})[name] = int(sum(rows[i].get("finish") == "length" for i in ids2))
+        n2["arms"][name] = {"acc": float(np.mean([rows[i]["correct"] for i in ids2])),
+                            "parse": float(np.mean([rows[i].get("pred") is not None for i in ids2])), "longest_unparsed": best,
+                            "family": {f: float(np.mean([rows[i]["correct"] for i in ids2 if fam2[i] == f])) for f in FAMS},
+                            "location": {l: float(np.mean([rows[i]["correct"] for i in ids2 if loc2[i] == l])) for l in sorted(set(loc2.values()))}}
+
+    def c2(a_, b_, sel=None, full=False):
+        sel = sel or ids2
+        d = pd.DataFrame({"seq": [sc2[i] for i in sel], "diff": [float(A2[a_][i]["correct"]) - float(A2[b_][i]["correct"]) for i in sel]})
+        cs = RB.cluster_stats(d); bs = RB.paired_cluster_bootstrap(cs, B=B, seed=SEED); lo, hi = np.percentile(bs, [2.5, 97.5])
+        r = {"delta": float(d["diff"].mean()), "lo": float(lo), "hi": float(hi), "n": len(d), "clusters": len(cs),
+             "net_items": int(round(d["diff"].sum())), "star": bool(lo > 0 or hi < 0)}
+        if full:
+            sums = cs["sum"].to_numpy() if "sum" in cs else (cs["mean"] * cs["n"]).to_numpy()
+            rg = np.random.default_rng(SEED)
+            flips = rg.choice([-1.0, 1.0], size=(20000, len(sums))) @ sums
+            r["signflip_p"] = float((np.sum(np.abs(flips) >= abs(sums.sum()) - 1e-12) + 1) / (20000 + 1))
+            r["leave_location_out"] = {}
+            for l in sorted(set(loc2.values())):
+                keep = [i for i in sel if loc2[i] != l]
+                r["leave_location_out"][l] = c2(a_, b_, keep)
+            r["firm"] = bool(r["star"] and r["signflip_p"] < 0.05 and all(v["lo"] > 0 or v["hi"] < 0 for v in r["leave_location_out"].values()))
+            r["family"] = {f: c2(a_, b_, [i for i in sel if fam2[i] == f]) for f in FAMS}
+            r["location"] = {l: c2(a_, b_, [i for i in sel if loc2[i] == l]) for l in sorted(set(loc2.values()))}
+            for word in ("night", "rain"):
+                w = [i for i in sel if word in meta2[sc2[i]]["description"].lower()]
+                r[word] = c2(a_, b_, w) if w else None
+        return r
+
+    for key, (a_, b_, full) in {"E1_s_vs_vlm_3b": ("s_3b", "hf_pixel_3b", True), "E2_s_vs_vlm_7b": ("s_7b", "hf_pixel_7b", True),
+                                "s_vs_ollama_vlm_7b": ("s_7b", "pixel_ollama_7b", True),
+                                "sraw_vs_vlm_3b": ("sraw_3b", "hf_pixel_3b", False), "sraw_vs_vlm_7b": ("sraw_7b", "hf_pixel_7b", False),
+                                "s_vs_sraw_3b": ("s_3b", "sraw_3b", False), "s_vs_sraw_7b": ("s_7b", "sraw_7b", False),
+                                "gt_vs_s_3b": ("gt_3b", "s_3b", False), "gt_vs_s_7b": ("gt_7b", "s_7b", False),
+                                "gt_vs_vlm_3b": ("gt_3b", "hf_pixel_3b", False), "gt_vs_vlm_7b": ("gt_7b", "hf_pixel_7b", False),
+                                "hybrid_vs_s_3b": ("hf_hybrid_3b", "s_3b", False), "hybrid_vs_s_7b": ("hf_hybrid_7b", "s_7b", False),
+                                "hybrid_vs_vlm_3b": ("hf_hybrid_3b", "hf_pixel_3b", False), "hybrid_vs_vlm_7b": ("hf_hybrid_7b", "hf_pixel_7b", False),
+                                "hf_vs_ollama_vlm_7b": ("hf_pixel_7b", "pixel_ollama_7b", False), "vlm_7b_vs_3b": ("hf_pixel_7b", "hf_pixel_3b", False),
+                                "s_vs_vlmR_3b": ("s_3b", "hf_reason_3b", False), "s_vs_vlmR_7b": ("s_7b", "hf_reason_7b", False),
+                                "readerR_vs_vlmR_3b": ("readerR_3b", "hf_reason_3b", False), "readerR_vs_vlmR_7b": ("readerR_7b", "hf_reason_7b", False),
+                                "vlmR_vs_vlm_3b": ("hf_reason_3b", "hf_pixel_3b", False), "vlmR_vs_vlm_7b": ("hf_reason_7b", "hf_pixel_7b", False),
+                                "readerR_vs_s_3b": ("readerR_3b", "s_3b", False), "readerR_vs_s_7b": ("readerR_7b", "s_7b", False)}.items():
+        if a_ in A2 and b_ in A2:
+            n2["contrast"][key] = c2(a_, b_, full=full)
+    # nearest-distance: does an arm choose a nearer or a farther band than the correct one?
+    band_rank = {"under 5 meters away": 0, "5 to 15 meters away": 1, "over 15 meters away": 2}
+    n2["band_bias"] = {}
+    for name in ("hf_pixel_3b", "hf_pixel_7b", "s_3b", "s_7b"):
+        if name not in A2:
+            continue
+        near_ = far_ = tot_ = 0
+        for i in ids2:
+            if fam2[i] != "nearest_dist":
+                continue
+            texts = [v for k_, v in sorted(b2[i]["choices"].items()) if k_ != b2[i]["abstain_letter"]]
+            pred = A2[name][i].get("pred"); tot_ += 1
+            if pred is None:
+                continue
+            d_ = band_rank[texts["ABC".index(pred)]] - band_rank[b2[i]["choices"][b2[i]["answer"]]]
+            near_ += d_ < 0; far_ += d_ > 0
+        n2["band_bias"][name] = {"n": tot_, "nearer": int(near_), "farther": int(far_)}
+    # a rule that also looks at the option set, learned on the other scenes (5 folds over scenes)
+    scn_sorted = sorted(set(sc2.values())); fold_of = {s_: k_ % 5 for k_, s_ in enumerate(scn_sorted)}
+    def okey(i):
+        return (fam2[i], tuple(sorted(forced(b2[i]).values())))
+    hit = []
+    for fo in range(5):
+        tr = [i for i in ids2 if fold_of[sc2[i]] != fo]
+        by_set = collections.defaultdict(collections.Counter); by_fam = collections.defaultdict(collections.Counter)
+        for i in tr:
+            g_ = b2[i]["choices"][b2[i]["answer"]]; by_set[okey(i)][g_] += 1; by_fam[fam2[i]][g_] += 1
+        for i in ids2:
+            if fold_of[sc2[i]] != fo:
+                continue
+            o = forced(b2[i]); c_ = by_set.get(okey(i)) or by_fam[fam2[i]]
+            hit.append((i, max(sorted(o), key=lambda k_: (c_[o[k_]], by_fam[fam2[i]][o[k_]])) == b2[i]["answer"]))
+    hd = dict(hit)
+    n2["prior_optionset_cv"] = {"acc": float(np.mean([hd[i] for i in ids2])), "family": {f: float(np.mean([hd[i] for i in ids2 if fam2[i] == f])) for f in FAMS}}
+    # answer-prior rule: answer frequencies of the mini bank, applied to the new bank
+    c1cnt = collections.defaultdict(collections.Counter)
+    for j in nids:
+        c1cnt[nfam[j]][nb[j]["choices"][nb[j]["answer"]]] += 1
+    pr2 = {}
+    for i in ids2:
+        o = forced(b2[i]); pr2[i] = max(sorted(o), key=lambda k: c1cnt[fam2[i]][o[k]]) == b2[i]["answer"]
+    n2["prior_from_mini"] = {"acc": float(np.mean(list(pr2.values()))), "family": {f: float(np.mean([pr2[i] for i in ids2 if fam2[i] == f])) for f in FAMS}}
+    n2["night_rain"] = {w: {"questions": sum(w in meta2[sc2[i]]["description"].lower() for i in ids2),
+                            "scenes": len({sc2[i] for i in ids2 if w in meta2[sc2[i]]["description"].lower()})} for w in ("night", "rain")}
+    # the first check (v1.0-mini) with the corrected camera constant
+    fixm = {}
+    for name in ("fix_d0_rfdetr_3b", "fix_d0_rfdetr_7b", "fix_d0_gt_3b", "fix_d0_gt_7b"):
+        rows = rows_of(E / f"c1_nusc/{name}/*forced.jsonl")
+        if rows is not None and set(nids) <= set(rows):
+            NA[name] = rows
+            fixm[name] = {"acc": float(np.mean([rows[i]["correct"] for i in nids])),
+                          "family": {f: float(np.mean([rows[i]["correct"] for i in nids if nfam[i] == f])) for f in FAMS}}
+    if "fix_d0_rfdetr_7b" in NA:
+        fixm["contrast"] = {"fix_vs_pixel_7b": ncontrast("fix_d0_rfdetr_7b", "pixel_7b", nids), "fix_vs_first_7b": ncontrast("fix_d0_rfdetr_7b", "d0_rfdetr_7b", nids),
+                            "fix_vs_first_3b": ncontrast("fix_d0_rfdetr_3b", "d0_rfdetr_3b", nids),
+                            "family_fix_vs_pixel_7b": {f: ncontrast("fix_d0_rfdetr_7b", "pixel_7b", [i for i in nids if nfam[i] == f]) for f in FAMS}}
+    n2["mini_fixed"] = fixm
+out["nuscenes2"] = n2
+
 json.dump(out, open(HERE / "rev2_results.json", "w"), indent=1, default=float)
 
 # ------------------------------------------------------------------ print
