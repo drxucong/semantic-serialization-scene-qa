@@ -1,5 +1,7 @@
 # Supplement
 
+> **Note for the revised manuscript.** The Supplement of the revised manuscript is [`SUPPLEMENT.pdf`](SUPPLEMENT.pdf). This file is the map of the release that accompanied the first submission; the section and table numbers in it refer to that version.
+
 This file is the supplementary material for
 
 > **Free the Language Model From the Vision Encoder: Semantic Serialization as a

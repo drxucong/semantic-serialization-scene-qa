@@ -1,0 +1,10 @@
+{
+ "n_frames": 50,
+ "wall_s": 35.65289616584778,
+ "tail": [
+  "fold 1 done: {\"kept\": 36, \"dropped\": 5, \"lowconf\": 1, \"ndet\": 41, \"noimg\": 0}",
+  "[fold3] 0/44",
+  "fold 3 done: {\"kept\": 431, \"dropped\": 142, \"lowconf\": 20, \"ndet\": 573, \"noimg\": 0}",
+  "[list] merged 50 frames -> /home/cong/rev1/e2e/outputs/coda/states_probe_light1_orin.json"
+ ]
+}

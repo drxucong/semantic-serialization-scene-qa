@@ -1,0 +1,20 @@
+21:02:01 start; gdm active; NV Power Mode: 25W; Mem:            7619        2264        2317          30        3038        5092
+21:03:04 timing done
+21:03:40 probe done
+21:03:40 prompts done
+21:04:34 bench e2e-qwen2.5-3b done
+21:06:17 bench e2e-qwen2.5-7b done
+21:06:49 bench e2e-qwen2.5-1.5b done
+21:07:47 coresident done
+21:08:26 series qwen2.5-3b done
+21:09:50 series qwen2.5-7b done
+21:10:14 series qwen2.5-1.5b done
+21:11:05 series moondream done
+21:14:03 series qwen2.5vl-3b done
+21:14:23 bench qwen2.5-0.5b done
+21:14:58 bench qwen2.5-1.5b done
+21:15:57 bench qwen2.5-3b done
+21:17:59 bench qwen2.5-7b done
+21:19:30 bench moondream done
+21:28:52 bench qwen2.5vl-3b done
+21:28:52 session done

@@ -1,0 +1,5 @@
+N=1: wall 11.6 s, frame loop 0.00 s
+N=11: wall 16.1 s, frame loop 4.87 s
+N=41: wall 30.4 s, frame loop 19.56 s
+{"per_frame_s_slope": 0.47238718821452214, "fixed_s": 11.03332701738064, "per_frame_s_loop41": 0.4771468406770287, "per_frame_s_loop_diff": 0.489625072479248, "idle": {"vdd_in_mean_mw": 3492, "power_samples": 46, "min_avail_kb": 5212580}}
+loop power/mem N=41: {'vdd_in_mean_mw': 14583, 'power_samples': 185, 'min_avail_kb': 4292224}

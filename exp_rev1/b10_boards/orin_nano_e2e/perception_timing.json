@@ -1,0 +1,92 @@
+{
+ "avail0_kb": 5212596,
+ "runs": {
+  "1": {
+   "wall_s": 11.592665672302246,
+   "t0": 1794708126.6184554,
+   "t1": 1794708138.211121,
+   "loop_start": 1794708136.52875,
+   "loop_end": 1794708136.5302231,
+   "n_folds": 1,
+   "tail": [
+    "[list] perceiving 1 frames from /home/cong/rev1/e2e/data/coda_sm/CODa_sm",
+    "[fold3] 0/1",
+    "fold 3 done: {\"kept\": 8, \"dropped\": 4, \"lowconf\": 1, \"ndet\": 12, \"noimg\": 0}",
+    "[list] merged 1 frames -> /home/cong/rev1/e2e/outputs/coda/t_light1_1.json"
+   ],
+   "states": "/home/cong/rev1/e2e/outputs/coda/t_light1_1.json",
+   "loop": {
+    "vdd_in_mean_mw": null,
+    "power_samples": 0,
+    "min_avail_kb": null
+   },
+   "loop_s": 0.0014731884002685547,
+   "whole": {
+    "vdd_in_mean_mw": 4959,
+    "power_samples": 109,
+    "min_avail_kb": 4292328
+   }
+  },
+  "11": {
+   "wall_s": 16.113650798797607,
+   "t0": 1794708138.2127557,
+   "t1": 1794708154.3264065,
+   "loop_start": 1794708148.0601046,
+   "loop_end": 1794708152.934373,
+   "n_folds": 1,
+   "tail": [
+    "[list] perceiving 11 frames from /home/cong/rev1/e2e/data/coda_sm/CODa_sm",
+    "[fold3] 0/11",
+    "fold 3 done: {\"kept\": 85, \"dropped\": 35, \"lowconf\": 2, \"ndet\": 120, \"noimg\": 0}",
+    "[list] merged 11 frames -> /home/cong/rev1/e2e/outputs/coda/t_light1_11.json"
+   ],
+   "states": "/home/cong/rev1/e2e/outputs/coda/t_light1_11.json",
+   "loop": {
+    "vdd_in_mean_mw": 14238,
+    "power_samples": 46,
+    "min_avail_kb": 4294252
+   },
+   "loop_s": 4.874268293380737,
+   "whole": {
+    "vdd_in_mean_mw": 7976,
+    "power_samples": 152,
+    "min_avail_kb": 4267348
+   }
+  },
+  "41": {
+   "wall_s": 30.430185556411743,
+   "t0": 1794708154.3285024,
+   "t1": 1794708184.758688,
+   "loop_start": 1794708163.778096,
+   "loop_end": 1794708183.3411164,
+   "n_folds": 1,
+   "tail": [
+    "[list] perceiving 41 frames from /home/cong/rev1/e2e/data/coda_sm/CODa_sm",
+    "[fold3] 0/41",
+    "fold 3 done: {\"kept\": 384, \"dropped\": 133, \"lowconf\": 19, \"ndet\": 517, \"noimg\": 0}",
+    "[list] merged 41 frames -> /home/cong/rev1/e2e/outputs/coda/t_light1_41.json"
+   ],
+   "states": "/home/cong/rev1/e2e/outputs/coda/t_light1_41.json",
+   "loop": {
+    "vdd_in_mean_mw": 14583,
+    "power_samples": 185,
+    "min_avail_kb": 4292224
+   },
+   "loop_s": 19.56302046775818,
+   "whole": {
+    "vdd_in_mean_mw": 11319,
+    "power_samples": 288,
+    "min_avail_kb": 4273080
+   }
+  }
+ },
+ "per_frame_s_slope": 0.47238718821452214,
+ "fixed_s": 11.03332701738064,
+ "idle": {
+  "vdd_in_mean_mw": 3492,
+  "power_samples": 46,
+  "min_avail_kb": 5212580
+ },
+ "per_frame_s_loop41": 0.4771468406770287,
+ "per_frame_s_loop_diff": 0.489625072479248
+}

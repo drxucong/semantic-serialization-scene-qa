@@ -71,9 +71,12 @@ def main():
     # format and moondream answered with an immediate end-of-text, so this mode sends
     # the ollama-rendered prompt to the raw /completion endpoint instead.
     ap.add_argument("--ollama-moondream", action="store_true")
+    # end-to-end runs (2026-11-14): prompts built on the board from the board's own detections
+    ap.add_argument("--probe", default="data/probe50.jsonl", help="probe file relative to ~/rev1")
+    ap.add_argument("--out-root", default="out", help="output folder relative to ~/rev1")
     a = ap.parse_args()
-    out = HERE / "out" / a.name; out.mkdir(parents=True, exist_ok=True)
-    items = [json.loads(l) for l in open(HERE / "data/probe50.jsonl", encoding="utf-8")]
+    out = HERE / a.out_root / a.name; out.mkdir(parents=True, exist_ok=True)
+    items = [json.loads(l) for l in open(HERE / a.probe, encoding="utf-8")]
     if a.limit:
         items = items[: a.limit]
     meminfo = open("/proc/meminfo").read()

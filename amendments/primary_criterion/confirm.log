@@ -1,0 +1,106 @@
+==== CONFIRM START ?? 2026/08/08 23:33:49.05 ==== 
+[confirm] generating the held-out bank 23:33:49.05 
+[confirm] development bank: 1366 frames in 21 sequences; admitting frames >= 15 away from every one of them
+[confirm] annotated frames 6954; past the separation gate 1356; with an image 1356; with visible agents 1329; 48 classes
+[confirm] families: {'counting': 302, 'nearest_dist': 254, 'direction': 289, 'path_object': 240, 'nearest_class': 243}
+[confirm] wrote 1328 items -> outputs\coda\qa_confirm.jsonl
+[confirm] frame list -> outputs\coda\qa_confirm_sids.txt
+[confirm] N=1328 written for the marker guard
+[confirm] perceiving the held-out frames, yolo-conf 0.25 23:33:58.56 
+[list] perceiving 1328 frames from C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\data\coda_sm\CODa_sm
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/1212 [00:00<?, ?it/s]Loading weights:  52%|█████▏    | 625/1212 [00:00<00:00, 6242.30it/s]Loading weights: 100%|██████████| 1212/1212 [00:00<00:00, 5983.99it/s]
+[transformers] [1mGroundingDinoForObjectDetection LOAD REPORT[0m from: fushh7/llmdet_swin_base_hf
+Key                                   | Status     |  | 
+--------------------------------------+------------+--+-
+model.encoder_output_class_embed.bias | UNEXPECTED |  | 
+class_embed.0.bias                    | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\env\vlbase\Lib\site-packages\unidepth\utils\chamfer_distance.py:9: UserWarning: !! To run evaluation you need KNN. Please compile KNN: `cd unidepth/ops/knn with && bash compile.sh`.
+  warnings.warn(
+xFormers not available
+xFormers not available
+C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\env\vlbase\Lib\site-packages\unidepth\models\unidepthv2\unidepthv2.py:262: UserWarning: !! self.resolution_level not set, using default bounds !!
+  warnings.warn("!! self.resolution_level not set, using default bounds !!")
+C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\env\vlbase\Lib\site-packages\transformers\models\grounding_dino\processing_grounding_dino.py:96: FutureWarning: The key `labels` is will return integer ids in `GroundingDinoProcessor.post_process_grounded_object_detection` output since v4.51.0. Use `text_labels` instead to retrieve string object names.
+  warnings.warn(self.message, FutureWarning)
+Cannot import NystromAttention, you can not run original UniDepth. UniDepthV2 is available.
+Not loading pretrained weights for backbone
+EdgeGuidedLocalSSI reverts to a non cuda-optimized operation, you will experince large slowdown, please install it:  `cd ./unidepth/ops/extract_patches && bash compile.sh`
+[fold0] 0/298
+[fold0] 50/298
+[fold0] 100/298
+[fold0] 150/298
+[fold0] 200/298
+[fold0] 250/298
+fold 0 done: {"kept": 6738, "dropped": 20513, "lowconf": 3644, "ndet": 36333, "noimg": 0}
+[fold1] 0/318
+[fold1] 50/318
+[fold1] 100/318
+[fold1] 150/318
+[fold1] 200/318
+[fold1] 250/318
+[fold1] 300/318
+fold 1 done: {"kept": 6580, "dropped": 21836, "lowconf": 3683, "ndet": 37662, "noimg": 0}
+[fold2] 0/362
+[fold2] 50/362
+[fold2] 100/362
+[fold2] 150/362
+[fold2] 200/362
+[fold2] 250/362
+[fold2] 300/362
+[fold2] 350/362
+fold 2 done: {"kept": 5870, "dropped": 25077, "lowconf": 3912, "ndet": 41422, "noimg": 0}
+[fold3] 0/350
+[fold3] 50/350
+[fold3] 100/350
+[fold3] 150/350
+[fold3] 200/350
+[fold3] 250/350
+[fold3] 300/350
+fold 3 done: {"kept": 6779, "dropped": 23425, "lowconf": 4011, "ndet": 41256, "noimg": 0}
+[list] merged 1328 frames -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\coda\states_confirm_v9.json
+[confirm] bank size N=1328 
+[confirm] v15 7B 23:56:26.85 
+[v15] counting stream median 1840   other families median 713   (v9: 1842)
+[v15|qwen2.5:7b] 400/1328 (1.7min)
+[v15|qwen2.5:7b] 800/1328 (3.3min)
+[v15|qwen2.5:7b] 1200/1328 (4.9min)
+[v15|qwen2.5:7b] done -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\phase10\coda\results_cf_v15_7b\state_typed__clean__forced.jsonl
+[mark] OK: 1328 items, parse 0.9925 -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\markers\cf_v15_7b.done
+[confirm] v15 3B  0:01:57.87 
+[v15] counting stream median 1840   other families median 713   (v9: 1842)
+[v15|qwen2.5:3b] 400/1328 (1.5min)
+[v15|qwen2.5:3b] 800/1328 (3.0min)
+[v15|qwen2.5:3b] 1200/1328 (4.4min)
+[v15|qwen2.5:3b] done -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\phase10\coda\results_cf_v15_3b\state_typed__clean__forced.jsonl
+[mark] OK: 1328 items, parse 0.9947 -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\markers\cf_v15_3b.done
+[confirm] pixel VLM 7B  0:06:53.43 
+1328 QA items
+[pixel-retry|qwen2.5vl:7b] 200/1328 (4.0min, 0 needed escalation)
+[pixel-retry|qwen2.5vl:7b] 400/1328 (7.9min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:7b] 600/1328 (11.8min, 2 needed escalation)
+[pixel-retry|qwen2.5vl:7b] 800/1328 (15.6min, 2 needed escalation)
+[pixel-retry|qwen2.5vl:7b] 1000/1328 (19.5min, 2 needed escalation)
+[pixel-retry|qwen2.5vl:7b] 1200/1328 (23.3min, 4 needed escalation)
+[pixel-retry|qwen2.5vl:7b] done -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\phase10\coda\results_cf_px_7b\pixel__clean__forced.jsonl (6 items recovered by escalation)
+[mark] OK: 1328 items, parse 1.0000 -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\markers\cf_px_7b.done
+[confirm] pixel VLM 3B  0:32:43.10 
+1328 QA items
+[pixel-retry|qwen2.5vl:3b] 200/1328 (3.5min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:3b] 400/1328 (8.2min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:3b] 600/1328 (15.0min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:3b] 800/1328 (21.7min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:3b] 1000/1328 (28.4min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:3b] 1200/1328 (35.3min, 1 needed escalation)
+[pixel-retry|qwen2.5vl:3b] done -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\phase10\coda\results_cf_px_3b\pixel__clean__forced.jsonl (1 items recovered by escalation)
+[mark] OK: 1328 items, parse 0.2440 -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\markers\cf_px_3b.done
+[confirm] v9 serializer 7B  1:12:23.11 
+[state_typed|qwen2.5:7b] done -> outputs\phase10\coda\results_cf_v9_7b\state_typed__clean__forced.jsonl
+[mark] OK: 1328 items, parse 0.9962 -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\markers\cf_v9_7b.done
+[confirm] v9 serializer 3B  1:19:42.36 
+[state_typed|qwen2.5:3b] done -> outputs\phase10\coda\results_cf_v9_3b\state_typed__clean__forced.jsonl
+[mark] OK: 1328 items, parse 0.9932 -> C:\Users\drxuc\Desktop\phd\publications\llm navigation\Conference\NIPS2026\lvcworld\outputs\markers\cf_v9_3b.done
+==== CONFIRM END ?? 2026/08/09  1:25:20.97 ==== 

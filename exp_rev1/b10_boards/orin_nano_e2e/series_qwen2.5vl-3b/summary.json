@@ -1,0 +1,16 @@
+{
+ "name": "qwen2.5vl-3b",
+ "model": "models/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf",
+ "mmproj": "models/mmproj-Qwen2.5-VL-3B-Instruct-f16.gguf",
+ "frames": 10,
+ "questions_per_frame": 5,
+ "first_turn_median_s": 10.17,
+ "first_turn_mean_s": 10.1684,
+ "later_turn_median_s": 0.478,
+ "later_turn_mean_s": 0.4777,
+ "per_frame_5q_mean_s": 12.079199999999997,
+ "vdd_in_mean_mw": 11296,
+ "mem_available_before_kb": 4771860,
+ "min_avail_kb": 827392,
+ "window_s": 121.11743712425232
+}

@@ -1,0 +1,16 @@
+{
+ "name": "qwen2.5-1.5b",
+ "model": "models/qwen2.5-1.5b-q4km.gguf",
+ "mmproj": null,
+ "frames": 10,
+ "questions_per_frame": 5,
+ "first_turn_median_s": 0.31,
+ "first_turn_mean_s": 0.30450000000000005,
+ "later_turn_median_s": 0.114,
+ "later_turn_mean_s": 0.12392500000000002,
+ "per_frame_5q_mean_s": 0.8002,
+ "vdd_in_mean_mw": 11881,
+ "mem_available_before_kb": 2363200,
+ "min_avail_kb": 2363200,
+ "window_s": 8.009308815002441
+}
