@@ -1,0 +1,20 @@
+== nvpmodel.conf
+< POWER_MODEL ID=0 NAME=15W >
+< POWER_MODEL ID=1 NAME=25W >
+< POWER_MODEL ID=2 NAME=MAXN_SUPER >
+< POWER_MODEL ID=3 NAME=7W >
+NV Power Mode: 25W
+1
+== swapon
+NAME       TYPE      SIZE   USED PRIO
+/dev/zram0 partition 635M 157.3M    5
+/dev/zram1 partition 635M 156.7M    5
+/dev/zram2 partition 635M 157.3M    5
+/dev/zram3 partition 635M 158.9M    5
+/dev/zram4 partition 635M 159.5M    5
+/dev/zram5 partition 635M 159.1M    5
+               total        used        free      shared  buff/cache   available
+Mem:            7619        1989        4462          13        1168        5393
+Swap:           3809         948        2861
+# R36 (release), REVISION: 4.4, GCID: 41062509, BOARD: generic, EABI: aarch64, DATE: Mon Jun 16 16:07:13 UTC 2025
+Mon 16 Nov 2026 12:40:53 PM EST

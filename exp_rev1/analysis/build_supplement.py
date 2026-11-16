@@ -99,7 +99,8 @@ for name, d in ARMS:
 LAB = [("primary_3b", "\\textsc{Scoped} $-$ VLM, 3B (primary; interval of the first script $[+0.0403,\\,+0.0996]$)"), ("primary_7b", "\\textsc{Scoped} $-$ VLM, 7B (primary; interval of the first script $[+0.0073,\\,+0.0690]$)"),
        ("scoped_vs_flat_3b", "\\textsc{Scoped} $-$ \\textsc{Flat}, 3B"), ("scoped_vs_flat_7b", "\\textsc{Scoped} $-$ \\textsc{Flat}, 7B"),
        ("flat_vs_pixel_3b", "\\textsc{Flat} $-$ VLM, 3B"), ("flat_vs_pixel_7b", "\\textsc{Flat} $-$ VLM, 7B"),
-       ("nostereo_vs_pixel_3b", "stereo cue off $-$ VLM, 3B"), ("nostereo_vs_pixel_7b", "stereo cue off $-$ VLM, 7B"),
+       ("nostereo_vs_pixel_3b", "stereo cue off $-$ VLM (archived run), 3B"), ("nostereo_vs_pixel_7b", "stereo cue off $-$ VLM (archived run), 7B"),
+       ("nostereo_vs_pixelrerun_3b", "stereo cue off $-$ VLM (control run), 3B"), ("nostereo_vs_pixelrerun_7b", "stereo cue off $-$ VLM (control run), 7B"),
        ("stereo_cue_3b", "\\textsc{Scoped} $-$ stereo cue off, 3B"), ("stereo_cue_7b", "\\textsc{Scoped} $-$ stereo cue off, 7B"),
        ("q3txt4b_vs_q3vl4b", "Qwen3 4B reader $-$ Qwen3-VL 4B"), ("q3txt8b_vs_q3vl8b", "Qwen3 8B reader $-$ Qwen3-VL 8B"),
        ("pixelrerun_vs_archived_3b", "VLM control run $-$ archived run, 3B"), ("pixelrerun_vs_archived_7b", "VLM control run $-$ archived run, 7B"),
@@ -133,7 +134,8 @@ LAB = [("primary_3b", "\\textsc{Scoped} $-$ VLM, 3B (primary; interval of the fi
        ("light2_vs_ctrl_scoped_3b", "detector pair and stereo $-$ full stack, 3B"), ("light2_vs_ctrl_scoped_7b", "detector pair and stereo $-$ full stack, 7B"),
        ("light3_vs_ctrl_scoped_3b", "no depth network, no stereo $-$ full stack, 3B"), ("light3_vs_ctrl_scoped_7b", "no depth network, no stereo $-$ full stack, 7B"),
        ("rfdetr_vs_ctrl_scoped_3b", "RF-DETR stack $-$ full stack, 3B"), ("rfdetr_vs_ctrl_scoped_7b", "RF-DETR stack $-$ full stack, 7B"),
-       ("light1_vs_pixelrerun_3b", "one-pass detector pair $-$ VLM, 3B"), ("light1_vs_pixelrerun_7b", "one-pass detector pair $-$ VLM, 7B"),
+       ("light1_vs_pixelrerun_3b", "one-pass detector pair $-$ VLM (control run), 3B"), ("light1_vs_pixelrerun_7b", "one-pass detector pair $-$ VLM (control run), 7B"),
+       ("light1_vs_pixel_3b", "one-pass detector pair $-$ VLM (archived run), 3B"), ("light1_vs_pixel_7b", "one-pass detector pair $-$ VLM (archived run), 7B"),
        ("light2_vs_pixelrerun_3b", "detector pair and stereo $-$ VLM, 3B"), ("light2_vs_pixelrerun_7b", "detector pair and stereo $-$ VLM, 7B"),
        ("light3_vs_pixelrerun_3b", "no depth network, no stereo $-$ VLM, 3B"), ("light3_vs_pixelrerun_7b", "no depth network, no stereo $-$ VLM, 7B"),
        ("rfdetr_vs_pixelrerun_3b", "RF-DETR stack $-$ VLM, 3B"), ("rfdetr_vs_pixelrerun_7b", "RF-DETR stack $-$ VLM, 7B")]
@@ -204,7 +206,7 @@ TEX = r"""\documentclass[10pt]{article}
 \date{}
 \begin{document}
 \maketitle
-This supplement holds the tables and sections to which the paper or the response to the reviewers refers (Sections S1 to S17). A table carries the number of its section. All values are on the confirmatory bank (1328 questions, 21 recordings) unless a caption or a section says otherwise. Intervals are 95\% intervals of the paired bootstrap that Section VI of the paper defines, over the recordings of CODa or over the scenes of nuScenes; $^{*}$ marks an interval that excludes zero. Tables S1, S2, S8, S9, and S12 to S14 are computed from the released per-question predictions and logs by three scripts of the release (\texttt{exp\_rev1/analysis/rev2\_analysis.py}, \texttt{b10\_e2e\_numbers.py}, and \texttt{build\_supplement.py}).
+This supplement holds the tables and sections to which the paper or the response to the reviewers refers (Sections S1 to S18). A table carries the number of its section. All values are on the confirmatory bank (1328 questions, 21 recordings) unless a caption or a section says otherwise. Intervals are 95\% intervals of the paired bootstrap that Section VI of the paper defines, over the recordings of CODa or over the scenes of nuScenes; $^{*}$ marks an interval that excludes zero. Tables S1, S2, S8, S9, and S12 to S14 are computed from the released per-question predictions and logs by three scripts of the release (\texttt{exp\_rev1/analysis/rev2\_analysis.py}, \texttt{b10\_e2e\_numbers.py}, and \texttt{build\_supplement.py}).
 
 \section{Parse rates}
 Table~\ref{tab:s1} lists, for every arm on the confirmatory bank, the accuracy, the share of answers that contain a readable option letter (the parse rate), and the longest run of consecutive unreadable answers in bank order. An unreadable answer is counted as wrong. A long run indicates a fault of the serving software. The row ``first run'' of the 3B VLM had such a fault and is not used in the paper; the row ``run with the reload rule'' is its repetition with the rule that reloads the model after a degenerate answer.
@@ -218,7 +220,7 @@ Table~\ref{tab:s1} lists, for every arm on the confirmatory bank, the accuracy, 
 \end{longtable}
 
 \section{Intervals of all comparisons}
-Table~\ref{tab:s2a} gives every comparison of the paper with its interval and with the three further checks of Section VII-G of the paper: the $p$ value of the two-sided exact sign-flip test over the 21 recordings, the number of the 21 leave-one-sequence-out intervals that include zero, and the number of recordings in which the first system is ahead and behind. All rows are computed by one script. For the two primary comparisons, the intervals of the first analysis script, which was written during the confirmatory run (\texttt{analysis/confirm\_analysis.py}) are given in the row labels. That script and the script of this table implement the same resampling with different random-number generators, and their intervals differ in the third decimal ($[+0.0393,\,+0.0995]$ against $[+0.0403,\,+0.0996]$ at 3B, and $[+0.0070,\,+0.0689]$ against $[+0.0073,\,+0.0690]$ at 7B). Table~\ref{tab:s2b} gives the comparisons within each question family, and Table~\ref{tab:s2c} gives the comparisons on the questions that the answer-prior rule gets right and wrong.
+Table~\ref{tab:s2a} gives every comparison of the paper with its interval and with the three further checks of Section VII-G of the paper: the $p$ value of the two-sided exact sign-flip test over the 21 recordings, the number of the 21 leave-one-sequence-out intervals that include zero, and the number of recordings in which the first system is ahead and behind. All rows are computed by one script. Rows that name the control run or the archived run compare an arm with that run of the VLM (Section VI of the paper); the two arms with one camera are given against both runs. Without the 30 questions that the occlusion audit marks (Section VII-A of the paper), the two primary differences are <<JDCI:occlusion_clean/primary_3b>> at 3B and <<JDCI:occlusion_clean/primary_7b>> at 7B, on <<J:occlusion_clean/n|d>> questions. For the two primary comparisons, the intervals of the first analysis script, which was written during the confirmatory run (\texttt{analysis/confirm\_analysis.py}) are given in the row labels. That script and the script of this table implement the same resampling with different random-number generators, and their intervals differ in the third decimal ($[+0.0393,\,+0.0995]$ against $[+0.0403,\,+0.0996]$ at 3B, and $[+0.0070,\,+0.0689]$ against $[+0.0073,\,+0.0690]$ at 7B). Table~\ref{tab:s2b} gives the comparisons within each question family, and Table~\ref{tab:s2c} gives the comparisons on the questions that the answer-prior rule gets right and wrong.
 
 {\footnotesize\fixtab{S2a}
 \begin{longtable}{@{}p{0.43\linewidth}ccccc@{}}
@@ -270,7 +272,7 @@ The following results are exploratory. They were obtained on the development ban
 \emph{The VLM with added inputs} (\texttt{exp\_rev1/B123\_PREREG.md}). The plan compared each arm with the archived run of the VLM and expected a control run to reproduce that run within $0.0015$. The control run of the 3B VLM differs from the archived run by <<JD:battery/pixelrerun_vs_archived_3b>> (unresolved), so the paper compares each arm with the control runs. In the arm with the answer vocabulary, the prompt gives the band boundaries, the 40\,m scope, the question family, and this rule for the side: left if the object is more than $15^\circ$ to the left of the optical axis, right if it is more than $15^\circ$ to the right, and center otherwise. This rule agrees with the image thirds that define the correct answers for $98.4\%$ of the objects.
 
 \section{Classifiers on the serialized text}
-Table~\ref{tab:s4} gives the accuracy of three classifiers that score each option from features of the serialized text. They are fitted on the development bank and applied without change to the confirmatory bank and to the two probe banks. On the probe banks they fall to the level of a random choice, because their features use the exact option strings (\texttt{summaries/baselines.md}, \texttt{summaries/baselines\_n1n2.md}).
+Table~\ref{tab:s4} gives the accuracy of three classifiers that score each option from features of the serialized text. The rule was fixed and the two other classifiers were fitted on the development bank; all three are applied without change to the confirmatory bank and to the two probe banks. On the probe banks they fall to the level of a random choice, because their features use the exact option strings (\texttt{summaries/baselines.md}, \texttt{summaries/baselines\_n1n2.md}).
 \settab{4}\begin{table}[h]\centering\footnotesize
 \caption{Classifiers over the serialized text, and the 7B reader for reference. A random choice gives $1/3$.}\label{tab:s4}
 \begin{tabular}{@{}lccc@{}}
@@ -282,6 +284,8 @@ gradient-boosted trees & 0.8245 & 0.3479 & 0.3183 \\ \midrule
 \bottomrule
 \end{tabular}
 \end{table}
+
+\emph{The fixed rule on the states of the embedded board.} The fixed rule was also applied, without any change, to the states that the one-pass detector pair produced on the Jetson Orin Nano (Section~S8; computed offline by \texttt{b10\_rule\_on\_board\_states.py}, which reproduces the $0.8027$ of Table~\ref{tab:s4} on the full-stack states). It answers <<J:onboard/rule/n_correct|d>> of the 1328 questions correctly (<<J:onboard/rule/acc>>). Its difference from the serialized system on the board is <<JDCI:onboard/contrast/rule_vs_s3b>> with the 3B reader and <<JDCI:onboard/contrast/rule_vs_s7b>> with the 7B reader, and it does not differ resolvably from the VLM that reads the reduced image and the serialized text (<<JDCI:onboard/contrast/rule_vs_hyb_lr>>). The rule uses no language model; it was not timed on the board. It was not applied to reworded questions with the board's perceived states; with the full-stack states it falls to $0.3479$ on the N1 bank (Table~\ref{tab:s4}).
 
 \section{A second interval procedure for the primary comparisons}
 Table~\ref{tab:s5} repeats the two primary intervals with a second procedure. Both procedures give intervals above zero at both sizes.
@@ -328,10 +332,10 @@ Removing the boxes of fully occluded objects from the labels (under 4\% of the b
 \textsc{Scoped} text, tokens & 236 & 339 & 846 \\
 \textsc{Scoped} text with object rows for every family, bytes & 1914 & 1975 & 2735 \\
 \textsc{Scoped} text with object rows for every family, tokens & 731 & 762 & 1092 \\ \midrule
-frame as PNG (as sent to the VLM), bytes & 2,088,100 & 2,055,126 & 2,406,479 \\
-frame as JPEG, quality 90, bytes & 330,852 & 323,623 & 404,166 \\
-frame as JPEG, quality 75, bytes & 189,818 & 186,089 & 235,196 \\
-frame as JPEG, quality 75, 640 pixels wide, bytes & 64,102 & 61,794 & 77,330 \\
+frame as PNG (as sent to the VLM), bytes & 2\,088\,100 & 2\,055\,126 & 2\,406\,479 \\
+frame as JPEG, quality 90, bytes & 330\,852 & 323\,623 & 404\,166 \\
+frame as JPEG, quality 75, bytes & 189\,818 & 186\,089 & 235\,196 \\
+frame as JPEG, quality 75, 640 pixels wide, bytes & 64\,102 & 61\,794 & 77\,330 \\
 visual tokens of the VLM & 1628 & 1628 & 1628 \\ \midrule
 objects in the perceived state & 17 & 18 & 29 \\
 \bottomrule
@@ -340,7 +344,7 @@ objects in the perceived state & 17 & 18 & 29 \\
 The \textsc{Scoped} text has 702 to 729 bytes (216 to 227 tokens) for the four families without object rows and 1840 bytes (700 tokens) for counting (medians). The text of the earlier serializer \textsc{Flat}, as it was run, has a median length of 1795 characters.
 
 \section{Details of the measurements on the Jetson Orin Nano}
-Table~13 of the paper draws on three sessions on this board, all in one condition: 25\,W mode, desktop running, llama.cpp commit 11fe021 built with CUDA, all layers on the GPU, and the prompt cache of the server in host memory switched off (\texttt{--cache-ram 0}). Session~1 measured, on the timing set of 50 questions, the one-pass detector pair, the readers, moondream, the VLM with the full image, and the runs of five questions about one frame. Sessions~2 and~3 are described at the end of this section. In Table~13 of the paper, the accuracy and the time and energy for one question come from session~3 (all 1328 questions), except in the rows marked as timing set; the time of the detector pair per frame comes from session~1; and the values for five questions about one frame come from sessions~1 and~2. With the 3B reader, one question takes <<O:fe3_s>>\,s and <<O:fe3_j>>\,J over the 1328 questions and <<O:e3_s>>\,s and <<O:e3_j>>\,J on the timing set. Each row ``serialized system'' of Table~13 of the paper is the sum of the unrounded values of the detector pair and the reader. Energy is the mean input power of the board while a module works (rail VDD\_IN, read with \texttt{tegrastats} every 100\,ms) times the time of the module; it includes the idle draw of the board (<<O:idle_w>>\,W). The board has 8\,GB of memory that the processor and the GPU share. For five questions about one frame the server reuses, within its slot, the processed part of the prompt that the questions share: the encoded image (VLM) or the common part of the text (reader). Table~\ref{tab:s8} adds values of session~1 that the paper does not show. The two boards without a GPU have no power monitor.
+Table~12 of the paper draws on three sessions on this board and on one later run (the VLM with an image of $980\times840$ pixels; end of this section), all in one condition: 25\,W mode, desktop running, llama.cpp commit 11fe021 built with CUDA, all layers on the GPU, and the prompt cache of the server in host memory switched off (\texttt{--cache-ram 0}). Session~1 measured, on the timing set of 50 questions, the one-pass detector pair, the readers, moondream, the VLM with the full image, and the runs of five questions about one frame. Sessions~2 and~3 are described at the end of this section. In Table~12 of the paper, the accuracy and the time and energy for one question come from session~3 and, for the image of $980\times840$ pixels, from the later run (all 1328 questions), except in the rows marked as timing set; the time of the detector pair per frame comes from session~1; and the values for five questions about one frame come from sessions~1 and~2 and, for the image of $980\times840$ pixels, from the timing run at that size. With the 3B reader, one question takes <<O:fe3_s>>\,s and <<O:fe3_j>>\,J over the 1328 questions and <<O:e3_s>>\,s and <<O:e3_j>>\,J on the timing set. Each row ``serialized system'' of Table~12 of the paper is the sum of the unrounded values of the detector pair and the reader. Energy is the mean input power of the board while a module works (rail VDD\_IN, read with \texttt{tegrastats} every 100\,ms) times the time of the module; it includes the idle draw of the board (<<O:idle_w>>\,W). The board has 8\,GB of memory that the processor and the GPU share. For five questions about one frame the server reuses, within its slot, the processed part of the prompt that the questions share: the encoded image (VLM) or the common part of the text (reader). Table~\ref{tab:s8} adds values of session~1 that the paper does not show. The two boards without a GPU have no power monitor.
 \settab{8}\begin{table}[h]\centering\footnotesize
 \caption{Jetson Orin Nano, further values. ``Full-stack prompts'': the reader on the \textsc{Scoped} text of the perceived states that the full stack computed on the laptop (the timing set of 50 questions), median and mean time per question. ``Five questions'': median time of the first and of a later question about one frame, with the reuse of the shared part of the prompt on; the first question of a frame is always a counting question, which has the longest text. ``Free memory'': lowest free system memory during the five-question run.}\label{tab:s8}
 \begin{tabular}{@{}lcccccc@{}}
@@ -363,13 +367,13 @@ The Qwen2.5-VL 3B file of the laptop runs packs the vision encoder in a format t
 
 On the two boards without a GPU, the mean and the 95th percentile of the time per question are <<CPUB:opi3b/qwen2.5-0.5b>>\,s (0.5B) and <<CPUB:opi3b/qwen2.5-1.5b>>\,s (1.5B) on the Orange~Pi~3B board, and <<CPUB:hps_agilex5/qwen2.5-0.5b>>\,s (0.5B) and <<CPUB:hps_agilex5/qwen2.5-1.5b>>\,s (1.5B) on the processor cores of the Agilex~5 board (its hard processor system). The servers ran under a memory limit, so that a model that does not fit is stopped and does not use swap space. The limit was 1.05\,GB for the 0.5B reader; 1.52\,GB for the 1.5B reader on the Agilex~5 board and for the attempts to load the 3B reader and moondream on the Orange~Pi board; and 1.68\,GB for the 1.5B reader on the Orange~Pi board. On that board two earlier runs of the 1.5B reader were stopped by the limit: one under 1.52\,GB with a context of 4096 tokens, after six questions, and one under 1.68\,GB with the prompt cache of the server in host memory, after 27 questions. The reported run uses a context of 2048 tokens without that cache; the 0.5B reader on that board uses a context of 4096 tokens with it. For the 0.5B reader on the Orange~Pi board, the memory value of Table~\ref{tab:s8d} ($0.69$\,GB) is from a separate run of 10 questions without the prompt cache of the server; with the cache, the timed run peaked at $0.95$\,GB.
 
-The server was started with all layers of the language model on the GPU (\texttt{-ngl 99}) and with its default setting for the vision encoder; the help text of this server build gives GPU offloading of the vision encoder as enabled by default.
+<<ENCODER>>
 
 \emph{Sessions 2 and 3.} Session~2 was run on 15 November 2026 and session~3 from 15 to 16 November 2026, with the board, the condition, and the software of session~1.
 
 In session~2 the VLM Qwen2.5-VL 3B answered the timing set with the image reduced from $1224\times1024$ to $672\times560$ pixels (bicubic), which reduces the visual tokens from 1628 to <<O:vlr_visual_tokens>>. This is the size that the image processor of the model produces under a limit of 0.40 megapixels, the limit of the fine-tuned arms of the paper. It was chosen before the run. When it loads a model of this family, the server warns that such models ``require at minimum 1024 image tokens to function correctly on grounding tasks''; the reduced image is below that number and the full image above it. <<MINTOK>> The run with the full image was repeated in the same session and gave the time of session~1 (<<O:vl2_s>>\,s against <<O:vl_s>>\,s per question). With the reduced image one question takes <<O:vlr_s>>\,s and <<O:vlr_j>>\,J, and five questions about one frame take <<O:vlr_s5>>\,s and <<O:vlr_j5>>\,J (first question <<O:vlr_first>>\,s, each later question <<O:vlr_later>>\,s). Of the time for one question, <<O:vl2_prompt_share>>\% with the full image and <<O:vlr_prompt_share>>\% with the reduced image pass before the first output token.
 
-In session~3 the board ran the whole confirmatory bank (script \texttt{run\_b10\_orin\_fullbank.sh}). A first start at 20:04 found the camera calibration of one recording only and perceived 87 frames. It was stopped while the 3B reader was answering the questions of these frames (55 answers, which were not scored); the calibration files were copied to the board, and the session was started again at 20:08. In the session proper, the one-pass detector pair perceived all 1328 frames on the board, each frame with the detectors of the fold that did not see its recording. This took <<J:onboard/perception/wall_s|.0f>>\,s in total (<<OBPF>>\,s per frame), the loading of the detectors of the four folds included; the time per frame of Table~13 of the paper is that of session~1. The shipped serializer wrote the text from these states, and the readers of 3B, 1.5B, and 7B answered all questions. The VLM then answered all questions with the reduced and with the full image. Table~\ref{tab:s8b} gives every arm of this session. In the same session the VLM also answered the timing set with the image and the serialized text of the board's states: one question takes <<O:hyb_s>>\,s and <<O:hyb_j>>\,J with the full image and <<O:hyblr_s>>\,s and <<O:hyblr_j>>\,J with the reduced one, to which the detector pair adds <<O:perc_s>>\,s and <<O:perc_j>>\,J per frame.
+In session~3 the board ran the whole confirmatory bank (script \texttt{run\_b10\_orin\_fullbank.sh}). A first start at 20:04 found the camera calibration of one recording only and perceived 87 frames. It was stopped while the 3B reader was answering the questions of these frames (55 answers, which were not scored); the calibration files were copied to the board, and the session was started again at 20:08. In the session proper, the one-pass detector pair perceived all 1328 frames on the board, each frame with the detectors of the fold that did not see its recording. This took <<J:onboard/perception/wall_s|.0f>>\,s in total (<<OBPF>>\,s per frame), the loading of the detectors of the four folds included; the time per frame of Table~12 of the paper is that of session~1. The shipped serializer wrote the text from these states, and the readers of 3B, 1.5B, and 7B answered all questions. The VLM then answered all questions with the reduced and with the full image. Table~\ref{tab:s8b} gives every arm of this session. In the same session the VLM also answered the timing set with the image and the serialized text of the board's states: one question takes <<O:hyb_s>>\,s and <<O:hyb_j>>\,J with the full image and <<O:hyblr_s>>\,s and <<O:hyblr_j>>\,J with the reduced one, to which the detector pair adds <<O:perc_s>>\,s and <<O:perc_j>>\,J per frame.
 
 The two comparisons O1 and O2 of Table~\ref{tab:s8c}, the analysis, and the wording that follows from each outcome were written down in \texttt{amendments/A7\_onboard.md} at 20:21, after the session had started and perception had finished, and before the language models had produced an answer in the restarted session (the first reader run began at 20:26); the 55 answers of the first start were never scored. This record is the authors' own, with the time of the authors' machine. The 50-question results of sessions~1 and~2 and the accuracies on the laptop were known at that time. A7 also planned to report, for every arm, the number of answers that equal those of the same arm on the laptop. This number exists for the 3B and 7B readers and for the VLM with the full image; the 1.5B reader on the one-pass detector pair and the VLM with the reduced image were not run on the laptop. <<O1COIN>>
 
@@ -377,8 +381,10 @@ One arm was added while the session ran (\texttt{amendments/A7\_addendum1.md}): 
 
 <<VLFAIL>>
 
+<<MRRUN>>
+
 \fixtab{S8b}\begin{table}[h]\centering\footnotesize
-\caption{Jetson Orin Nano, the whole confirmatory bank on the board. Accuracy over the 1328 questions and by family; share of parsed answers; time per question (the readers and the VLM that reads the text without the detector pair, which adds <<O:perc_s>>\,s and <<O:perc_j>>\,J per frame); mean power while answering; energy per question; and the number of the 1328 answers that equal the answer of the same arm on the laptop. The row of the VLM with the full image holds 990 answers of the first run and 338 answers of the run with the reload rule (see the text).}\label{tab:s8b}
+\caption{Jetson Orin Nano, the whole confirmatory bank on the board. Accuracy over the 1328 questions and by family; share of parsed answers; time per question (the readers and the VLM that reads the text without the detector pair, which adds <<O:perc_s>>\,s and <<O:perc_j>>\,J per frame); mean power while answering; energy per question; and the number of the 1328 answers that equal the answer of the same arm on the laptop. The row of the VLM with the full image holds 990 answers of the first run and 338 answers of the run with the reload rule (see the text). The row of the VLM with the image at $980\times840$ is the later run, in which the reload rule was in force from the first question.}\label{tab:s8b}
 \setlength{\tabcolsep}{2.4pt}\begin{tabular}{@{}lccccccccccccc@{}}
 \toprule
  & \multicolumn{7}{c}{accuracy} & \multicolumn{3}{c}{time per question (s)} & & & \\
@@ -416,7 +422,7 @@ Agilex 5 board (2 Cortex-A76, 2 Cortex-A55) & reader 0.5B (0.40\,GB) & <<CPUM:hp
 \end{tabular}
 \end{table}
 
-\emph{Note on an earlier table.} The file \texttt{summaries/compute\_table.md} of the release lists, for several questions about one frame, a session of the 7B VLM in which the image was already encoded before the first question (0.44, 0.82, 1.86, and 3.70\,s for 1, 2, 5, and 10 questions). Table~12 of the paper adds the one encoding of the image that a new frame requires ($1.102$\,s for the first question and $0.371$\,s for each further one), and it uses the per-question medians of Table~11 of the paper for the readers.
+\emph{Note on an earlier table.} The file \texttt{summaries/compute\_table.md} of the release lists, for several questions about one frame, a session of the 7B VLM in which the image was already encoded before the first question (0.44, 0.82, 1.86, and 3.70\,s for 1, 2, 5, and 10 questions). Table~\ref{tab:s18} adds the one encoding of the image that a new frame requires ($1.102$\,s for the first question and $0.371$\,s for each further one), and it uses the per-question medians of Table~11 of the paper for the readers.
 
 \section{The first check on nuScenes (nuScenes-mini)}
 This check on the ten scenes of nuScenes-mini (347 questions) was run before the bank of Section~S14 was built, and the perception settings for nuScenes were fixed on it. It is not used for any criterion.
@@ -459,13 +465,13 @@ perceived states and ground-truth states & \texttt{states/} \\
 per-question predictions, first submission & \texttt{results/} \\
 per-question predictions and logs, both revisions & \texttt{exp\_rev1/} (one folder per experiment; \texttt{README.md} there maps folders to tables) \\
 record of the primary criterion & folder \texttt{amendments/primary\_criterion/}: \texttt{go\_confirm.bat}, the script that generated the confirmatory bank and ran the arms, with the criterion in its header, and \texttt{confirm.log}, its log; \texttt{A0\_primary\_criterion.md} in \texttt{amendments/} gives the times \\
-later additions, as committed & \texttt{amendments/A3} to \texttt{A8} with \texttt{A6\_addendum1.md}, \texttt{A7\_addendum1.md}, \texttt{A7\_addendum2.md}, and \texttt{A7\_addendum3.md}, \texttt{exp\_rev1/B123\_PREREG.md} \\
+later additions, as committed & \texttt{amendments/A3} to \texttt{A8} with \texttt{A6\_addendum1.md}, \texttt{A7\_addendum1.md}, \texttt{A7\_addendum2.md}, \texttt{A7\_addendum3.md}, and \texttt{A7\_addendum4.md}, \texttt{exp\_rev1/B123\_PREREG.md} \\
 source of the serializer and its check & \texttt{serializer/} (\texttt{verify\_serializer.py}) \\
 protocol R, confirmatory bank & \texttt{exp\_rev1/c3\_reason/} \\
 second nuScenes bank, predictions, perceived states; VLM with the Transformers library & \texttt{exp\_rev1/c2\_nusc/} \\
 analysis of this paper (all comparisons) & \texttt{exp\_rev1/analysis/rev2\_analysis.py}, \texttt{rev2\_results.json} \\
 analysis of the two primary comparisons & \texttt{analysis/confirm\_analysis.py}, \texttt{analysis/stats\_for\_revision.txt} \\
-board measurements & \texttt{exp\_rev1/b10\_boards/}; the three sessions on the Jetson Orin Nano are \texttt{orin\_nano\_e2e}, \texttt{orin\_nano\_e2e\_lowres}, and \texttt{orin\_nano\_fullbank}, and the timing run at $980\times840$ is \texttt{orin\_nano\_e2e\_mintok} \\
+board measurements & \texttt{exp\_rev1/b10\_boards/}; the three sessions on the Jetson Orin Nano are \texttt{orin\_nano\_e2e}, \texttt{orin\_nano\_e2e\_lowres}, and \texttt{orin\_nano\_fullbank}, and the timing run at $980\times840$ is \texttt{orin\_nano\_e2e\_mintok}; in \texttt{orin\_nano\_fullbank}, the later run at $980\times840$ on the whole bank is \texttt{full-qwen2.5vl-3b-mr}, the diagnostic of the vision encoder is \texttt{diag\_encoder}, and the fixed rule on the states of the board is \texttt{rule\_on\_board\_states.json} \\
 audit of the nearest-distance key (Section~S16) & \texttt{exp\_rev1/key\_audit/} \\
 object-list scene graphs with the note on the bearing (Section~S17) & \texttt{exp\_rev1/b4c\_scenegraph\_convention/} \\
 \bottomrule
@@ -599,6 +605,18 @@ nuScenes, second bank & all & <<JDCI:nuscenes2/contrast/E1_s_vs_vlm_3b>> & <<JDC
 
 Both VLMs choose a near band more often than it is correct, on both datasets, and the 7B VLM rarely chooses the first option letter in this family, although the correct answer is the first option in about one third of the questions. The readers choose the three letters about equally often. Their bands are close to the key on nuScenes; on CODa, where the key is the far band in only <<NDFARKEY>> questions, they choose the far band in <<NDFAR3>> and <<NDFAR7>> questions (3B and 7B).
 
+\emph{Position of the correct option.} The three options of a question are in random order. Table~\ref{tab:s16c} gives the accuracy of each arm by the letter of the correct option, in the nearest-distance family and over all families, and the difference between the two routes on the questions whose correct option is the first and on the other questions. Both VLMs depend on the position in the nearest-distance family: the 7B VLM is far less accurate when the first option is correct, on both datasets, and the 3B VLM on nuScenes is more accurate then. In this family the readers depend on it less. Over all families the 3B reader is less accurate on first options, mainly in direction on CODa and in counting on nuScenes (<<J:option_position/nusc2/acc/s_3b/counting/A|.3f>>, <<J:option_position/nusc2/acc/s_3b/counting/B|.3f>>, and <<J:option_position/nusc2/acc/s_3b/counting/C|.3f>> for A, B, and C; on the counting questions whose correct option is the first, the VLM is ahead at 3B: <<JDCI:option_position/nusc2/contrast/counting_A_3b>>). The differences between the routes therefore differ between the two groups of questions. On nuScenes the serialized system is ahead in both groups at both sizes; the smaller of the two differences is <<JDCI:option_position/nusc2/contrast/all_A_3b>> at 3B (first option correct) and <<JDCI:option_position/nusc2/contrast/all_notA_7b>> at 7B (first option not correct; sign-flip $p<0.001$, and the interval stays above zero without each location). On CODa the 7B difference lies in the questions whose correct option is the first, and the 3B difference in the others. No run with the options in another order was made.
+
+\fixtab{S16c}\begin{table}[h]\centering\footnotesize
+\caption{Accuracy by the letter of the correct option, and the difference between the two routes (serialized system minus VLM) on the questions whose correct option is the first (A) and on the others (B or C). ``n'' is the number of questions with each correct letter.}\label{tab:s16c}
+\setlength{\tabcolsep}{3.2pt}\begin{tabular}{@{}llcccccc@{}}
+\toprule & & \multicolumn{3}{c}{nearest-distance} & \multicolumn{3}{c}{all families} \\
+dataset & arm & A & B & C & A & B & C \\ \midrule
+<<S16C>>
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Object-list scene graphs: the text, and the convention of the bearing}
 The two rows ``object list as triples'' and ``object list as JSON'' of Table~6 of the paper use the following text. The example is the perceived state of frame \texttt{<<EXSID>>}, which holds <<EXN>> objects; line breaks were added to the JSON object.
 
@@ -632,6 +650,25 @@ JSON, with note & <<J:acc/sgc_json_3b>> & <<J:acc/sgc_json_7b>> & <<J:acc_family
 \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Time for several questions about one frame}
+Table~\ref{tab:s18} gives the time to answer $Q$ questions about one frame on the laptop GPU. Section VII-I of the paper quotes its values for two and for ten questions.
+
+\settab{18}\begin{table}[h]\centering\footnotesize
+\caption{Time in seconds to answer $Q$ questions about one frame on the laptop GPU, computed from the measured times of Tables~10 and~11 of the paper. Serialized: perception once and $Q$ reader calls. VLM, image encoded again: $Q$ calls. VLM, image kept: one call and $Q-1$ calls at the median time of a later question in a session that keeps the encoded image (0.371\,s for Qwen2.5-VL 7B, 0.176\,s for moondream; not measured for Qwen2.5-VL 3B).}\label{tab:s18}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+ & $Q{=}1$ & 2 & 5 & 10 \\ \midrule
+full stack, 3B reader ($0.88+0.195Q$) & <<QROW:Q:0.88:0.195>> \\
+full stack, 7B reader ($0.88+0.230Q$) & <<QROW:Q:0.88:0.230>> \\
+one-pass detector pair, 3B reader ($0.07+0.195Q$) & <<QROW:Q:0.07:0.195>> \\ \midrule
+VLM 3B, image encoded again ($0.970Q$) & <<QROW:Q:0:0.970>> \\
+VLM 7B, image encoded again ($1.102Q$) & <<QROW:Q:0:1.102>> \\
+VLM 7B, image kept ($1.102+0.371(Q-1)$) & <<QROW:QC:1.102:0.371>> \\
+VLM moondream, image kept ($0.294+0.176(Q-1)$) & <<QROW:QC:0.294:0.176>> \\
+\bottomrule
+\end{tabular}
+\end{table}
 \end{document}
 """
 
@@ -652,6 +689,14 @@ import numpy as np
 TEX = TEX.replace("<<S1>>", NL.join(s1)).replace("<<S2>>", NL.join(s2)).replace("<<S2B>>", NL.join(s2b)).replace("<<S2C>>", NL.join(s2c))
 TEX = TEX.replace("<<S9>>", NL.join(s9)).replace("<<PR>>", str(ps["right"])).replace("<<PW>>", str(ps["wrong"]))
 TEX = TEX.replace("<<JK3>>", f"$[{jk['primary_3b'][0]:+.4f},\\,{jk['primary_3b'][1]:+.4f}]$").replace("<<JK7>>", f"$[{jk['primary_7b'][0]:+.4f},\\,{jk['primary_7b'][1]:+.4f}]$")
+def qrow(kind, key):
+    """time for Q = 1, 2, 5, 10 questions, rounded half up (the rule of build_paper.py, kinds Q and QC)"""
+    from decimal import Decimal, ROUND_HALF_UP
+    p0, r = (Decimal(x) for x in key.split(":"))
+    return " & ".join(str(((p0 + r * q) if kind == "Q" else (p0 + r * (q - 1))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)) for q in (1, 2, 5, 10))
+
+
+TEX = re.sub(r"<<QROW:(QC?):([^<>]+)>>", lambda m: qrow(m.group(1), m.group(2)), TEX)
 TEX = re.sub(r"<<PC1:([^<>]+)>>", lambda m: pc1(m.group(1)), TEX)
 TEX = re.sub(r"<<PCN:([^<>]+)>>", lambda m: pcn(m.group(1)), TEX)
 TEX = re.sub(r"<<PC:([^<>]+)>>", lambda m: pc(m.group(1)), TEX)
@@ -717,6 +762,21 @@ _rows = [_ndrow("CODa", "key", _nd["confirm"]["pixel_3b"], "gold"), _ndrow("", "
          _ndrow("", "serialized, 7B reader", _nd["nusc2"]["s_7b"]), _ndrow("", "reader without a scene, 3B", _nd["nusc2"]["blind_3b"]),
          _ndrow("", "reader without a scene, 7B", _nd["nusc2"]["blind_7b"])]
 TEX = TEX.replace("<<S16B>>", NL.join(_rows))
+# S16c: by the position of the correct option
+_op = R["option_position"]; _rows = []
+for _d, _dl, _arms in (("confirm", "CODa", (("pixel_3b", "VLM, 3B"), ("pixel_7b", "VLM, 7B"), ("scoped_3b", "serialized, 3B"), ("scoped_7b", "serialized, 7B"))),
+                       ("nusc2", "nuScenes", (("hf_pixel_3b", "VLM, 3B"), ("hf_pixel_7b", "VLM, 7B"), ("s_3b", "serialized, 3B"), ("s_7b", "serialized, 7B")))):
+    _n = _op[_d]["n"]
+    _rows.append(f"{_dl} & n & " + " & ".join(str(_n["nearest_dist"][L]) for L in "ABC") + " & " + " & ".join(str(_n["all"][L]) for L in "ABC") + r" \\")
+    for _a, _al in _arms:
+        _rows.append(f" & {_al} & " + " & ".join(f"{_op[_d]['acc'][_a]['nearest_dist'][L]:.3f}" for L in "ABC") + " & " + " & ".join(f"{_op[_d]['acc'][_a]['all'][L]:.3f}" for L in "ABC") + r" \\")
+    for _sc in ("3b", "7b"):
+        _c = _op[_d]["contrast"]
+        _rows.append(f" & difference, {_sc.upper()} & {sgn(_c['nearest_dist_A_' + _sc]['delta'], _c['nearest_dist_A_' + _sc]['star'])} & \\multicolumn{{2}}{{c}}{{{sgn(_c['nearest_dist_notA_' + _sc]['delta'], _c['nearest_dist_notA_' + _sc]['star'])}}} & "
+                     f"{sgn(_c['all_A_' + _sc]['delta'], _c['all_A_' + _sc]['star'])} & \\multicolumn{{2}}{{c}}{{{sgn(_c['all_notA_' + _sc]['delta'], _c['all_notA_' + _sc]['star'])}}}" + r" \\")
+    if _d == "confirm":
+        _rows.append(r"\midrule")
+TEX = TEX.replace("<<S16C>>", NL.join(_rows))
 import sys as _sys, textwrap as _tw
 _sys.path.insert(0, str(REL / "serializer"))
 import b4_scenegraph as _B4
@@ -751,7 +811,7 @@ def _hu3(x):
 
 
 _OBN = {"s_1.5b": "serialized, 1.5B reader", "s_3b": "serialized, 3B reader", "s_7b": "serialized, 7B reader",
-        "vlm_lr": r"VLM, reduced image", "vlm_full": r"VLM, full image", "hyb_lr": r"VLM, reduced image and serialized text"}
+        "vlm_lr": r"VLM, reduced image ($672\times560$)", "vlm_mr": r"VLM, image at $980\times840$", "vlm_full": r"VLM, full image", "hyb_lr": r"VLM, reduced image and serialized text"}
 _rows = []
 for _k, _lab in _OBN.items():
     _a = _ob["arms"].get(_k)
@@ -763,7 +823,13 @@ TEX = TEX.replace("<<S8B>>", NL.join(_rows))
 _OBC = [("O1_s3b_vs_vlm_lr", "O1: serialized, 3B reader, minus VLM, reduced image"), ("O2_s3b_vs_vlm_full", "O2: serialized, 3B reader, minus VLM, full image"),
         ("s1.5b_vs_vlm_lr", "serialized, 1.5B reader, minus VLM, reduced image"), ("s1.5b_vs_vlm_full", "serialized, 1.5B reader, minus VLM, full image"),
         ("s7b_vs_vlm_lr", "serialized, 7B reader, minus VLM, reduced image"), ("s7b_vs_vlm_full", "serialized, 7B reader, minus VLM, full image"),
+        ("O3_s3b_vs_vlm_mr", "O3: serialized, 3B reader, minus VLM, $980\\times840$"),
+        ("s1.5b_vs_vlm_mr", "serialized, 1.5B reader, minus VLM, $980\\times840$"), ("s7b_vs_vlm_mr", "serialized, 7B reader, minus VLM, $980\\times840$"),
         ("vlm_lr_vs_vlm_full", "VLM, reduced image minus full image"),
+        ("vlm_mr_vs_vlm_lr", "VLM, $980\\times840$ minus reduced image"), ("vlm_mr_vs_vlm_full", "VLM, $980\\times840$ minus full image"),
+        ("hyb_lr_vs_vlm_mr", "VLM, reduced image and text, minus VLM, $980\\times840$"),
+        ("rule_vs_s3b", "fixed rule (Section~S4) minus serialized, 3B"), ("rule_vs_s7b", "fixed rule (Section~S4) minus serialized, 7B"),
+        ("rule_vs_hyb_lr", "fixed rule (Section~S4) minus VLM, reduced image and text"),
         ("hyb_lr_vs_s3b", "VLM, reduced image and text, minus serialized, 3B"), ("hyb_lr_vs_s7b", "VLM, reduced image and text, minus serialized, 7B"),
         ("hyb_lr_vs_vlm_lr", "VLM, reduced image and text, minus VLM, reduced image"), ("hyb_lr_vs_vlm_full", "VLM, reduced image and text, minus VLM, full image"),
         ("s3b_board_vs_laptop", "serialized, 3B reader: board minus laptop"), ("s7b_board_vs_laptop", "serialized, 7B reader: board minus laptop"),
@@ -791,6 +857,9 @@ if "fail" in _vf:
             if any(json.loads(l).get("raw") == "????????" for l in open(_ip, encoding="utf-8")):
                 _FAILS.append(_ip.parent.name)
     _still = _f["still_failed"]
+    _mr_failed = bool(_ob["arms"].get("vlm_mr", {}).get("fail", {}).get("still_failed"))
+    assert ("full-qwen2.5vl-3b-mr" in _FAILS) == _mr_failed, (_FAILS, _mr_failed)
+    _FAILS = [x for x in _FAILS if x != "full-qwen2.5vl-3b-mr"]
     assert set(_FAILS) <= {"full-qwen2.5vl-3b", "full-qwen2.5vl-3b-guard"} and "full-qwen2.5vl-3b" in _FAILS, _FAILS
     assert ("full-qwen2.5vl-3b-guard" in _FAILS) == bool(_still), (_FAILS, _still)
     _names = ", ".join(r"\texttt{" + q.replace("_", r"\_") + "}" for q in _still)
@@ -824,11 +893,94 @@ if "fail" in _vf:
                   + (", which is still firm. " if _f["o2_failed_as_correct"]["firm"] else ". ") if "o2_without_failed" in _f else "")
                + f"Counted as wrong answers, the 338 strings of the first run would give the VLM an accuracy of {_f['acc_failed_counted_wrong']:.4f}; this value is not used. "
                r"The time and the energy per question of this arm are means over the answers that enter the comparison; in the run with the rule the power is averaged over the time windows of the requests, "
-               r"and the restarts are not part of the time per question. No other run on this board contains the string. "
-               r"While the run with the rule was answering its first 100 questions, which do not enter the comparison, a diagnostic script sent two text-only requests to its server by mistake.")
+               r"and the restarts are not part of the time per question. " + ("No other run on this board contains the string. " if not _mr_failed else "Apart from the later run at $980\\times840$ (below), no other run on this board contains the string. ")
+               + r"While the run with the rule was answering its first 100 questions, which do not enter the comparison, a diagnostic script sent two text-only requests to its server by mistake.")
     TEX = TEX.replace("<<VLFAIL>>", _VLFAIL)
 else:
     TEX = TEX.replace("<<VLFAIL>>", r"\emph{A failed run and its repeat.} [The run of the VLM with the full image under the reload rule is pending.]")
+
+
+# ---------------------------------------------------------------- S8: where the vision encoder runs (diagnostic of 2026-11-16), swap, power modes
+_dg = LV / "exp_rev1/b10_boards/orin_nano_fullbank/diag_encoder"
+_dd = json.load(open(_dg / "diag_encoder.json", encoding="utf-8"))
+
+
+def _dmean(setting, size):
+    q = [r for r in _dd[setting] if r["size"] == size and not r["warm_up"]]
+    w = [r["wall_s"] for r in q[1:]]      # the first question repeats the image of the warm-up, and the server reuses its encoding
+    assert len(w) == 2 and q[0]["wall_s"] < 1.0, (setting, size, q[0]["wall_s"])
+    return sum(w) / len(w)
+
+
+def _dts(tok):                            # '0.43.268.070' -> seconds
+    a = [int(x) for x in tok.split(".")]
+    return a[0] * 60 + a[1] + a[2] / 1e3 + a[3] / 1e6
+
+
+_lgd = open(_dg / "server_default.log", encoding="utf-8", errors="replace").read().splitlines()
+_lgc = open(_dg / "server_no-offload.log", encoding="utf-8", errors="replace").read()
+assert sum("CLIP using CUDA0 backend" in l for l in _lgd) == 1 and "CLIP using CPU backend" in _lgc and "CLIP using CUDA0 backend" not in _lgc
+_enc, _dec, _t0, _cur = {}, {}, None, None
+for _l in _lgd:
+    if "encoding mtmd batch" in _l:
+        _t0 = _dts(_l.split()[0])
+    _m = re.search(r"decoding image batch 1/1, n_tokens_batch = (\d+)", _l)
+    if _m and _t0 is not None:
+        _cur = int(_m.group(1)); _enc.setdefault(_cur, []).append(_dts(_l.split()[0]) - _t0); _t0 = None
+    _m = re.search(r"image decoded \(batch 1/1\) in (\d+) ms", _l)
+    if _m and _cur is not None:
+        _dec.setdefault(_cur, []).append(int(_m.group(1)) / 1000)
+assert set(_enc) >= {1628, 1050, 480}, sorted(_enc)
+_e = {k: float(np.median(v)) for k, v in _enc.items()}; _dc = {k: float(np.median(v)) for k, v in _dec.items()}
+TEX = TEX.replace("<<ENCODER>>", (
+    r"\emph{Where the vision encoder runs.} The server was started with all layers of the language model on the GPU (\texttt{-ngl 99}) and with its default setting for the vision encoder; "
+    r"the help text of this server build gives GPU offloading of the vision encoder as enabled by default. "
+    r"A diagnostic run on the board confirmed this on 16 November 2026 (script \texttt{b10\_diag\_encoder.py}, folder \texttt{diag\_encoder}; three questions at each of three image sizes, not scored and not part of any comparison). "
+    r"With raised log verbosity, the server in the default setting prints ``CLIP using CUDA0 backend''. Started with \texttt{--no-mmproj-offload}, it prints ``CLIP using CPU backend'', and a question with a new image then takes "
+    + f"{_dmean('no-offload', 'full'):.0f}" + r"\,s with the full image, " + f"{_dmean('no-offload', 'mr'):.0f}" + r"\,s at $980\times840$, and " + f"{_dmean('no-offload', 'lr'):.0f}" + r"\,s at $672\times560$, against "
+    + f"{_dmean('default', 'full'):.1f}, {_dmean('default', 'mr'):.1f}, and {_dmean('default', 'lr'):.1f}" + r"\,s in the default setting. "
+    r"In the default setting the log of the server gives, for the full image, " + f"{_e[1628]:.1f}" + r"\,s for the encoding of the image and " + f"{_dc[1628]:.1f}" + r"\,s for the evaluation of its 1628 image tokens by the language model; "
+    r"the encoding takes " + f"{_e[1050]:.1f}" + r"\,s at $980\times840$ and " + f"{_e[480]:.1f}" + r"\,s at $672\times560$ (medians over the requests with a new image). "
+    r"The vision encoder thus runs on the GPU in all runs of this section. With the full image it accounts for about three quarters of the time of the VLM per question (" + f"{_e[1050] / _dmean('default', 'mr'):.2f}" + r" of it at $980\times840$ and " + f"{_e[480] / _dmean('default', 'lr'):.2f}" + r" at $672\times560$). "
+    r"\par "
+    r"\emph{Swap and power modes.} The system image of the board uses compressed swap in memory (zram, 3.8\,GB) and no swap on storage. Whether pages were swapped during sessions~1 to~3 was not recorded; "
+    r"the later run at $980\times840$ recorded it (end of this section). The board was in its 25\,W mode in all runs; the system image also offers modes of 7\,W and 15\,W and a mode without a power cap (MAXN SUPER), which were not measured (\texttt{log\_board\_modes\_swap.txt})."))
+
+# ---------------------------------------------------------------- S8: the run at 980 x 840 (A7 addendum 4)
+_vm = _ob["arms"].get("vlm_mr", {})
+if "acc" in _vm:
+    _o3 = _ob["contrast"]["O3_s3b_vs_vlm_mr"]; _b3 = _ob["balanced_min5"]["O3_s3b_vs_vlm_mr"]; _fm = _vm["fail"]
+    _sw = [l.split() for l in open(LV / "exp_rev1/b10_boards/orin_nano_fullbank/swap_full-qwen2.5vl-3b-mr.txt", encoding="utf-8") if "pswpin" in l]
+    _pin = int(_sw[-1][2]) - int(_sw[0][2]); _pout = int(_sw[-1][4]) - int(_sw[0][4])
+    _swfree = [int(x[x.index("SwapFree:") + 1]) for x in _sw]; _mav = [int(x[x.index("MemAvailable:") + 1]) for x in _sw]
+    _mrl = [json.loads(l)["latency_s"] for l in open(LV / "exp_rev1/b10_boards/orin_nano_fullbank/full-qwen2.5vl-3b-mr/items.jsonl", encoding="utf-8")]
+    assert len(_mrl) == 1328 and _mrl[0] < 1.0
+    _mr_first, _mr_rest = _mrl[0], sum(_mrl[1:]) / 1327
+    _word = ("the serialized system is also more accurate than the VLM at this image size" if _o3["lo"] > 0 else
+             ("the VLM at this image size is more accurate than the serialized system" if _o3["hi"] < 0 else "no difference in accuracy from the VLM at this image size is resolved"))
+    _firmw = ("; the difference is firm" if _o3["firm"] else "; the difference is not firm") if _o3["star"] else ""
+    _stillm = _fm["still_failed"]
+    _namesm = ", ".join(r"\texttt{" + q.replace("_", r"\_") + "}" for q in _stillm)
+    _failtxt = (f"The server was restarted {_fm['restarts']} times, and {_fm['asked_twice']} questions were asked twice. " if _fm["restarts"] else "No output was degenerate, and the server was never restarted. ")
+    _failtxt += ("" if not _stillm else (f"{len(_stillm)} question(s) failed again and count as wrong: {_namesm}. Without them O3 is " + sgn(_fm["o3_without_failed"]["delta"], _fm["o3_without_failed"]["star"]) + " " + ci(_fm["o3_without_failed"])
+                                         + ", and with all of them counted as correct answers of the VLM it is " + sgn(_fm["o3_failed_as_correct"]["delta"], _fm["o3_failed_as_correct"]["star"]) + " " + ci(_fm["o3_failed_as_correct"])
+                                         + (", which is still firm. " if _fm["o3_failed_as_correct"]["firm"] else (", which is not firm. " if _fm["o3_failed_as_correct"]["star"] else ", which is unresolved. "))))
+    TEX = TEX.replace("<<MRRUN>>", (
+        r"\emph{A later run: the VLM with an image of $980\times840$ pixels on the whole bank.} An internal review of the finished manuscript by three readers noted that the VLM had an accuracy on the board at two image sizes only: "
+        r"the reduced image, which is below the minimum number of image tokens that the server names, and the full image, whose run had failed in part. "
+        r"The VLM was therefore run on all 1328 questions with the frame reduced to $980\times840$ pixels (" + f"{O['mr_visual_tokens']}" + r" image tokens), the size of the timing run of 16 November. "
+        r"The run, the comparison O3, and the wording that follows from each outcome were written down before the run (\texttt{amendments/A7\_addendum4.md}, committed at 10:14 on 16 November 2026; the first question was asked at 10:39). "
+        r"O3 is exploratory and has no criterion. Known at that time were all results of this paper, among them the two accuracies of the VLM on the board and the answers of the timing run at this size (30 of 50 correct). "
+        r"The run used the script of the reload rule from its first question (script \texttt{run\_b10\_orin\_mr\_full.sh}). "
+        + _failtxt
+        + f"The VLM answers {_vm['acc']:.4f} of the questions correctly and needs {_vm['time_mean_s']:.2f}" + r"\,s and " + f"{_vm['energy_j']:.1f}" + r"\,J per question (Table~\ref{tab:s8b}). "
+        + f"In this run the warm-up request used the image of the first question, and the server reused the encoded image for that question ({_mr_first:.2f}" + r"\,s); the mean over the other 1327 questions is " + f"{_mr_rest:.2f}" + r"\,s. In the earlier runs the warm-up used the image of the last question. "
+        + "O3, the serialized system with the 3B reader minus this VLM, is " + sgn(_o3["delta"], _o3["star"]) + " " + ci(_o3) + f" (sign-flip $p={_o3['signflip_p']:.4f}$; {_o3['loso_cross_zero']} of the 21 leave-one-out intervals include zero): "
+        + _word + _firmw + ". In the balanced accuracy of Section~S12 it is " + sgn(_b3["delta"], _b3["star"]) + " " + ci(_b3) + r" (Table~\ref{tab:s8c}). "
+        + f"From the start of the server to the end of the run the counters of the system rose by {_pin} pages swapped in and {_pout} pages swapped out (pages of 4\\,kB); the free swap space was {_swfree[0] / 1048576:.2f}\\,GB of 3.8\\,GB at the start, because other processes had used swap before, and did not fall below {min(_swfree) / 1048576:.2f}\\,GB, "
+        + f"and the available memory did not fall below {min(_mav) / 1048576:.2f}" + r"\,GB (samples every 10\,s)."))
+else:
+    TEX = TEX.replace("<<MRRUN>>", r"\emph{A later run: the VLM with an image of $980\times840$ pixels on the whole bank.} [This run (\texttt{amendments/A7\_addendum4.md}) is pending.]")
 
 
 # ---------------------------------------------------------------- S8: boards without a GPU, from the per-question times
@@ -847,7 +999,8 @@ TEX = TEX.replace("<<O1COIN>>", (f"The difference O1 is {_n1} questions; the pri
 # ---------------------------------------------------------------- S8: the timing run at the minimum number of image tokens
 if "mr_s" in O:
     TEX = TEX.replace("<<MINTOK>>", (f"A further run on the timing set, made on 16 November, before the repeat runs of session~3 (folder \\texttt{{orin\\_nano\\_e2e\\_mintok}}), therefore used an image of $980\\times840$ pixels ({O['mr_visual_tokens']} image tokens), a size with nearly the aspect ratio of the frame and just above that number: "
-                                     f"one question takes {O['mr_s']}\\,s and {O['mr_j']}\\,J, and five questions about one frame take {O['mr_s5']}\\,s. The accuracy of the VLM at this size was not measured on the whole bank."))
+                                     f"one question takes {O['mr_s']}\\,s and {O['mr_j']}\\,J, and five questions about one frame take {O['mr_s5']}\\,s and {O['mr_j5']}\\,J. "
+                                     + ("The accuracy of the VLM at this size was measured later on the whole bank (end of this section)." if "acc" in R["onboard"]["arms"].get("vlm_mr", {}) else "The accuracy of the VLM at this size was not measured on the whole bank.")))
 else:
     TEX = TEX.replace("<<MINTOK>>", "No run at an intermediate size was made.")
 

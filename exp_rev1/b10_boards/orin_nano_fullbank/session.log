@@ -21,3 +21,7 @@
 03:09:12 full-image run with the reload rule start; NV Power Mode: 25W; Mem:            7619        1846        4435          22        1338        5532
 04:31:29 bench full-qwen2.5vl-3b-guard done (rc 0)
 04:31:29 full-image run with the reload rule done
+10:23:39 run at 980x840 start; gdm active; NV Power Mode: 25W; Mem:            7619        1978        4560          12        1080        5409; Swap:           3809         926        2883
+10:38:34 resize done: questions: 1328 new reduced images: 1328 size 980x840 = 823200 pixels
+12:39:56 bench full-qwen2.5vl-3b-mr done (rc 0)
+12:39:56 run at 980x840 done

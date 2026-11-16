@@ -1,0 +1,1 @@
+questions: 1328 new reduced images: 1328 size 980x840 = 823200 pixels

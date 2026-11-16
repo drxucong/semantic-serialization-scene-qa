@@ -37,6 +37,8 @@ def main():
     ap.add_argument("--threads", type=int, default=6); ap.add_argument("--ngl", type=int, default=99)
     ap.add_argument("--ctx", type=int, default=4096); ap.add_argument("--load-timeout", type=int, default=600)
     ap.add_argument("--max-restarts", type=int, default=40)
+    ap.add_argument("--warm-probe", default="data/full_onboard.jsonl",
+                    help="question file whose first image is used for the warm-up (added 2026-11-16 for the run at 980 x 840; the default is unchanged)")
     a = ap.parse_args()
     out = HERE / a.out_root / a.name; out.mkdir(parents=True, exist_ok=True)
     items = [json.loads(l) for l in open(HERE / a.probe, encoding="utf-8")]
@@ -97,7 +99,7 @@ def main():
             txt = ask(items[0], user="Warm-up. Reply with the letter A.", image=WARM_IMAGE)[0]
         return txt
 
-    WARM_IMAGE = json.loads(open(HERE / "data/full_onboard.jsonl", encoding="utf-8").readline())["image"]
+    WARM_IMAGE = json.loads(open(HERE / a.warm_probe, encoding="utf-8").readline())["image"]
     res = {"name": a.name, "model": a.model, "mmproj": a.mmproj, "threads": a.threads, "server": str(SERVER), "mem_max": "none",
            "mem_available_before_kb": avail0, "rule": "restart after a degenerate output, ask once more"}
     rows, restarts = [], 0

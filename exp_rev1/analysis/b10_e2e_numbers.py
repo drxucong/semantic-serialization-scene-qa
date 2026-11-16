@@ -162,6 +162,11 @@ if (D / _d / "summary.json").exists() and json.load(open(D / _d / "summary.json"
 for a, b in (("fvlr", "fe3"), ("fvl", "fe3")):
     if f"{a}_s" in raw and f"{b}_s" in raw:
         O[f"ratio_s_{a}_{b}"] = f"{raw[f'{a}_s'] / raw[f'{b}_s']:.1f}"; O[f"ratio_j_{a}_{b}"] = f"{raw[f'{a}_j'] / raw[f'{b}_j']:.1f}"
+_am = json.load(open(HERE / "rev2_results.json", encoding="utf-8"))["onboard"]["arms"].get("vlm_mr", {})   # A7 addendum 4: 980 x 840, whole bank
+if "acc" in _am and "fe3_s" in raw:
+    O.update({"fmr_s": f"{_am['time_mean_s']:.2f}", "fmr_med": f"{_am['time_median_s']:.2f}", "fmr_w": f"{_am['power_w']:.1f}", "fmr_j": f"{_am['energy_j']:.1f}"})
+    raw["fmr_s"] = _am["time_mean_s"]; raw["fmr_j"] = _am["energy_j"]
+    O["ratio_s_fmr_fe3"] = f"{raw['fmr_s'] / raw['fe3_s']:.1f}"; O["ratio_j_fmr_fe3"] = f"{raw['fmr_j'] / raw['fe3_j']:.1f}"
 _other("orin_nano_e2e_mintok")                      # 2026-11-15: 980 x 840, the smallest size above 1024 image tokens
 if (D / "MINTOK_DONE").exists():
     bench("mr", "qwen2.5vl-3b-mr", agree=False); series("mr", "series_qwen2.5vl-3b-mr")

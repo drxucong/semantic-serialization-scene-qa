@@ -18,7 +18,7 @@ released as logs.
 
 **For the revised manuscript, start with [`SUPPLEMENT.pdf`](SUPPLEMENT.pdf) and
 [`exp_rev1/README.md`](exp_rev1/README.md).** `SUPPLEMENT.pdf` is the Supplement that the
-revised manuscript refers to (Sections S1 to S17). `exp_rev1/README.md` maps
+revised manuscript refers to (Sections S1 to S18). `exp_rev1/README.md` maps
 every folder of the revision to a section and table and names the two scripts that
 recompute the numbers. [`SUPPLEMENT.md`](SUPPLEMENT.md) is the map of the material that
 accompanied the first submission; its section and table numbers refer to that version.

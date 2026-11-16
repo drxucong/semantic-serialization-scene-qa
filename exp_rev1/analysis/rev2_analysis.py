@@ -235,6 +235,9 @@ pairs = {"primary_3b": ("scoped_3b", "pixel_3b"), "primary_7b": ("scoped_7b", "p
          "scoped_vs_flat_3b": ("scoped_3b", "flat_3b"), "scoped_vs_flat_7b": ("scoped_7b", "flat_7b"),
          "flat_vs_pixel_3b": ("flat_3b", "pixel_3b"), "flat_vs_pixel_7b": ("flat_7b", "pixel_7b"),
          "pixelrerun_vs_archived_3b": ("pixel_rerun_3b", "pixel_3b"), "pixelrerun_vs_archived_7b": ("pixel_rerun_7b", "pixel_7b"),
+         # added 2026-11-16: the two single-camera arms against one and the same VLM run
+         "nostereo_vs_pixelrerun_3b": ("nostereo_3b", "pixel_rerun_3b"), "nostereo_vs_pixelrerun_7b": ("nostereo_7b", "pixel_rerun_7b"),
+         "light1_vs_pixel_3b": ("light1_3b", "pixel_3b"), "light1_vs_pixel_7b": ("light1_7b", "pixel_7b"),
          "stereo2_vs_pixelrerun_3b": ("stereo2_3b", "pixel_rerun_3b"), "stereo2_vs_pixelrerun_7b": ("stereo2_7b", "pixel_rerun_7b"),
          "taskinfo_vs_pixelrerun_3b": ("taskinfo_3b", "pixel_rerun_3b"), "taskinfo_vs_pixelrerun_7b": ("taskinfo_7b", "pixel_rerun_7b"),
          "scoped1.5b_vs_moondream": ("scoped_1.5b", "moondream"), "scoped1.5b_vs_llavaphi3": ("scoped_1.5b", "llavaphi3"),
@@ -674,12 +677,51 @@ if n2:
             ndc["nusc2"][name] = nd_choices(b2, ids2, fam2, A2[name])
 out["nd_choices"] = ndc
 
+# ------------------------------------------------------------------ H2. answers by the position of the correct option
+# (added 2026-11-16 after an internal review of the final manuscript) Table S16b shows that the 7B VLM
+# rarely chooses the first option letter in the nearest-distance family. The options are in random
+# order, so a model that avoids one letter loses questions whose correct option has that letter.
+# Here: the accuracy of each arm by the letter of the correct option, and the differences between
+# the two routes on the questions whose correct option is not the first.
+def gold_letter(bank, i):
+    it = bank[i]
+    texts = [v for k_, v in sorted(it["choices"].items()) if k_ != it.get("abstain_letter")]
+    return "ABC"[texts.index(it["choices"][it["answer"]])]
+
+
+op = {"confirm": {"acc": {}, "n": {}, "chosen": {}}, "nusc2": {"acc": {}, "n": {}, "chosen": {}}}
+glc = {i: gold_letter(cfd, i) for i in ids}
+_scopes = [(f, [i for i in ids if fam[i] == f]) for f in FAMS] + [("all", list(ids))]
+_cf_rows = {"pixel_3b": arm_jsonl(REL / "results/phase10/results_cf_px3b_robust/*forced.jsonl"), "pixel_7b": arm_jsonl(REL / "results/phase10/results_cf_px_7b/*forced.jsonl"),
+            "scoped_3b": arm_jsonl(REL / "results/phase10/results_cf_v15_3b/*forced.jsonl"), "scoped_7b": arm_jsonl(REL / "results/phase10/results_cf_v15_7b/*forced.jsonl")}
+for scope, sel in _scopes:
+    op["confirm"]["n"][scope] = {L: int(sum(glc[i] == L for i in sel)) for L in "ABC"}
+    for arm in ("pixel_3b", "pixel_7b", "scoped_3b", "scoped_7b"):
+        op["confirm"]["acc"].setdefault(arm, {})[scope] = {L: float(np.mean([ARMS[arm][i] for i in sel if glc[i] == L])) for L in "ABC"}
+        op["confirm"]["chosen"].setdefault(arm, {})[scope] = {L: int(sum(_cf_rows[arm][i].get("pred") == L for i in sel)) for L in "ABC"}
+    for sc in ("3b", "7b"):
+        for tag, keep in (("notA", [i for i in sel if glc[i] != "A"]), ("A", [i for i in sel if glc[i] == "A"])):
+            op["confirm"].setdefault("contrast", {})[f"{scope}_{tag}_{sc}"] = contrast(f"scoped_{sc}", f"pixel_{sc}", keep)[2]
+if n2:
+    gl2 = {i: gold_letter(b2, i) for i in ids2}
+    _scopes2 = [(f, [i for i in ids2 if fam2[i] == f]) for f in FAMS] + [("all", list(ids2))]
+    for scope, sel in _scopes2:
+        op["nusc2"]["n"][scope] = {L: int(sum(gl2[i] == L for i in sel)) for L in "ABC"}
+        for arm in ("hf_pixel_3b", "hf_pixel_7b", "s_3b", "s_7b"):
+            op["nusc2"]["acc"].setdefault(arm, {})[scope] = {L: float(np.mean([A2[arm][i]["correct"] for i in sel if gl2[i] == L])) for L in "ABC"}
+            op["nusc2"]["chosen"].setdefault(arm, {})[scope] = {L: int(sum(A2[arm][i].get("pred") == L for i in sel)) for L in "ABC"}
+        for sc in ("3b", "7b"):
+            for tag, keep in (("notA", [i for i in sel if gl2[i] != "A"]), ("A", [i for i in sel if gl2[i] == "A"])):
+                op["nusc2"].setdefault("contrast", {})[f"{scope}_{tag}_{sc}"] = c2(f"s_{sc}", f"hf_pixel_{sc}", keep, full=(scope == "all" and tag == "notA"))
+out["option_position"] = op
+
 # ------------------------------------------------------------------ I. the confirmatory bank on the board (amendment A7)
 # Source: exp_rev1/b10_boards/orin_nano_fullbank/ (copy of ~/rev1/out_e2e_full1328 on the board,
 # written by scripts/rev1/run_b10_orin_fullbank.sh). An arm enters only when all 1328 answers exist.
 OBD = E / "b10_boards/orin_nano_fullbank"
 OB_ARMS = {"s_3b": "full-qwen2.5-3b", "s_1.5b": "full-qwen2.5-1.5b", "s_7b": "full-qwen2.5-7b",
            "vlm_lr": "full-qwen2.5vl-3b-lr", "vlm_full": "full-qwen2.5vl-3b",
+           "vlm_mr": "full-qwen2.5vl-3b-mr",               # A7 addendum 4: image at 980 x 840, reload rule from the first question
            "hyb_lr": "full-hyb-qwen2.5vl-3b-lr"}          # A7 addendum 1 (exploratory)
 OB_LAPTOP = {"s_3b": E / "b5_light/infer/cf_d0_light1_3b/*forced.jsonl", "s_7b": E / "b5_light/infer/cf_d0_light1_7b/*forced.jsonl",
              "vlm_full": REL / "results/phase10/results_cf_px3b_robust/*forced.jsonl"}
@@ -704,7 +746,14 @@ for name, d in OB_ARMS.items():
     watt = {i: sm["power_run_mw"]["VDD_IN"] / 1000 for i in ids}
     failed = [i for i in order if rows[i]["raw"] == OB_FAIL]
     fail = None
-    if failed:
+    guard_fmt = "attempts" in rows[order[0]]                       # run by b10_board_bench_guard.py: the reload rule was in force from the start
+    if guard_fmt:
+        assert sm.get("run_error") is None, (name, sm.get("run_error"))
+        again = [i for i in order if rows[i]["degenerate"]]         # failed again after a restart: these count as wrong
+        assert all(rows[i]["pred"] is None and not rows[i]["correct"] for i in again), name
+        fail = {"guard_from_start": True, "still_failed": again, "restarts": int(sm["restarts"]),
+                "asked_twice": int(sum(rows[i]["attempts"] == 2 for i in order))}
+    elif failed:
         rp = OBD / (d + "-guard")
         if not (rp / "items.jsonl").exists():
             ob["arms"][name] = {"failed_answers": len(failed), "repeat_run": "pending"}
@@ -746,10 +795,10 @@ for name, d in OB_ARMS.items():
          "time_max_s": float(lat.max()), "power_w": w, "energy_j": float(np.mean([watt[i] * rows[i]["latency_s"] for i in ids])),
          "prompt_tokens_median": float(np.median([rows[i]["prompt_tokens"] for i in ids])),
          "peak_sys_used_mb": sm.get("peak_sys_used_mb"), "load_status": sm.get("load_status"), "oom": sm.get("oom_in_journal")}
-    if fail is None:
+    if fail is None or fail.get("guard_from_start"):
         assert abs(a["acc"] - sm["acc"]) < 1e-9 and abs(a["time_mean_s"] - sm["latency_mean_s"]) < 1e-6, name
         assert abs(a["energy_j"] - w * a["time_mean_s"]) < 1e-9, name
-    else:
+    if fail is not None:
         a["fail"] = fail
     if name in OB_LAPTOP:
         lp = arm_jsonl(OB_LAPTOP[name])
@@ -757,10 +806,24 @@ for name, d in OB_ARMS.items():
         assert all(bool(rows[i]["correct"]) == bool(lp[i]["correct"]) for i in same if rows[i]["pred"] is not None), name   # same key on board and laptop
         a["agree_laptop"] = len(same); a["laptop_acc"] = float(np.mean([bool(lp[i]["correct"]) for i in ids]))
     ob["arms"][name] = a
+# the fixed rule of Table S4 on the states that the one-pass detector pair produced on the board (offline, no language model;
+# lvcworld/scripts/rev1/b10_rule_on_board_states.py)
+_rp = OBD / "rule_on_board_states.json"
+if _rp.exists():
+    _r = json.load(open(_rp, encoding="utf-8"))
+    assert _r["missing_in_board_states"] == 0 and set(_r["preds_board"]) == set(ids)
+    ARMS["ob_rule"] = {i: _r["preds_board"][i]["pred"] == _r["preds_board"][i]["gold"] for i in ids}
+    ob["rule"] = {"acc": float(np.mean([ARMS["ob_rule"][i] for i in ids])), "n_correct": int(sum(ARMS["ob_rule"].values())),
+                  "family": {f: float(np.mean([ARMS["ob_rule"][i] for i in ids if fam[i] == f])) for f in FAMS},
+                  "full_stack_states_acc": _r["full_stack_laptop_states"]["acc"]}
 OB_PAIRS = {"O1_s3b_vs_vlm_lr": ("ob_s_3b", "ob_vlm_lr"), "O2_s3b_vs_vlm_full": ("ob_s_3b", "ob_vlm_full"),
             "s1.5b_vs_vlm_lr": ("ob_s_1.5b", "ob_vlm_lr"), "s1.5b_vs_vlm_full": ("ob_s_1.5b", "ob_vlm_full"),
             "s7b_vs_vlm_lr": ("ob_s_7b", "ob_vlm_lr"), "s7b_vs_vlm_full": ("ob_s_7b", "ob_vlm_full"),
             "vlm_lr_vs_vlm_full": ("ob_vlm_lr", "ob_vlm_full"),
+            "O3_s3b_vs_vlm_mr": ("ob_s_3b", "ob_vlm_mr"), "s1.5b_vs_vlm_mr": ("ob_s_1.5b", "ob_vlm_mr"), "s7b_vs_vlm_mr": ("ob_s_7b", "ob_vlm_mr"),
+            "vlm_mr_vs_vlm_lr": ("ob_vlm_mr", "ob_vlm_lr"), "vlm_mr_vs_vlm_full": ("ob_vlm_mr", "ob_vlm_full"), "hyb_lr_vs_vlm_mr": ("ob_hyb_lr", "ob_vlm_mr"),
+            "vlm_mr_vs_laptop_vlm": ("ob_vlm_mr", "pixel_3b"),
+            "rule_vs_s3b": ("ob_rule", "ob_s_3b"), "rule_vs_s7b": ("ob_rule", "ob_s_7b"), "rule_vs_hyb_lr": ("ob_rule", "ob_hyb_lr"),
             "hyb_lr_vs_s3b": ("ob_hyb_lr", "ob_s_3b"), "hyb_lr_vs_vlm_lr": ("ob_hyb_lr", "ob_vlm_lr"), "hyb_lr_vs_vlm_full": ("ob_hyb_lr", "ob_vlm_full"),
             "hyb_lr_vs_s7b": ("ob_hyb_lr", "ob_s_7b"), "s3b_vs_s1.5b": ("ob_s_3b", "ob_s_1.5b"), "s7b_vs_s3b": ("ob_s_7b", "ob_s_3b"),
             "s3b_board_vs_laptop": ("ob_s_3b", "light1_3b"), "s7b_board_vs_laptop": ("ob_s_7b", "light1_7b"),
@@ -799,6 +862,14 @@ if _vf and _vf["still_failed"]:
     _vf["first_power_before_w"] = float(np.mean([p_["VDD_IN"] for p_ in _pw if _sm["t_measure_start"] <= p_["t"] < _ts])) / 1000
     _vf["first_power_after_w"] = float(np.mean([p_["VDD_IN"] for p_ in _pw if _ts <= p_["t"] <= _sm["t_measure_end"]])) / 1000
     _vf["stopped_repeat_run_n"] = sum(1 for l in open(OBD / "log_full-qwen2.5vl-3b-rerun_stopped.txt", encoding="utf-8") if "pred=" in l)
+_vm = ob["arms"].get("vlm_mr", {}).get("fail")
+if _vm and _vm["still_failed"]:
+    _sm_ = set(_vm["still_failed"])
+    _vm["o3_without_failed"] = contrast("ob_s_3b", "ob_vlm_mr", [i for i in ids if i not in _sm_])[2]
+    ARMS["ob_vlm_mr_failed_correct"] = {i: (True if i in _sm_ else ARMS["ob_vlm_mr"][i]) for i in ids}
+    _b = battery("ob_s_3b", "ob_vlm_mr_failed_correct")
+    _b["firm"] = bool(_b["star"] and _b["signflip_p"] < 0.05 and _b["loso_cross_zero"] == 0)
+    _vm["o3_failed_as_correct"] = _b
 pp = OBD / "fullbank_perception.json"
 if pp.exists():
     fp = json.load(open(pp, encoding="utf-8"))
@@ -806,6 +877,13 @@ if pp.exists():
                         "power_w": fp["whole"]["vdd_in_mean_mw"] / 1000, "min_avail_gb": fp["whole"]["min_avail_kb"] * 1024 / 1e9}
 out["onboard"] = ob
 
+# the two primary differences without the 30 questions that the occlusion audit of Section IV-C marks (added 2026-11-16: intervals)
+_oc = REL / "results/exp2_predictions/preds_cf_occlusion_clean.csv"
+if _oc.exists():
+    _clean = set(pd.read_csv(_oc)["question_id"])
+    assert _clean <= set(ids), len(_clean - set(ids))
+    _keep = [i for i in ids if i in _clean]
+    out["occlusion_clean"] = {"n": len(_keep), "primary_3b": contrast("scoped_3b", "pixel_3b", _keep)[2], "primary_7b": contrast("scoped_7b", "pixel_7b", _keep)[2]}
 json.dump(out, open(HERE / "rev2_results.json", "w"), indent=1, default=float)
 
 # ------------------------------------------------------------------ print
