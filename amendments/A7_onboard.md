@@ -42,8 +42,9 @@ desktop running, llama.cpp 11fe021, all layers on the GPU, 4-bit weights). Scrip
 5. Qwen2.5-VL 3B on all 1328 questions with the image reduced to 672 x 560 (bicubic).
 6. Qwen2.5-VL 3B on all 1328 questions at the full resolution.
 
-The reduced resolution was chosen before the 50-question session as the resolution at which
-the image has about one quarter of the pixels; no other reduced resolution was run.
+The reduced resolution (0.38 megapixels, 0.30 of the pixels of the camera frame, same aspect
+ratio, both sides multiples of 28) was chosen before the 50-question session; no other
+reduced resolution was run.
 
 ## Comparisons fixed here
 
