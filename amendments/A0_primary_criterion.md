@@ -49,8 +49,22 @@ keeps v15.
 
 ## History
 
-1. A first criterion was fixed for v9 on the 1366-question bank, which the manuscript now
-   calls the development bank.
+1. A first criterion was fixed on the 1366-question bank, which the manuscript now calls
+   the development bank: the lower end of the 95% interval of the serialized system minus
+   the 7B VLM, from a bootstrap over the 21 recordings, had to lie above zero. On 2026-08-05
+   it was applied to an early version of the system (v8, the configuration that was locked
+   for the four-fold evaluation). That version did not meet it (-0.0007, interval
+   [-0.0346, +0.0339]). The perception stack and the serializer were then changed, and on
+   2026-08-06 the same criterion, with its text unchanged, was applied to the next version
+   (v9, which the manuscript calls Flat). That version met it (+0.0556, interval
+   [+0.0265, +0.0795]). The sources are the headers of the authors' scripts
+   `kfold_prep.py`, `kfold_analysis.py`, and `kfold_analysis_v9.py` (not released; their
+   file times are 2026-08-05 09:12, 09:13, and 23:21) and the per-question files
+   `results/phase10/results_system8_kf_7b/` and `results_system9_kf_7b/` of this release
+   (file times 2026-08-05 21:12 and 2026-08-06 07:12). `exp_rev1/analysis/rev2_analysis.py`
+   recomputes both intervals (key `first_criterion`). The version of this file of
+   2026-11-14 said only that the first criterion "was fixed for v9" and did not name the
+   earlier version; this paragraph was completed on 2026-11-15.
 2. Seven serializer versions (v9 to v15) were then compared on that bank, and v15 was
    chosen there. That bank could therefore no longer serve as a test of v15.
 3. The criterion above was written for v15 in the script that then generated a new bank of
