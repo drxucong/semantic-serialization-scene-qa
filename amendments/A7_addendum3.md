@@ -65,3 +65,10 @@ Unchanged: O2 was written down beforehand, without a criterion. The paper states
 answers of 338 questions come from a second run, that its rule was fixed after the other 990
 answers had been scored, and that the rule is the one the paper already uses for this model
 on the laptop.
+
+### Note added on 2026-11-16, after the run
+
+The stopped repeat run had answered 120 questions when it was stopped, not 110: its log
+(`log_full-qwen2.5vl-3b-rerun_stopped.txt`) has 120 result lines, 100 with an option letter and
+20 with the string. The number 110 above was read from the log while the run was still going.
+The rule is unchanged.

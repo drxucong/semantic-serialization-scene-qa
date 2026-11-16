@@ -781,6 +781,24 @@ for name, ok in OB_FIRST.items():
         if "ob_" + name in (a_, b_) and a_ in ARMS and b_ in ARMS:
             ob["first_process"][k] = contrast(a_, b_, ok)[2]
             ob["first_process"][k]["acc_a"] = float(np.mean([ARMS[a_][i] for i in ok])); ob["first_process"][k]["acc_b"] = float(np.mean([ARMS[b_][i] for i in ok]))
+# O2 and the questions that failed again under the reload rule: without them, and with all of them counted as correct for the VLM
+_vf = ob["arms"].get("vlm_full", {}).get("fail")
+if _vf and _vf["still_failed"]:
+    _sf = set(_vf["still_failed"])
+    _vf["o2_without_failed"] = contrast("ob_s_3b", "ob_vlm_full", [i for i in ids if i not in _sf])[2]
+    ARMS["ob_vlm_full_failed_correct"] = {i: (True if i in _sf else ARMS["ob_vlm_full"][i]) for i in ids}
+    _b = battery("ob_s_3b", "ob_vlm_full_failed_correct")
+    _b["firm"] = bool(_b["star"] and _b["signflip_p"] < 0.05 and _b["loso_cross_zero"] == 0)
+    _vf["o2_failed_as_correct"] = _b
+    # mean board power before and after the first failed output of the first run (split of the measured window by the time of the answers)
+    _d = OBD / OB_ARMS["vlm_full"]
+    _it = jl(_d / "items.jsonl"); _sm = json.load(open(_d / "summary.json", encoding="utf-8"))
+    _lat = np.array([r["latency_s"] for r in _it]); _nf = _vf["n_first"]
+    _ts = _sm["t_measure_start"] + (_sm["t_measure_end"] - _sm["t_measure_start"]) * _lat[:_nf].sum() / _lat.sum()
+    _pw = [json.loads(l) for l in open(_d / "power.jsonl", encoding="utf-8")]
+    _vf["first_power_before_w"] = float(np.mean([p_["VDD_IN"] for p_ in _pw if _sm["t_measure_start"] <= p_["t"] < _ts])) / 1000
+    _vf["first_power_after_w"] = float(np.mean([p_["VDD_IN"] for p_ in _pw if _ts <= p_["t"] <= _sm["t_measure_end"]])) / 1000
+    _vf["stopped_repeat_run_n"] = sum(1 for l in open(OBD / "log_full-qwen2.5vl-3b-rerun_stopped.txt", encoding="utf-8") if "pred=" in l)
 pp = OBD / "fullbank_perception.json"
 if pp.exists():
     fp = json.load(open(pp, encoding="utf-8"))

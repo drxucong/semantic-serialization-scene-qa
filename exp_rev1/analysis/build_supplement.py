@@ -795,27 +795,33 @@ if "fail" in _vf:
     assert ("full-qwen2.5vl-3b-guard" in _FAILS) == bool(_still), (_FAILS, _still)
     _names = ", ".join(r"\texttt{" + q.replace("_", r"\_") + "}" for q in _still)
     _stilltxt = ("No question failed again." if not _still else
-                 (f"One question failed again and counts as wrong: {_names}." if len(_still) == 1 else f"{len(_still)} questions failed again and count as wrong: {_names}."))
+                 (f"One question failed again and counts as wrong: {_names}." if len(_still) == 1 else
+                  f"{ {2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five'}.get(len(_still), str(len(_still)))} questions failed again and count as wrong: {_names}. Each of them returned the string again on a newly started server."))
     _VLFAIL = (r"\emph{A failed run and its repeat.} The run of the VLM with the full image on all 1328 questions used one server process. "
                r"Its first 990 outputs are option letters. From question 991 to the end, all 338 outputs are the string \texttt{????????}. "
-               r"The server log shows no error or warning there, and the time per question and the power draw do not change. "
+               r"The server log shows no error or warning there, and the time per question and the power draw change little ("
+               + f"{_f['first_time_mean_s']:.2f}" + r"\,s and " + f"{_f['first_power_before_w']:.1f}" + r"\,W before, " + f"{_f['failed_time_mean_s']:.2f}" + r"\,s and " + f"{_f['first_power_after_w']:.1f}"
+               + r"\,W after; the string has eight tokens, an answer one or two). "
                r"A first rule for a repeat run was written down on the supposition that the running time of 2\,h~47\,min had caused the failure "
                r"(\texttt{amendments/A7\_addendum2.md}, committed at 01:49 on 16 November 2026): a newly started server was to answer the 338 questions again, together with the 100 questions before them. "
                + f"When this rule was written, the 990 answers had been scored: the VLM had answered {_f['first_acc']:.4f} of them correctly and the serialized system with the 3B reader {_fp['acc_a']:.4f}. "
-               r"That repeat run answered the 100 questions with option letters and returned the string again from question 991 on; it was stopped after 110 questions. "
+               r"That repeat run answered the 100 questions with option letters and returned the string again from question 991 on; it was stopped after " + f"{_f['stopped_repeat_run_n']}" + r" questions (the addendum that was written next gives 110; the log has " + f"{_f['stopped_repeat_run_n']}" + r" lines). "
                r"A diagnostic run then showed the cause (script \texttt{b10\_diag\_fault.py}). A newly started server answers a text-only request normally. Asked question 991 "
                r"(\texttt{coda\_3\_12072\_counting}) as its first image request, it returns the string, and from then on it returns the string for every request, "
-               r"also for questions that it answered correctly before and for a text-only request, until it is started again. "
+               r"also for questions that were answered correctly before and for a text-only request, until it is started again. "
                r"One question, with the frame at full resolution, thus puts this server into a failed state, and the 337 questions after it failed in the first run for that reason. "
                r"The same question was answered with the reduced image in this session, and by the same model with the full image on the laptop. "
                r"This is the kind of fault that Section~VI of the paper reports for this model on the laptop, and the rule of that section was therefore applied on the board "
                r"(\texttt{amendments/A7\_addendum3.md}, committed at 03:09, before the run; script \texttt{b10\_board\_bench\_guard.py}): after an output of at least four characters with at most two distinct ones, "
                r"the server is stopped and started again and the question is asked once more; a question that fails again is recorded as failed and counts as wrong. "
                + f"Under this rule the 438 questions were answered again; the server was restarted {_f['restarts']} times. {_stilltxt} "
-               + f"Of the 100 questions that both runs answered, {_f['overlap_same_answer']} have the same answer. "
+               + (f"Of the 100 questions that both runs answered, all 100 have the same answer. " if _f['overlap_same_answer'] == 100 else f"Of the 100 questions that both runs answered, {_f['overlap_same_answer']} have the same answer. ")
                + f"On the 338 repeated questions the VLM answers {_f['repeat_acc_failed']:.4f} correctly. "
-               + "O2 uses the 990 answers of the first process and the 338 answers of the run with the rule. On the 990 questions of the first process alone, the serialized system with the 3B reader minus the VLM is "
+               + "O2 uses the 990 answers of the first process and the 338 answers of the run with the rule. On the 990 questions of the first process alone, which come from " + str(len(_f["first_recordings"])) + " recordings, the serialized system with the 3B reader minus the VLM is "
                + sgn(_fp["delta"], _fp["star"]) + " " + ci(_fp) + "; on all 1328 questions it is " + sgn(_o2["delta"], _o2["star"]) + " " + ci(_o2) + r" (Table~\ref{tab:s8c}). "
+               + ("O2 does not depend on the questions that failed again: without them it is " + sgn(_f["o2_without_failed"]["delta"], _f["o2_without_failed"]["star"]) + " " + ci(_f["o2_without_failed"])
+                  + ", and with all of them counted as correct answers of the VLM it is " + sgn(_f["o2_failed_as_correct"]["delta"], _f["o2_failed_as_correct"]["star"]) + " " + ci(_f["o2_failed_as_correct"])
+                  + (", which is still firm. " if _f["o2_failed_as_correct"]["firm"] else ". ") if "o2_without_failed" in _f else "")
                + f"Counted as wrong answers, the 338 strings of the first run would give the VLM an accuracy of {_f['acc_failed_counted_wrong']:.4f}; this value is not used. "
                r"The time and the energy per question of this arm are means over the answers that enter the comparison; in the run with the rule the power is averaged over the time windows of the requests, "
                r"and the restarts are not part of the time per question. No other run on this board contains the string. "
@@ -840,7 +846,7 @@ TEX = TEX.replace("<<O1COIN>>", (f"The difference O1 is {_n1} questions; the pri
 
 # ---------------------------------------------------------------- S8: the timing run at the minimum number of image tokens
 if "mr_s" in O:
-    TEX = TEX.replace("<<MINTOK>>", (f"A further run on the timing set, made on 16 November after session~3 (folder \\texttt{{orin\\_nano\\_e2e\\_mintok}}), therefore used an image of $980\\times840$ pixels ({O['mr_visual_tokens']} image tokens), a size close to this aspect ratio and just above that number: "
+    TEX = TEX.replace("<<MINTOK>>", (f"A further run on the timing set, made on 16 November, before the repeat runs of session~3 (folder \\texttt{{orin\\_nano\\_e2e\\_mintok}}), therefore used an image of $980\\times840$ pixels ({O['mr_visual_tokens']} image tokens), a size with nearly the aspect ratio of the frame and just above that number: "
                                      f"one question takes {O['mr_s']}\\,s and {O['mr_j']}\\,J, and five questions about one frame take {O['mr_s5']}\\,s. The accuracy of the VLM at this size was not measured on the whole bank."))
 else:
     TEX = TEX.replace("<<MINTOK>>", "No run at an intermediate size was made.")

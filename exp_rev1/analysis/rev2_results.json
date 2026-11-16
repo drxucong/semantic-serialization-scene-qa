@@ -9273,7 +9273,38 @@
       7,
       8,
       9
-     ]
+     ],
+     "o2_without_failed": {
+      "delta": 0.04682779456193353,
+      "lo": 0.013623978201634877,
+      "hi": 0.0716938626815543,
+      "n": 1324,
+      "clusters": 21,
+      "star": true
+     },
+     "o2_failed_as_correct": {
+      "delta": 0.04593373493975904,
+      "lo": 0.012389106671987355,
+      "hi": 0.07085045857594091,
+      "n": 1328,
+      "clusters": 21,
+      "star": true,
+      "signflip_p": 0.03907012939453125,
+      "loso_cross_zero": 0,
+      "loso_min_lo": 0.0022571459041660423,
+      "loso_max_hi": 0.07550653963242755,
+      "jackknife": [
+       0.018277987727865475,
+       0.0735894821516526
+      ],
+      "cluster_mean": -0.004778964217270584,
+      "pos": 10,
+      "neg": 8,
+      "firm": true
+     },
+     "first_power_before_w": 12.196957323910881,
+     "first_power_after_w": 12.33710791519221,
+     "stopped_repeat_run_n": 120
     },
     "agree_laptop": 1232,
     "laptop_acc": 0.6912650602409639
