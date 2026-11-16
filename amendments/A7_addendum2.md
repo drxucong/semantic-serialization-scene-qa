@@ -1,4 +1,4 @@
-# Amendment A7, addendum 2 (written 2026-11-16, 01:55 to 02:10 board time)
+# Amendment A7, addendum 2 (written 2026-11-16, about 01:50 board time)
 
 ## A failure in the full-image run of the VLM, and the rule for it
 
