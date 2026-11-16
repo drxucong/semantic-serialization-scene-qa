@@ -1,4 +1,4 @@
-# Amendment A7, addendum 4 (written 2026-11-16, about 10:20 board time)
+# Amendment A7, addendum 4 (written 2026-11-16, about 10:15; committed at 10:14:29 by the clock of the laptop)
 
 ## A further VLM run on the board: the image at 980 x 840 pixels, all 1328 questions
 
