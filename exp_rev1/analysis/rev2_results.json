@@ -61,6 +61,10 @@
   "sga_json_7b": 0.7899096385542169,
   "sga_triples_3b": 0.7673192771084337,
   "sga_triples_7b": 0.7906626506024096,
+  "sgc_triples_3b": 0.5338855421686747,
+  "sgc_triples_7b": 0.6129518072289156,
+  "sgc_json_3b": 0.5557228915662651,
+  "sgc_json_7b": 0.6054216867469879,
   "prior": 0.6521084337349398
  },
  "acc_family": {
@@ -490,6 +494,34 @@
    "nearest_class": 0.9135802469135802,
    "nearest_dist": 0.7519685039370079,
    "path_object": 0.9041666666666667
+  },
+  "sgc_triples_3b": {
+   "counting": 0.543046357615894,
+   "direction": 0.38408304498269896,
+   "nearest_class": 0.7860082304526749,
+   "nearest_dist": 0.3425196850393701,
+   "path_object": 0.65
+  },
+  "sgc_triples_7b": {
+   "counting": 0.5860927152317881,
+   "direction": 0.3044982698961938,
+   "nearest_class": 0.897119341563786,
+   "nearest_dist": 0.4881889763779528,
+   "path_object": 0.8625
+  },
+  "sgc_json_3b": {
+   "counting": 0.5496688741721855,
+   "direction": 0.3875432525951557,
+   "nearest_class": 0.8436213991769548,
+   "nearest_dist": 0.29133858267716534,
+   "path_object": 0.7541666666666667
+  },
+  "sgc_json_7b": {
+   "counting": 0.5761589403973509,
+   "direction": 0.3044982698961938,
+   "nearest_class": 0.9135802469135802,
+   "nearest_dist": 0.41732283464566927,
+   "path_object": 0.8916666666666667
   },
   "prior": {
    "counting": 0.5463576158940397,
@@ -938,6 +970,26 @@
    "scoped_7b": 0.29518072289156627,
    "pixel_3b": 0.39156626506024095,
    "pixel_7b": 0.3855421686746988
+  }
+ },
+ "first_criterion": {
+  "v8_vs_vlm_7b": {
+   "delta": -0.0007320644216691069,
+   "lo": -0.03462760569266341,
+   "hi": 0.03394407205782046,
+   "n": 1366,
+   "star": false,
+   "acc_a": 0.746705710102489,
+   "acc_b": 0.7474377745241582
+  },
+  "flat_vs_vlm_7b": {
+   "delta": 0.055636896046852125,
+   "lo": 0.026453054463375564,
+   "hi": 0.07946443353831598,
+   "n": 1366,
+   "star": true,
+   "acc_a": 0.8030746705710102,
+   "acc_b": 0.7474377745241582
   }
  },
  "battery": {
@@ -2973,6 +3025,158 @@
    "cluster_mean": 0.004634273812701349,
    "pos": 7,
    "neg": 9
+  },
+  "sgc_triples_vs_sg_3b": {
+   "delta": 0.015060240963855422,
+   "lo": -0.004535276085462562,
+   "hi": 0.0317003534435952,
+   "n": 1328,
+   "clusters": 21,
+   "star": false,
+   "signflip_p": 0.16180419921875,
+   "loso_cross_zero": 20,
+   "loso_min_lo": -0.009346158893084695,
+   "loso_max_hi": 0.03547889560473347,
+   "jackknife": [
+    -0.0020977924374271754,
+    0.03221827436513802
+   ],
+   "cluster_mean": 0.002409693129487196,
+   "pos": 11,
+   "neg": 6
+  },
+  "sgc_triples_vs_pixelrerun_3b": {
+   "delta": -0.16566265060240964,
+   "lo": -0.19587650078486274,
+   "hi": -0.12774366928793024,
+   "n": 1328,
+   "clusters": 21,
+   "star": true,
+   "signflip_p": 0.00016021728515625,
+   "loso_cross_zero": 0,
+   "loso_min_lo": -0.2034945897729256,
+   "loso_max_hi": -0.11881147838136136,
+   "jackknife": [
+    -0.19736077255252443,
+    -0.13396452865229486
+   ],
+   "cluster_mean": -0.17002605552301356,
+   "pos": 2,
+   "neg": 17
+  },
+  "sgc_json_vs_sg_3b": {
+   "delta": 0.002259036144578313,
+   "lo": -0.022975957303090783,
+   "hi": 0.020833333333333332,
+   "n": 1328,
+   "clusters": 21,
+   "star": false,
+   "signflip_p": 0.893829345703125,
+   "loso_cross_zero": 21,
+   "loso_min_lo": -0.029608716169421092,
+   "loso_max_hi": 0.0242048305228997,
+   "jackknife": [
+    -0.019950163871564952,
+    0.02446823616072158
+   ],
+   "cluster_mean": -0.005079352116526197,
+   "pos": 9,
+   "neg": 8
+  },
+  "sgc_json_vs_pixelrerun_3b": {
+   "delta": -0.1438253012048193,
+   "lo": -0.18037165182910234,
+   "hi": -0.11187700631666153,
+   "n": 1328,
+   "clusters": 21,
+   "star": true,
+   "signflip_p": 5.340576171875e-05,
+   "loso_cross_zero": 0,
+   "loso_min_lo": -0.18916349809885932,
+   "loso_max_hi": -0.1045058809099353,
+   "jackknife": [
+    -0.177408431884784,
+    -0.11024217052485458
+   ],
+   "cluster_mean": -0.1620109607896617,
+   "pos": 2,
+   "neg": 17
+  },
+  "sgc_triples_vs_sg_7b": {
+   "delta": -0.015060240963855422,
+   "lo": -0.026933701657458564,
+   "hi": -0.0018813792128752522,
+   "n": 1328,
+   "clusters": 21,
+   "star": true,
+   "signflip_p": 0.06884765625,
+   "loso_cross_zero": 6,
+   "loso_min_lo": -0.02936262143896372,
+   "loso_max_hi": 0.0014085501710829865,
+   "jackknife": [
+    -0.02794173590457519,
+    -0.002178746023135652
+   ],
+   "cluster_mean": -0.008330519353126675,
+   "pos": 3,
+   "neg": 9
+  },
+  "sgc_triples_vs_pixelrerun_7b": {
+   "delta": -0.13403614457831325,
+   "lo": -0.17241469959026798,
+   "hi": -0.10201078196737332,
+   "n": 1328,
+   "clusters": 21,
+   "star": true,
+   "signflip_p": 7.62939453125e-06,
+   "loso_cross_zero": 0,
+   "loso_min_lo": -0.1818203926423771,
+   "loso_max_hi": -0.09537277451550571,
+   "jackknife": [
+    -0.16794475600437284,
+    -0.10012753315225367
+   ],
+   "cluster_mean": -0.15382875816006697,
+   "pos": 1,
+   "neg": 19
+  },
+  "sgc_json_vs_sg_7b": {
+   "delta": -0.009789156626506024,
+   "lo": -0.028238033776008458,
+   "hi": 0.004392386530014641,
+   "n": 1328,
+   "clusters": 21,
+   "star": false,
+   "signflip_p": 0.24547576904296875,
+   "loso_cross_zero": 21,
+   "loso_min_lo": -0.03267362692685734,
+   "loso_max_hi": 0.007165618062615406,
+   "jackknife": [
+    -0.025691480944231012,
+    0.006113167691218963
+   ],
+   "cluster_mean": -0.008819846988803379,
+   "pos": 6,
+   "neg": 12
+  },
+  "sgc_json_vs_pixelrerun_7b": {
+   "delta": -0.14156626506024098,
+   "lo": -0.1836288055880225,
+   "hi": -0.10833333333333334,
+   "n": 1328,
+   "clusters": 21,
+   "star": true,
+   "signflip_p": 1.9073486328125e-06,
+   "loso_cross_zero": 0,
+   "loso_min_lo": -0.19330855018587362,
+   "loso_max_hi": -0.1013743976578116,
+   "jackknife": [
+    -0.17751290217585947,
+    -0.10561962794462247
+   ],
+   "cluster_mean": -0.16008019360386866,
+   "pos": 0,
+   "neg": 20
   }
  },
  "family_contrast": {
@@ -6417,6 +6621,78 @@
      "singapore-onenorth": 0.8132635253054101,
      "singapore-queenstown": 0.7402985074626866
     }
+   },
+   "d1_3b": {
+    "acc": 0.6622516556291391,
+    "parse": 1.0,
+    "longest_unparsed": 0,
+    "family": {
+     "counting": 0.47739602169981915,
+     "direction": 0.8333333333333334,
+     "nearest_class": 0.8296422487223168,
+     "nearest_dist": 0.32229965156794427,
+     "path_object": 0.900990099009901
+    },
+    "location": {
+     "boston-seaport": 0.6496774193548387,
+     "singapore-hollandvillage": 0.6307692307692307,
+     "singapore-onenorth": 0.7050610820244329,
+     "singapore-queenstown": 0.6716417910447762
+    }
+   },
+   "d1_7b": {
+    "acc": 0.7593818984547461,
+    "parse": 1.0,
+    "longest_unparsed": 0,
+    "family": {
+     "counting": 0.538878842676311,
+     "direction": 0.84,
+     "nearest_class": 0.8091993185689949,
+     "nearest_dist": 0.7282229965156795,
+     "path_object": 0.9133663366336634
+    },
+    "location": {
+     "boston-seaport": 0.7458064516129033,
+     "singapore-hollandvillage": 0.7538461538461538,
+     "singapore-onenorth": 0.8027923211169284,
+     "singapore-queenstown": 0.7522388059701492
+    }
+   },
+   "sg_triples_3b": {
+    "acc": 0.5198675496688742,
+    "parse": 0.9749816041206769,
+    "longest_unparsed": 3,
+    "family": {
+     "counting": 0.4394213381555154,
+     "direction": 0.2816666666666667,
+     "nearest_class": 0.7717206132879046,
+     "nearest_dist": 0.46689895470383275,
+     "path_object": 0.693069306930693
+    },
+    "location": {
+     "boston-seaport": 0.5012903225806452,
+     "singapore-hollandvillage": 0.5153846153846153,
+     "singapore-onenorth": 0.5584642233856894,
+     "singapore-queenstown": 0.5432835820895522
+    }
+   },
+   "sg_triples_7b": {
+    "acc": 0.5875643855776306,
+    "parse": 0.9981604120676968,
+    "longest_unparsed": 1,
+    "family": {
+     "counting": 0.5298372513562387,
+     "direction": 0.24333333333333335,
+     "nearest_class": 0.8330494037478705,
+     "nearest_dist": 0.578397212543554,
+     "path_object": 0.8341584158415841
+    },
+    "location": {
+     "boston-seaport": 0.5561290322580645,
+     "singapore-hollandvillage": 0.6192307692307693,
+     "singapore-onenorth": 0.6265270506108203,
+     "singapore-queenstown": 0.6417910447761194
+    }
    }
   },
   "contrast": {
@@ -7073,6 +7349,1222 @@
     "clusters": 829,
     "net_items": -47,
     "star": true
+   },
+   "d1_vs_vlm_3b": {
+    "delta": 0.04231052244297277,
+    "lo": 0.023000885426243792,
+    "hi": 0.061367837338262475,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": 115,
+    "star": true,
+    "signflip_p": 0.00014999250037498125,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": 0.021404109589041095,
+      "lo": -0.006065989408986579,
+      "hi": 0.049790008264822216,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": 25,
+      "star": false
+     },
+     "singapore-hollandvillage": {
+      "delta": 0.038649308380797394,
+      "lo": 0.018381977791116447,
+      "hi": 0.058823529411764705,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": 95,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": 0.05174825174825175,
+      "lo": 0.02962928685279449,
+      "hi": 0.07350205122411131,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": 111,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": 0.047838858581619806,
+      "lo": 0.02751146310962901,
+      "hi": 0.06825795644891122,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": 114,
+      "star": true
+     }
+    },
+    "firm": false,
+    "family": {
+     "counting": {
+      "delta": 0.014466546112115732,
+      "lo": -0.031194094036697248,
+      "hi": 0.06039076376554174,
+      "n": 553,
+      "clusters": 390,
+      "net_items": 8,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.16,
+      "lo": 0.12141389987006883,
+      "hi": 0.19833333333333333,
+      "n": 600,
+      "clusters": 504,
+      "net_items": 96,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.018739352640545145,
+      "lo": -0.05102040816326531,
+      "hi": 0.013793103448275862,
+      "n": 587,
+      "clusters": 463,
+      "net_items": -11,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.005226480836236934,
+      "lo": -0.04991394148020654,
+      "hi": 0.06013844539731768,
+      "n": 574,
+      "clusters": 521,
+      "net_items": 3,
+      "star": false
+     },
+     "path_object": {
+      "delta": 0.04702970297029703,
+      "lo": 0.010050251256281407,
+      "hi": 0.08375634517766498,
+      "n": 404,
+      "clusters": 316,
+      "net_items": 19,
+      "star": true
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": 0.05806451612903226,
+      "lo": 0.031859247264625246,
+      "hi": 0.08430706977784952,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": 90,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": 0.07692307692307693,
+      "lo": 0.015503875968992248,
+      "hi": 0.1394422310756972,
+      "n": 260,
+      "clusters": 80,
+      "net_items": 20,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": 0.006980802792321117,
+      "lo": -0.031088082901554404,
+      "hi": 0.04607508532423208,
+      "n": 573,
+      "clusters": 180,
+      "net_items": 4,
+      "star": false
+     },
+     "singapore-queenstown": {
+      "delta": 0.0029850746268656717,
+      "lo": -0.05143073593073593,
+      "hi": 0.05740181268882175,
+      "n": 335,
+      "clusters": 108,
+      "net_items": 1,
+      "star": false
+     }
+    },
+    "night": {
+     "delta": 0.043478260869565216,
+     "lo": -0.019867549668874173,
+     "hi": 0.10616438356164383,
+     "n": 299,
+     "clusters": 93,
+     "net_items": 13,
+     "star": false
+    },
+    "rain": {
+     "delta": 0.08839779005524862,
+     "lo": 0.043476295306234765,
+     "hi": 0.13271028037383178,
+     "n": 543,
+     "clusters": 161,
+     "net_items": 48,
+     "star": true
+    }
+   },
+   "d1_vs_vlm_7b": {
+    "delta": 0.08535688005886681,
+    "lo": 0.06622229494006296,
+    "hi": 0.10499080535582933,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": 232,
+    "star": true,
+    "signflip_p": 4.999750012499375e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": 0.08304794520547945,
+      "lo": 0.05367965367965368,
+      "hi": 0.11242603550295859,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": 97,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": 0.07811228641171684,
+      "lo": 0.057589095625629146,
+      "hi": 0.09819967266775777,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": 192,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": 0.08951048951048951,
+      "lo": 0.06707033069399161,
+      "hi": 0.11131811830461108,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": 192,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": 0.09022240872849349,
+      "lo": 0.0695320666195785,
+      "hi": 0.11082704684107789,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": 215,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.07233273056057866,
+      "lo": 0.024955351186016196,
+      "hi": 0.12093901254005249,
+      "n": 553,
+      "clusters": 390,
+      "net_items": 40,
+      "star": true
+     },
+     "direction": {
+      "delta": 0.095,
+      "lo": 0.0587196840559653,
+      "hi": 0.13087248322147652,
+      "n": 600,
+      "clusters": 504,
+      "net_items": 57,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.044293015332197615,
+      "lo": -0.07768636922046013,
+      "hi": -0.011588925072519334,
+      "n": 587,
+      "clusters": 463,
+      "net_items": -26,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": 0.2804878048780488,
+      "lo": 0.22791519434628976,
+      "hi": 0.33217391304347826,
+      "n": 574,
+      "clusters": 521,
+      "net_items": 161,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.0,
+      "lo": -0.03,
+      "hi": 0.0297029702970297,
+      "n": 404,
+      "clusters": 316,
+      "net_items": 0,
+      "star": false
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": 0.08709677419354839,
+      "lo": 0.06125080593165699,
+      "hi": 0.11308824634239549,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": 135,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": 0.15384615384615385,
+      "lo": 0.09019607843137255,
+      "hi": 0.21687213972167702,
+      "n": 260,
+      "clusters": 80,
+      "net_items": 40,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": 0.06980802792321117,
+      "lo": 0.029513888888888888,
+      "hi": 0.11033274956217162,
+      "n": 573,
+      "clusters": 180,
+      "net_items": 40,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": 0.050746268656716415,
+      "lo": -0.005988023952095809,
+      "hi": 0.10714285714285714,
+      "n": 335,
+      "clusters": 108,
+      "net_items": 17,
+      "star": false
+     }
+    },
+    "night": {
+     "delta": 0.09698996655518395,
+     "lo": 0.031912074280129314,
+     "hi": 0.15960912052117263,
+     "n": 299,
+     "clusters": 93,
+     "net_items": 29,
+     "star": true
+    },
+    "rain": {
+     "delta": 0.11233885819521179,
+     "lo": 0.0686456400742115,
+     "hi": 0.15613382899628253,
+     "n": 543,
+     "clusters": 161,
+     "net_items": 61,
+     "star": true
+    }
+   },
+   "d1_vs_s_3b": {
+    "delta": -0.10559234731420161,
+    "lo": -0.11871988796129404,
+    "hi": -0.0924554646550503,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": -287,
+    "star": true,
+    "signflip_p": 4.999750012499375e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": -0.12414383561643835,
+      "lo": -0.14310344827586208,
+      "hi": -0.10503472222222222,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": -145,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.10170870626525631,
+      "lo": -0.11571296756792708,
+      "hi": -0.08812873569446053,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": -250,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.0993006993006993,
+      "lo": -0.11405990046515758,
+      "hi": -0.08468301712170291,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": -213,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.10616869492236676,
+      "lo": -0.12021863726896666,
+      "hi": -0.09232715008431704,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": -253,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": -0.003616636528028933,
+      "lo": -0.028419182948490232,
+      "hi": 0.021314387211367674,
+      "n": 553,
+      "clusters": 390,
+      "net_items": -2,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.005,
+      "lo": -0.018121911037891267,
+      "hi": 0.007988181990676791,
+      "n": 600,
+      "clusters": 504,
+      "net_items": -3,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.008517887563884156,
+      "lo": -0.005119453924914676,
+      "hi": 0.02226027397260274,
+      "n": 587,
+      "clusters": 463,
+      "net_items": 5,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": -0.5052264808362369,
+      "lo": -0.551304347826087,
+      "hi": -0.45855188480621023,
+      "n": 574,
+      "clusters": 521,
+      "net_items": -290,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.007425742574257425,
+      "lo": -0.004975124378109453,
+      "hi": 0.020356234096692113,
+      "n": 404,
+      "clusters": 316,
+      "net_items": 3,
+      "star": false
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": -0.09161290322580645,
+      "lo": -0.1093951093951094,
+      "hi": -0.07385998715478484,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": -142,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.1423076923076923,
+      "lo": -0.183206106870229,
+      "hi": -0.10037174721189591,
+      "n": 260,
+      "clusters": 80,
+      "net_items": -37,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.12914485165794065,
+      "lo": -0.1556350626118068,
+      "hi": -0.10296684118673648,
+      "n": 573,
+      "clusters": 180,
+      "net_items": -74,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.10149253731343283,
+      "lo": -0.1373134328358209,
+      "hi": -0.0672782874617737,
+      "n": 335,
+      "clusters": 108,
+      "net_items": -34,
+      "star": true
+     }
+    },
+    "night": {
+     "delta": -0.12040133779264214,
+     "lo": -0.15916955017301038,
+     "hi": -0.08196581435685123,
+     "n": 299,
+     "clusters": 93,
+     "net_items": -36,
+     "star": true
+    },
+    "rain": {
+     "delta": -0.09208103130755065,
+     "lo": -0.12316176470588236,
+     "hi": -0.062027592889327354,
+     "n": 543,
+     "clusters": 161,
+     "net_items": -50,
+     "star": true
+    }
+   },
+   "d1_vs_s_7b": {
+    "delta": -0.022442972774098603,
+    "lo": -0.03269684706615566,
+    "hi": -0.012096552640907499,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": -61,
+    "star": true,
+    "signflip_p": 9.99950002499875e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": -0.02910958904109589,
+      "lo": -0.0434412265758092,
+      "hi": -0.014705882352941176,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": -34,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.021562245728234338,
+      "lo": -0.03271419946414,
+      "hi": -0.01058621150233529,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": -53,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.02097902097902098,
+      "lo": -0.03275620028076743,
+      "hi": -0.00929368029739777,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": -45,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.02140159462861939,
+      "lo": -0.03253062948880439,
+      "hi": -0.010552975939214858,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": -51,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.014466546112115732,
+      "lo": -0.012567324955116697,
+      "hi": 0.04144144144144144,
+      "n": 553,
+      "clusters": 390,
+      "net_items": 8,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.006666666666666667,
+      "lo": -0.013490725126475547,
+      "hi": -0.0016339869281045752,
+      "n": 600,
+      "clusters": 504,
+      "net_items": -4,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.0068143100511073255,
+      "lo": -0.020869565217391306,
+      "hi": 0.006968641114982578,
+      "n": 587,
+      "clusters": 463,
+      "net_items": -4,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": -0.11498257839721254,
+      "lo": -0.15061295971978983,
+      "hi": -0.08027923211169284,
+      "n": 574,
+      "clusters": 521,
+      "net_items": -66,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.012376237623762377,
+      "lo": -5.854800936762825e-05,
+      "hi": 0.0275,
+      "n": 404,
+      "clusters": 316,
+      "net_items": 5,
+      "star": false
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": -0.017419354838709676,
+      "lo": -0.03221649484536082,
+      "hi": -0.0031927970815698345,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": -27,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.03076923076923077,
+      "lo": -0.057034220532319393,
+      "hi": -0.00749063670411985,
+      "n": 260,
+      "clusters": 80,
+      "net_items": -8,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.027923211169284468,
+      "lo": -0.04794520547945205,
+      "hi": -0.008740877359987341,
+      "n": 573,
+      "clusters": 180,
+      "net_items": -16,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.029850746268656716,
+      "lo": -0.060240963855421686,
+      "hi": 0.0,
+      "n": 335,
+      "clusters": 108,
+      "net_items": -10,
+      "star": false
+     }
+    },
+    "night": {
+     "delta": -0.04013377926421405,
+     "lo": -0.06557377049180328,
+     "hi": -0.016556291390728478,
+     "n": 299,
+     "clusters": 93,
+     "net_items": -12,
+     "star": true
+    },
+    "rain": {
+     "delta": -0.029465930018416207,
+     "lo": -0.054104477611940295,
+     "hi": -0.005575949541695714,
+     "n": 543,
+     "clusters": 161,
+     "net_items": -16,
+     "star": true
+    }
+   },
+   "sg_vs_vlm_3b": {
+    "delta": -0.10007358351729213,
+    "lo": -0.12108968981280704,
+    "hi": -0.07867616364727711,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": -272,
+    "star": true,
+    "signflip_p": 4.999750012499375e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": -0.11301369863013698,
+      "lo": -0.14409994188125894,
+      "hi": -0.08191126279863481,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": -132,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.10659072416598861,
+      "lo": -0.12922979477834337,
+      "hi": -0.08364228117077412,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": -262,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.08951048951048951,
+      "lo": -0.11392449035828824,
+      "hi": -0.06498813817890345,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": -192,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.09651699538396978,
+      "lo": -0.11967973029919933,
+      "hi": -0.07334401952815787,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": -230,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": -0.023508137432188065,
+      "lo": -0.06739723372473387,
+      "hi": 0.020794935412728335,
+      "n": 553,
+      "clusters": 390,
+      "net_items": -13,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.39166666666666666,
+      "lo": -0.43529411764705883,
+      "hi": -0.3484848484848485,
+      "n": 600,
+      "clusters": 504,
+      "net_items": -235,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.07666098807495741,
+      "lo": -0.1134020618556701,
+      "hi": -0.03951890034364261,
+      "n": 587,
+      "clusters": 463,
+      "net_items": -45,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": 0.14982578397212543,
+      "lo": 0.09233449477351917,
+      "hi": 0.20665646098531482,
+      "n": 574,
+      "clusters": 521,
+      "net_items": 86,
+      "star": true
+     },
+     "path_object": {
+      "delta": -0.1608910891089109,
+      "lo": -0.2109009149389061,
+      "hi": -0.11082474226804123,
+      "n": 404,
+      "clusters": 316,
+      "net_items": -65,
+      "star": true
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": -0.09032258064516129,
+      "lo": -0.11992326101594042,
+      "hi": -0.06101477199743096,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": -140,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.038461538461538464,
+      "lo": -0.10116731517509728,
+      "hi": 0.022900763358778626,
+      "n": 260,
+      "clusters": 80,
+      "net_items": -10,
+      "star": false
+     },
+     "singapore-onenorth": {
+      "delta": -0.13961605584642234,
+      "lo": -0.1836007130124777,
+      "hi": -0.09557491920625814,
+      "n": 573,
+      "clusters": 180,
+      "net_items": -80,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.1253731343283582,
+      "lo": -0.1873198847262248,
+      "hi": -0.06402261769710736,
+      "n": 335,
+      "clusters": 108,
+      "net_items": -42,
+      "star": true
+     }
+    },
+    "night": {
+     "delta": -0.06020066889632107,
+     "lo": -0.11643835616438356,
+     "hi": -0.0033112582781456954,
+     "n": 299,
+     "clusters": 93,
+     "net_items": -18,
+     "star": true
+    },
+    "rain": {
+     "delta": -0.040515653775322284,
+     "lo": -0.09074074074074075,
+     "hi": 0.007421495127283732,
+     "n": 543,
+     "clusters": 161,
+     "net_items": -22,
+     "star": false
+    }
+   },
+   "sg_vs_vlm_7b": {
+    "delta": -0.08646063281824871,
+    "lo": -0.10901717280608267,
+    "hi": -0.06328645447816432,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": -235,
+    "star": true,
+    "signflip_p": 4.999750012499375e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": -0.06506849315068493,
+      "lo": -0.09906858594411516,
+      "hi": -0.03019725460781051,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": -76,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.09764035801464606,
+      "lo": -0.12185291245924375,
+      "hi": -0.07340899347003262,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": -240,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.08111888111888112,
+      "lo": -0.10689214504367148,
+      "hi": -0.05547658960969218,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": -174,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.09022240872849349,
+      "lo": -0.11491887166708269,
+      "hi": -0.06558061821219716,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": -215,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.06329113924050633,
+      "lo": 0.015985081818525378,
+      "hi": 0.11169284467713787,
+      "n": 553,
+      "clusters": 390,
+      "net_items": 35,
+      "star": true
+     },
+     "direction": {
+      "delta": -0.5016666666666667,
+      "lo": -0.5483884209968748,
+      "hi": -0.45578174508534636,
+      "n": 600,
+      "clusters": 504,
+      "net_items": -301,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.020442930153321975,
+      "lo": -0.05342301824880548,
+      "hi": 0.012006861063464836,
+      "n": 587,
+      "clusters": 463,
+      "net_items": -12,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.13066202090592335,
+      "lo": 0.06678383128295255,
+      "hi": 0.19310344827586207,
+      "n": 574,
+      "clusters": 521,
+      "net_items": 75,
+      "star": true
+     },
+     "path_object": {
+      "delta": -0.07920792079207921,
+      "lo": -0.11428571428571428,
+      "hi": -0.04477611940298507,
+      "n": 404,
+      "clusters": 316,
+      "net_items": -32,
+      "star": true
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": -0.10258064516129033,
+      "lo": -0.1330784019243712,
+      "hi": -0.07156670024286094,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": -159,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": 0.019230769230769232,
+      "lo": -0.05078125,
+      "hi": 0.08914728682170543,
+      "n": 260,
+      "clusters": 80,
+      "net_items": 5,
+      "star": false
+     },
+     "singapore-onenorth": {
+      "delta": -0.10645724258289703,
+      "lo": -0.15770609318996415,
+      "hi": -0.055846422338568937,
+      "n": 573,
+      "clusters": 180,
+      "net_items": -61,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.05970149253731343,
+      "lo": -0.11838298849332829,
+      "hi": 0.0,
+      "n": 335,
+      "clusters": 108,
+      "net_items": -20,
+      "star": false
+     }
+    },
+    "night": {
+     "delta": 0.0,
+     "lo": -0.06711974329423993,
+     "hi": 0.06622516556291391,
+     "n": 299,
+     "clusters": 93,
+     "net_items": 0,
+     "star": false
+    },
+    "rain": {
+     "delta": -0.08103130755064457,
+     "lo": -0.134191784582453,
+     "hi": -0.027777777777777776,
+     "n": 543,
+     "clusters": 161,
+     "net_items": -44,
+     "star": true
+    }
+   },
+   "sg_vs_s_3b": {
+    "delta": -0.24797645327446652,
+    "lo": -0.26755880387039277,
+    "hi": -0.22855055914891412,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": -674,
+    "star": true,
+    "signflip_p": 4.999750012499375e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": -0.2585616438356164,
+      "lo": -0.2874049027895182,
+      "hi": -0.2301038062283737,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": -302,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.24694873881204232,
+      "lo": -0.2678282009724473,
+      "hi": -0.22597714548878925,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": -607,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.24055944055944056,
+      "lo": -0.2630359677949392,
+      "hi": -0.21785362500312822,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": -516,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.25052454888795633,
+      "lo": -0.2716568544995795,
+      "hi": -0.22957671150492578,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": -597,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": -0.04159132007233273,
+      "lo": -0.08007448789571694,
+      "hi": -0.0036900369003690036,
+      "n": 553,
+      "clusters": 390,
+      "net_items": -23,
+      "star": true
+     },
+     "direction": {
+      "delta": -0.5566666666666666,
+      "lo": -0.5986622073578596,
+      "hi": -0.5150489130434783,
+      "n": 600,
+      "clusters": 504,
+      "net_items": -334,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.049403747870528106,
+      "lo": -0.077834179357022,
+      "hi": -0.020654044750430294,
+      "n": 587,
+      "clusters": 463,
+      "net_items": -29,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": -0.3606271777003484,
+      "lo": -0.4105263157894737,
+      "hi": -0.3105263157894737,
+      "n": 574,
+      "clusters": 521,
+      "net_items": -207,
+      "star": true
+     },
+     "path_object": {
+      "delta": -0.2004950495049505,
+      "lo": -0.24757281553398058,
+      "hi": -0.15421686746987953,
+      "n": 404,
+      "clusters": 316,
+      "net_items": -81,
+      "star": true
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": -0.24,
+      "lo": -0.2667958972375188,
+      "hi": -0.21286173633440514,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": -372,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.25769230769230766,
+      "lo": -0.31679389312977096,
+      "hi": -0.19771863117870722,
+      "n": 260,
+      "clusters": 80,
+      "net_items": -67,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.2757417102966841,
+      "lo": -0.3177103572970639,
+      "hi": -0.23407917383820998,
+      "n": 573,
+      "clusters": 180,
+      "net_items": -158,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.2298507462686567,
+      "lo": -0.2857142857142857,
+      "hi": -0.17441593770002156,
+      "n": 335,
+      "clusters": 108,
+      "net_items": -77,
+      "star": true
+     }
+    },
+    "night": {
+     "delta": -0.22408026755852842,
+     "lo": -0.28027681660899656,
+     "hi": -0.16883116883116883,
+     "n": 299,
+     "clusters": 93,
+     "net_items": -67,
+     "star": true
+    },
+    "rain": {
+     "delta": -0.22099447513812154,
+     "lo": -0.26286764705882354,
+     "hi": -0.18047882136279927,
+     "n": 543,
+     "clusters": 161,
+     "net_items": -120,
+     "star": true
+    }
+   },
+   "sg_vs_s_7b": {
+    "delta": -0.19426048565121412,
+    "lo": -0.21326541222539377,
+    "hi": -0.17501842299189388,
+    "n": 2718,
+    "clusters": 829,
+    "net_items": -528,
+    "star": true,
+    "signflip_p": 4.999750012499375e-05,
+    "leave_location_out": {
+     "boston-seaport": {
+      "delta": -0.17722602739726026,
+      "lo": -0.20510565253221458,
+      "hi": -0.14939550949913644,
+      "n": 1168,
+      "clusters": 368,
+      "net_items": -207,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.19731489015459724,
+      "lo": -0.21805739076706318,
+      "hi": -0.17670845127375656,
+      "n": 2458,
+      "clusters": 749,
+      "net_items": -485,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.1916083916083916,
+      "lo": -0.21332122341251358,
+      "hi": -0.1698195935401332,
+      "n": 2145,
+      "clusters": 649,
+      "net_items": -411,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.20184641208560639,
+      "lo": -0.22231614539306846,
+      "hi": -0.1811412838601971,
+      "n": 2383,
+      "clusters": 721,
+      "net_items": -481,
+      "star": true
+     }
+    },
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.0054249547920434,
+      "lo": -0.028419182948490232,
+      "hi": 0.03900709219858156,
+      "n": 553,
+      "clusters": 390,
+      "net_items": 3,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.6033333333333334,
+      "lo": -0.6495016611295681,
+      "hi": -0.5568557051787121,
+      "n": 600,
+      "clusters": 504,
+      "net_items": -362,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": 0.017035775127768313,
+      "lo": -0.006944444444444444,
+      "hi": 0.04173913043478261,
+      "n": 587,
+      "clusters": 463,
+      "net_items": 10,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": -0.26480836236933797,
+      "lo": -0.31103177428120143,
+      "hi": -0.21847246891651864,
+      "n": 574,
+      "clusters": 521,
+      "net_items": -152,
+      "star": true
+     },
+     "path_object": {
+      "delta": -0.06683168316831684,
+      "lo": -0.09903381642512077,
+      "hi": -0.03535353535353535,
+      "n": 404,
+      "clusters": 316,
+      "net_items": -27,
+      "star": true
+     }
+    },
+    "location": {
+     "boston-seaport": {
+      "delta": -0.20709677419354838,
+      "lo": -0.23361499418129533,
+      "hi": -0.18016749547169195,
+      "n": 1550,
+      "clusters": 461,
+      "net_items": -321,
+      "star": true
+     },
+     "singapore-hollandvillage": {
+      "delta": -0.16538461538461538,
+      "lo": -0.21673003802281368,
+      "hi": -0.11507936507936507,
+      "n": 260,
+      "clusters": 80,
+      "net_items": -43,
+      "star": true
+     },
+     "singapore-onenorth": {
+      "delta": -0.20418848167539266,
+      "lo": -0.24486301369863014,
+      "hi": -0.1634446397188049,
+      "n": 573,
+      "clusters": 180,
+      "net_items": -117,
+      "star": true
+     },
+     "singapore-queenstown": {
+      "delta": -0.14029850746268657,
+      "lo": -0.19186046511627908,
+      "hi": -0.08823529411764706,
+      "n": 335,
+      "clusters": 108,
+      "net_items": -47,
+      "star": true
+     }
+    },
+    "night": {
+     "delta": -0.13712374581939799,
+     "lo": -0.19063545150501673,
+     "hi": -0.08333333333333333,
+     "n": 299,
+     "clusters": 93,
+     "net_items": -41,
+     "star": true
+    },
+    "rain": {
+     "delta": -0.22283609576427257,
+     "lo": -0.26481481481481484,
+     "hi": -0.18018018018018017,
+     "n": 543,
+     "clusters": 161,
+     "net_items": -121,
+     "star": true
+    }
    }
   },
   "cut_at_limit": {
@@ -7250,6 +8742,1828 @@
      }
     }
    }
+  }
+ },
+ "key_audit": {
+  "confirm": {
+   "n": 254,
+   "key_is_center_band": 254,
+   "band_changes": 5,
+   "median_gap_m": 0.5805,
+   "n_kept": 1323,
+   "primary_3b": {
+    "delta": 0.07407407407407407,
+    "lo": 0.0378697809903981,
+    "hi": 0.09709633868079204,
+    "n": 1323,
+    "clusters": 21,
+    "star": true
+   },
+   "nd_3b": {
+    "delta": 0.2289156626506024,
+    "lo": 0.0762321161648516,
+    "hi": 0.36392431002282627,
+    "n": 249,
+    "clusters": 19,
+    "star": true
+   },
+   "primary_7b": {
+    "delta": 0.04157218442932729,
+    "lo": 0.006421852813725418,
+    "hi": 0.06789702318664974,
+    "n": 1323,
+    "clusters": 21,
+    "star": true
+   },
+   "nd_7b": {
+    "delta": 0.18473895582329317,
+    "lo": 0.10550333611342787,
+    "hi": 0.2730777310924369,
+    "n": 249,
+    "clusters": 19,
+    "star": true
+   },
+   "without_nd_3b": {
+    "delta": 0.038175046554934824,
+    "lo": 0.008367618903521279,
+    "hi": 0.06416793853179295,
+    "n": 1074,
+    "clusters": 21,
+    "star": true
+   },
+   "without_nd_7b": {
+    "delta": 0.008379888268156424,
+    "lo": -0.030177193568020733,
+    "hi": 0.03883550624133143,
+    "n": 1074,
+    "clusters": 21,
+    "star": false
+   }
+  },
+  "nusc2": {
+   "n": 574,
+   "key_is_center_band": 574,
+   "band_changes": 67,
+   "median_gap_m": 2.318,
+   "n_kept": 2651,
+   "E1_3b": {
+    "delta": 0.14598264805733685,
+    "lo": 0.1269839774643844,
+    "hi": 0.16464799394398183,
+    "n": 2651,
+    "clusters": 828,
+    "net_items": 387,
+    "star": true
+   },
+   "nd_3b": {
+    "delta": 0.5483234714003945,
+    "lo": 0.5019685039370079,
+    "hi": 0.5945432274379642,
+    "n": 507,
+    "clusters": 460,
+    "net_items": 278,
+    "star": true
+   },
+   "without_nd_3b": {
+    "delta": 0.05083955223880597,
+    "lo": 0.03168685927306617,
+    "hi": 0.06942544268406335,
+    "n": 2144,
+    "clusters": 825,
+    "net_items": 109,
+    "star": true
+   },
+   "E2_7b": {
+    "delta": 0.1078838174273859,
+    "lo": 0.08893935997980625,
+    "hi": 0.12687701820796699,
+    "n": 2651,
+    "clusters": 828,
+    "net_items": 286,
+    "star": true
+   },
+   "nd_7b": {
+    "delta": 0.4339250493096647,
+    "lo": 0.3844621513944223,
+    "hi": 0.4822834645669291,
+    "n": 507,
+    "clusters": 460,
+    "net_items": 220,
+    "star": true
+   },
+   "without_nd_7b": {
+    "delta": 0.030783582089552237,
+    "lo": 0.010722610722610723,
+    "hi": 0.0505283723352987,
+    "n": 2144,
+    "clusters": 825,
+    "net_items": 66,
+    "star": true
+   }
+  }
+ },
+ "nd_choices": {
+  "confirm": {
+   "pixel_3b": {
+    "chosen_band": {
+     "under 5 meters away": 165,
+     "5 to 15 meters away": 80,
+     "over 15 meters away": 9,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 96,
+     "B": 97,
+     "C": 61,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 112,
+     "5 to 15 meters away": 139,
+     "over 15 meters away": 3
+    },
+    "gold_letter": {
+     "A": 84,
+     "B": 84,
+     "C": 86
+    }
+   },
+   "pixel_7b": {
+    "chosen_band": {
+     "under 5 meters away": 179,
+     "5 to 15 meters away": 67,
+     "over 15 meters away": 8,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 35,
+     "B": 115,
+     "C": 104,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 112,
+     "5 to 15 meters away": 139,
+     "over 15 meters away": 3
+    },
+    "gold_letter": {
+     "A": 84,
+     "B": 84,
+     "C": 86
+    }
+   },
+   "scoped_3b": {
+    "chosen_band": {
+     "under 5 meters away": 98,
+     "5 to 15 meters away": 119,
+     "over 15 meters away": 37,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 79,
+     "B": 84,
+     "C": 91,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 112,
+     "5 to 15 meters away": 139,
+     "over 15 meters away": 3
+    },
+    "gold_letter": {
+     "A": 84,
+     "B": 84,
+     "C": 86
+    }
+   },
+   "scoped_7b": {
+    "chosen_band": {
+     "under 5 meters away": 95,
+     "5 to 15 meters away": 115,
+     "over 15 meters away": 44,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 83,
+     "B": 84,
+     "C": 87,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 112,
+     "5 to 15 meters away": 139,
+     "over 15 meters away": 3
+    },
+    "gold_letter": {
+     "A": 84,
+     "B": 84,
+     "C": 86
+    }
+   }
+  },
+  "nusc2": {
+   "hf_pixel_3b": {
+    "chosen_band": {
+     "under 5 meters away": 287,
+     "5 to 15 meters away": 211,
+     "over 15 meters away": 76,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 276,
+     "B": 186,
+     "C": 112,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 24,
+     "5 to 15 meters away": 275,
+     "over 15 meters away": 275
+    },
+    "gold_letter": {
+     "A": 209,
+     "B": 176,
+     "C": 189
+    }
+   },
+   "hf_pixel_7b": {
+    "chosen_band": {
+     "under 5 meters away": 132,
+     "5 to 15 meters away": 320,
+     "over 15 meters away": 122,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 39,
+     "B": 246,
+     "C": 289,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 24,
+     "5 to 15 meters away": 275,
+     "over 15 meters away": 275
+    },
+    "gold_letter": {
+     "A": 209,
+     "B": 176,
+     "C": 189
+    }
+   },
+   "s_3b": {
+    "chosen_band": {
+     "under 5 meters away": 63,
+     "5 to 15 meters away": 272,
+     "over 15 meters away": 239,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 201,
+     "B": 183,
+     "C": 190,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 24,
+     "5 to 15 meters away": 275,
+     "over 15 meters away": 275
+    },
+    "gold_letter": {
+     "A": 209,
+     "B": 176,
+     "C": 189
+    }
+   },
+   "s_7b": {
+    "chosen_band": {
+     "under 5 meters away": 48,
+     "5 to 15 meters away": 266,
+     "over 15 meters away": 260,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 198,
+     "B": 182,
+     "C": 194,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 24,
+     "5 to 15 meters away": 275,
+     "over 15 meters away": 275
+    },
+    "gold_letter": {
+     "A": 209,
+     "B": 176,
+     "C": 189
+    }
+   },
+   "blind_3b": {
+    "chosen_band": {
+     "under 5 meters away": 215,
+     "5 to 15 meters away": 277,
+     "over 15 meters away": 82,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 202,
+     "B": 286,
+     "C": 86,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 24,
+     "5 to 15 meters away": 275,
+     "over 15 meters away": 275
+    },
+    "gold_letter": {
+     "A": 209,
+     "B": 176,
+     "C": 189
+    }
+   },
+   "blind_7b": {
+    "chosen_band": {
+     "under 5 meters away": 574,
+     "5 to 15 meters away": 0,
+     "over 15 meters away": 0,
+     "none": 0
+    },
+    "chosen_letter": {
+     "A": 188,
+     "B": 194,
+     "C": 192,
+     "none": 0
+    },
+    "gold_band": {
+     "under 5 meters away": 24,
+     "5 to 15 meters away": 275,
+     "over 15 meters away": 275
+    },
+    "gold_letter": {
+     "A": 209,
+     "B": 176,
+     "C": 189
+    }
+   }
+  }
+ },
+ "onboard": {
+  "arms": {
+   "s_3b": {
+    "n": 1328,
+    "acc": 0.7424698795180723,
+    "parse": 0.9977409638554217,
+    "family": {
+     "counting": 0.5099337748344371,
+     "direction": 0.7647058823529411,
+     "nearest_class": 0.897119341563786,
+     "nearest_dist": 0.7283464566929134,
+     "path_object": 0.8666666666666667
+    },
+    "time_mean_s": 0.378773343373494,
+    "time_median_s": 0.3415,
+    "time_p95_s": 0.7066499999999998,
+    "time_max_s": 1.203,
+    "power_w": 13.075,
+    "energy_j": 4.952461464608433,
+    "prompt_tokens_median": 206.0,
+    "peak_sys_used_mb": 2062.2,
+    "load_status": "ok",
+    "oom": false,
+    "agree_laptop": 1293,
+    "laptop_acc": 0.7454819277108434
+   },
+   "s_1.5b": {
+    "n": 1328,
+    "acc": 0.7394578313253012,
+    "parse": 0.9992469879518072,
+    "family": {
+     "counting": 0.4602649006622517,
+     "direction": 0.7439446366782007,
+     "nearest_class": 0.8683127572016461,
+     "nearest_dist": 0.7795275590551181,
+     "path_object": 0.9125
+    },
+    "time_mean_s": 0.21346159638554216,
+    "time_median_s": 0.189,
+    "time_p95_s": 0.4,
+    "time_max_s": 0.614,
+    "power_w": 11.968000000000002,
+    "energy_j": 2.5547083855421686,
+    "prompt_tokens_median": 206.0,
+    "peak_sys_used_mb": 757.9,
+    "load_status": "ok",
+    "oom": false
+   },
+   "s_7b": {
+    "n": 1328,
+    "acc": 0.7771084337349398,
+    "parse": 1.0,
+    "family": {
+     "counting": 0.5562913907284768,
+     "direction": 0.8339100346020761,
+     "nearest_class": 0.8806584362139918,
+     "nearest_dist": 0.7362204724409449,
+     "path_object": 0.925
+    },
+    "time_mean_s": 0.6933847891566265,
+    "time_median_s": 0.604,
+    "time_p95_s": 1.396,
+    "time_max_s": 2.301,
+    "power_w": 14.133999999999999,
+    "energy_j": 9.80030060993976,
+    "prompt_tokens_median": 206.0,
+    "peak_sys_used_mb": 4189.3,
+    "load_status": "ok",
+    "oom": false,
+    "agree_laptop": 1318,
+    "laptop_acc": 0.7793674698795181
+   },
+   "vlm_lr": {
+    "n": 1328,
+    "acc": 0.6664156626506024,
+    "parse": 1.0,
+    "family": {
+     "counting": 0.4139072847682119,
+     "direction": 0.7889273356401384,
+     "nearest_class": 0.8436213991769548,
+     "nearest_dist": 0.4881889763779528,
+     "path_object": 0.8458333333333333
+    },
+    "time_mean_s": 2.0730338855421686,
+    "time_median_s": 2.073,
+    "time_p95_s": 2.095,
+    "time_max_s": 2.15,
+    "power_w": 13.812999999999997,
+    "energy_j": 28.63481706099397,
+    "prompt_tokens_median": 564.0,
+    "peak_sys_used_mb": 3965.8,
+    "load_status": "ok",
+    "oom": false
+   },
+   "vlm_full": {
+    "n": 1328,
+    "acc": 0.6935240963855421,
+    "parse": 0.9969879518072289,
+    "family": {
+     "counting": 0.423841059602649,
+     "direction": 0.7958477508650519,
+     "nearest_class": 0.8477366255144033,
+     "nearest_dist": 0.5551181102362205,
+     "path_object": 0.9
+    },
+    "time_mean_s": 10.045664156626506,
+    "time_median_s": 10.0465,
+    "time_p95_s": 10.159,
+    "time_max_s": 10.595,
+    "power_w": 12.189477409638556,
+    "energy_j": 122.4518887620482,
+    "prompt_tokens_median": 1712.0,
+    "peak_sys_used_mb": 4646.7,
+    "load_status": "ok",
+    "oom": false,
+    "fail": {
+     "n_failed": 338,
+     "n_first": 990,
+     "repeat_n": 438,
+     "overlap_n": 100,
+     "overlap_same_answer": 100,
+     "overlap_acc_first": 0.67,
+     "overlap_acc_repeat": 0.67,
+     "first_acc": 0.694949494949495,
+     "first_time_mean_s": 10.049527272727271,
+     "failed_time_mean_s": 10.291047337278107,
+     "repeat_acc_failed": 0.6893491124260355,
+     "repeat_time_mean_s": 10.035680365296805,
+     "first_power_w": 12.233,
+     "repeat_power_w": 12.062,
+     "acc_failed_counted_wrong": 0.5180722891566265,
+     "still_failed": [
+      "coda_3_12072_counting",
+      "coda_3_12075_nearest_class",
+      "coda_6_10430_nearest_dist",
+      "coda_9_8519_nearest_dist"
+     ],
+     "restarts": 8,
+     "asked_twice": 4,
+     "overlap_same_correct": 100,
+     "first_recordings": [
+      0,
+      1,
+      2,
+      3,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+     ],
+     "failed_recordings": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+     ]
+    },
+    "agree_laptop": 1232,
+    "laptop_acc": 0.6912650602409639
+   },
+   "hyb_lr": {
+    "n": 1328,
+    "acc": 0.8087349397590361,
+    "parse": 1.0,
+    "family": {
+     "counting": 0.5298013245033113,
+     "direction": 0.8615916955017301,
+     "nearest_class": 0.9423868312757202,
+     "nearest_dist": 0.8188976377952756,
+     "path_object": 0.95
+    },
+    "time_mean_s": 2.303977409638554,
+    "time_median_s": 2.253,
+    "time_p95_s": 2.61365,
+    "time_max_s": 3.08,
+    "power_w": 13.787,
+    "energy_j": 31.76493654668675,
+    "prompt_tokens_median": 705.0,
+    "peak_sys_used_mb": 3986.6,
+    "load_status": "ok",
+    "oom": false
+   }
+  },
+  "contrast": {
+   "O1_s3b_vs_vlm_lr": {
+    "delta": 0.07605421686746988,
+    "lo": 0.045918112754083674,
+    "hi": 0.10076169689212257,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.00389862060546875,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.03815762584253549,
+    "loso_max_hi": 0.10572793120975932,
+    "jackknife": [
+     0.05120798065348424,
+     0.10090045308145552
+    ],
+    "cluster_mean": 0.028523900218435497,
+    "pos": 13,
+    "neg": 5,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.09602649006622517,
+      "lo": 0.029800972241792307,
+      "hi": 0.16205567670710097,
+      "n": 302,
+      "clusters": 21,
+      "star": true
+     },
+     "direction": {
+      "delta": -0.02422145328719723,
+      "lo": -0.09090909090909091,
+      "hi": 0.045454545454545456,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.053497942386831275,
+      "lo": -0.019049135577798,
+      "hi": 0.10454545454545454,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.24015748031496062,
+      "lo": 0.130739829891507,
+      "hi": 0.32456255166712583,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.020833333333333332,
+      "lo": -0.03414634146341464,
+      "hi": 0.08176100628930817,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "O2_s3b_vs_vlm_full": {
+    "delta": 0.04894578313253012,
+    "lo": 0.016059420553654252,
+    "hi": 0.07387155051695755,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.0287628173828125,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.0063964911255853804,
+    "loso_max_hi": 0.07878195602818985,
+    "jackknife": [
+     0.02184728133847708,
+     0.07604428492658316
+    ],
+    "cluster_mean": -0.00025526921738510967,
+    "pos": 11,
+    "neg": 7,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.08609271523178808,
+      "lo": 0.0,
+      "hi": 0.1814168212960319,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.031141868512110725,
+      "lo": -0.09960232869260963,
+      "hi": 0.0426361181527609,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.04938271604938271,
+      "lo": -0.02312205630485977,
+      "hi": 0.0967741935483871,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.1732283464566929,
+      "lo": 0.03999557522123894,
+      "hi": 0.27816967595043945,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": -0.03333333333333333,
+      "lo": -0.08241758241758242,
+      "hi": 0.0053475935828877,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "s1.5b_vs_vlm_lr": {
+    "delta": 0.0730421686746988,
+    "lo": 0.043478260869565216,
+    "hi": 0.10154747449289045,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.003383636474609375,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.0359780578898226,
+    "loso_max_hi": 0.10853826241012748,
+    "jackknife": [
+     0.04623023331610028,
+     0.09985410403329732
+    ],
+    "cluster_mean": 0.03404342891639699,
+    "pos": 14,
+    "neg": 6,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.046357615894039736,
+      "lo": -0.025210746759271534,
+      "hi": 0.11467889908256881,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.04498269896193772,
+      "lo": -0.10740817263544536,
+      "hi": 0.028574355971896698,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.024691358024691357,
+      "lo": -0.07142857142857142,
+      "hi": 0.08152232226161592,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.29133858267716534,
+      "lo": 0.22181747435443935,
+      "hi": 0.3776595744680851,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.06666666666666667,
+      "lo": 0.018292682926829267,
+      "hi": 0.12631723539618264,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "s1.5b_vs_vlm_full": {
+    "delta": 0.04593373493975904,
+    "lo": 0.014427228348281798,
+    "hi": 0.07042253521126761,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.02658843994140625,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.00672608119902489,
+    "loso_max_hi": 0.07616980285976604,
+    "jackknife": [
+     0.019069913477473735,
+     0.07279755640204434
+    ],
+    "cluster_mean": 0.005264259480576381,
+    "pos": 11,
+    "neg": 7,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.03642384105960265,
+      "lo": -0.04457011042578591,
+      "hi": 0.11450465749739375,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.05190311418685121,
+      "lo": -0.11600178571428572,
+      "hi": 0.024692448632377864,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.0205761316872428,
+      "lo": -0.07453647909520719,
+      "hi": 0.07895108534046949,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.22440944881889763,
+      "lo": 0.1320128712871287,
+      "hi": 0.31954984109758927,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.0125,
+      "lo": -0.03630513051305131,
+      "hi": 0.0559031055900619,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "s7b_vs_vlm_lr": {
+    "delta": 0.11069277108433735,
+    "lo": 0.0768306956929113,
+    "hi": 0.1362835405970226,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.001068115234375,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.06808040390497339,
+    "loso_max_hi": 0.1408016638489792,
+    "jackknife": [
+     0.0834282235881273,
+     0.13795731858054738
+    ],
+    "cluster_mean": 0.05368614615140708,
+    "pos": 14,
+    "neg": 4,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.1423841059602649,
+      "lo": 0.08201763458654393,
+      "hi": 0.19672131147540983,
+      "n": 302,
+      "clusters": 21,
+      "star": true
+     },
+     "direction": {
+      "delta": 0.04498269896193772,
+      "lo": -0.030189456769645448,
+      "hi": 0.1198740476322246,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.037037037037037035,
+      "lo": -0.05521472392638037,
+      "hi": 0.09393990237949965,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.24803149606299213,
+      "lo": 0.1306527004391326,
+      "hi": 0.3343563075153374,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.07916666666666666,
+      "lo": 0.03319452911447169,
+      "hi": 0.14285714285714285,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "s7b_vs_vlm_full": {
+    "delta": 0.08358433734939759,
+    "lo": 0.047973854503705254,
+    "hi": 0.10706531996956223,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.004974365234375,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.03725875105752961,
+    "loso_max_hi": 0.11104276200490697,
+    "jackknife": [
+     0.05466231572217668,
+     0.1125063589766185
+    ],
+    "cluster_mean": 0.024906976715586466,
+    "pos": 15,
+    "neg": 5,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.13245033112582782,
+      "lo": 0.05161226318484383,
+      "hi": 0.2140845070422535,
+      "n": 302,
+      "clusters": 21,
+      "star": true
+     },
+     "direction": {
+      "delta": 0.03806228373702422,
+      "lo": -0.03859724418341993,
+      "hi": 0.11650703121598657,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.03292181069958848,
+      "lo": -0.06,
+      "hi": 0.09274193548387097,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.18110236220472442,
+      "lo": 0.040357840300882394,
+      "hi": 0.2903252422016393,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.025,
+      "lo": -0.018128261466630047,
+      "hi": 0.07035175879396985,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "vlm_lr_vs_vlm_full": {
+    "delta": -0.02710843373493976,
+    "lo": -0.048282324542619805,
+    "hi": -0.00921267521819625,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.01605224609375,
+    "loso_cross_zero": 0,
+    "loso_min_lo": -0.053503243471925165,
+    "loso_max_hi": -0.005779619602481747,
+    "jackknife": [
+     -0.04672072071422363,
+     -0.007496146755655891
+    ],
+    "cluster_mean": -0.028779169435820602,
+    "pos": 2,
+    "neg": 13,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": -0.009933774834437087,
+      "lo": -0.046703938584779704,
+      "hi": 0.03389830508474576,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.006920415224913495,
+      "lo": -0.02564102564102564,
+      "hi": 0.010101010101010102,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": -0.00411522633744856,
+      "lo": -0.06432820913670315,
+      "hi": 0.04633353898817803,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": -0.06692913385826772,
+      "lo": -0.13533916669402762,
+      "hi": -0.009009009009009009,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": -0.05416666666666667,
+      "lo": -0.10457584707523176,
+      "hi": -0.017045454545454544,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "hyb_lr_vs_s3b": {
+    "delta": 0.06626506024096386,
+    "lo": 0.049211301026206807,
+    "hi": 0.09613141178277476,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 7.62939453125e-06,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.04653930059356656,
+    "loso_max_hi": 0.10497363707459813,
+    "jackknife": [
+     0.0431147873729423,
+     0.08941533310898542
+    ],
+    "cluster_mean": 0.10685408218328134,
+    "pos": 18,
+    "neg": 0,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.019867549668874173,
+      "lo": -0.016854525197932964,
+      "hi": 0.05846198830409353,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.09688581314878893,
+      "lo": 0.05555555555555555,
+      "hi": 0.15744836723560116,
+      "n": 289,
+      "clusters": 19,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": 0.04526748971193416,
+      "lo": 0.013793103448275862,
+      "hi": 0.09205158555384264,
+      "n": 243,
+      "clusters": 20,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": 0.09055118110236221,
+      "lo": 0.03599820359281437,
+      "hi": 0.16071428571428573,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.08333333333333333,
+      "lo": 0.05090909090909091,
+      "hi": 0.1419753086419753,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "hyb_lr_vs_vlm_lr": {
+    "delta": 0.14231927710843373,
+    "lo": 0.12356131377725182,
+    "hi": 0.1686881741047888,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 1.1444091796875e-05,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.12006951016607645,
+    "loso_max_hi": 0.17543859649122806,
+    "jackknife": [
+     0.11941358539121624,
+     0.16522496882565121
+    ],
+    "cluster_mean": 0.1353779824017168,
+    "pos": 18,
+    "neg": 1,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.11589403973509933,
+      "lo": 0.06597126831501832,
+      "hi": 0.1625441696113074,
+      "n": 302,
+      "clusters": 21,
+      "star": true
+     },
+     "direction": {
+      "delta": 0.0726643598615917,
+      "lo": 0.03286384976525822,
+      "hi": 0.14056578071078252,
+      "n": 289,
+      "clusters": 19,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": 0.09876543209876543,
+      "lo": 0.05508377390763489,
+      "hi": 0.14035087719298245,
+      "n": 243,
+      "clusters": 20,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": 0.33070866141732286,
+      "lo": 0.2590350611077403,
+      "hi": 0.4050632911392405,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.10416666666666667,
+      "lo": 0.06463878326996197,
+      "hi": 0.16901667357083655,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "hyb_lr_vs_vlm_full": {
+    "delta": 0.11521084337349398,
+    "lo": 0.0963009023053666,
+    "hi": 0.1405446752576995,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 7.62939453125e-06,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.09182483813448683,
+    "loso_max_hi": 0.1476660263101631,
+    "jackknife": [
+     0.09373746946783519,
+     0.13668421727915275
+    ],
+    "cluster_mean": 0.10659881296589623,
+    "pos": 18,
+    "neg": 1,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.10596026490066225,
+      "lo": 0.032373809690111985,
+      "hi": 0.18333333333333332,
+      "n": 302,
+      "clusters": 21,
+      "star": true
+     },
+     "direction": {
+      "delta": 0.0657439446366782,
+      "lo": 0.026402640264026403,
+      "hi": 0.12889247311827925,
+      "n": 289,
+      "clusters": 19,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": 0.09465020576131687,
+      "lo": 0.035,
+      "hi": 0.14356435643564355,
+      "n": 243,
+      "clusters": 20,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": 0.2637795275590551,
+      "lo": 0.15981600064845586,
+      "hi": 0.3559873786407767,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.05,
+      "lo": 0.022857142857142857,
+      "hi": 0.09259438009437994,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "hyb_lr_vs_s7b": {
+    "delta": 0.03162650602409638,
+    "lo": 0.009722180032401783,
+    "hi": 0.06767801287540318,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.009918212890625,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.006345806820655125,
+    "loso_max_hi": 0.07745571820401269,
+    "jackknife": [
+     0.0015160941773271173,
+     0.061736917870865646
+    ],
+    "cluster_mean": 0.08169183625030974,
+    "pos": 15,
+    "neg": 4,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": -0.026490066225165563,
+      "lo": -0.0656379300409151,
+      "hi": 0.01812688821752266,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.02768166089965398,
+      "lo": -0.022436797752808987,
+      "hi": 0.09655172413793103,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.06172839506172839,
+      "lo": 0.021505376344086023,
+      "hi": 0.12857142857142856,
+      "n": 243,
+      "clusters": 20,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": 0.08267716535433071,
+      "lo": 0.026577338076617767,
+      "hi": 0.16400052910052906,
+      "n": 254,
+      "clusters": 19,
+      "star": true
+     },
+     "path_object": {
+      "delta": 0.025,
+      "lo": 0.0036101083032490976,
+      "hi": 0.058823529411764705,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "s3b_vs_s1.5b": {
+    "delta": 0.0030120481927710845,
+    "lo": -0.017064846416382253,
+    "hi": 0.021447721179624665,
+    "n": 1328,
+    "clusters": 21,
+    "star": false,
+    "signflip_p": 0.82342529296875,
+    "loso_cross_zero": 21,
+    "loso_min_lo": -0.022400224089635854,
+    "loso_max_hi": 0.024653418325347735,
+    "jackknife": [
+     -0.016046765280376848,
+     0.022070861665919015
+    ],
+    "cluster_mean": -0.0055195286979614925,
+    "pos": 6,
+    "neg": 9,
+    "firm": false,
+    "family": {
+     "counting": {
+      "delta": 0.04966887417218543,
+      "lo": 0.0,
+      "hi": 0.10546916205168773,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.020761245674740483,
+      "lo": -0.03589820359281437,
+      "hi": 0.06338187736692041,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.02880658436213992,
+      "lo": 0.003436426116838488,
+      "hi": 0.075,
+      "n": 243,
+      "clusters": 20,
+      "star": true
+     },
+     "nearest_dist": {
+      "delta": -0.051181102362204724,
+      "lo": -0.13077004219409283,
+      "hi": 0.008380475095065908,
+      "n": 254,
+      "clusters": 19,
+      "star": false
+     },
+     "path_object": {
+      "delta": -0.04583333333333333,
+      "lo": -0.08928571428571429,
+      "hi": -0.015228426395939087,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "s7b_vs_s3b": {
+    "delta": 0.03463855421686747,
+    "lo": 0.019936881798061763,
+    "hi": 0.046340037616679604,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.00250244140625,
+    "loso_cross_zero": 0,
+    "loso_min_lo": 0.01627008353938358,
+    "loso_max_hi": 0.0483792534792052,
+    "jackknife": [
+     0.021414844514276117,
+     0.047862263919458824
+    ],
+    "cluster_mean": 0.025162245932971578,
+    "pos": 12,
+    "neg": 3,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": 0.046357615894039736,
+      "lo": 0.0,
+      "hi": 0.08934744461504712,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.06920415224913495,
+      "lo": 0.027471689895470382,
+      "hi": 0.10622810432074728,
+      "n": 289,
+      "clusters": 19,
+      "star": true
+     },
+     "nearest_class": {
+      "delta": -0.01646090534979424,
+      "lo": -0.050955414012738856,
+      "hi": 0.003165060872369544,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.007874015748031496,
+      "lo": -0.01990049751243781,
+      "hi": 0.02727272727272727,
+      "n": 254,
+      "clusters": 19,
+      "star": false
+     },
+     "path_object": {
+      "delta": 0.058333333333333334,
+      "lo": 0.027236692342306572,
+      "hi": 0.109196609678354,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   },
+   "s3b_board_vs_laptop": {
+    "delta": -0.0030120481927710845,
+    "lo": -0.012345951423621326,
+    "hi": 0.0035762809982329115,
+    "n": 1328,
+    "clusters": 21,
+    "star": false,
+    "signflip_p": 0.54931640625,
+    "loso_cross_zero": 21,
+    "loso_min_lo": -0.01445466491458607,
+    "loso_max_hi": 0.004702247025314318,
+    "jackknife": [
+     -0.011219485992551504,
+     0.005195389607009334
+    ],
+    "cluster_mean": -0.010305865950222818,
+    "pos": 5,
+    "neg": 7,
+    "firm": false,
+    "family": {
+     "counting": {
+      "delta": -0.023178807947019868,
+      "lo": -0.044444444444444446,
+      "hi": -0.009375,
+      "n": 302,
+      "clusters": 21,
+      "star": true
+     },
+     "direction": {
+      "delta": 0.01384083044982699,
+      "lo": -0.006644518272425249,
+      "hi": 0.034482758620689655,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.0,
+      "lo": -0.013422818791946308,
+      "hi": 0.01369980699524539,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.003937007874015748,
+      "lo": -0.0106951871657754,
+      "hi": 0.01700716456795481,
+      "n": 254,
+      "clusters": 19,
+      "star": false
+     },
+     "path_object": {
+      "delta": -0.008333333333333333,
+      "lo": -0.02631578947368421,
+      "hi": 0.0,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "s7b_board_vs_laptop": {
+    "delta": -0.002259036144578313,
+    "lo": -0.006835979233440171,
+    "hi": 0.0021246647078480177,
+    "n": 1328,
+    "clusters": 21,
+    "star": false,
+    "signflip_p": 0.53125,
+    "loso_cross_zero": 21,
+    "loso_min_lo": -0.007838745800671893,
+    "loso_max_hi": 0.0030739282828962733,
+    "jackknife": [
+     -0.006694829109524477,
+     0.0021767568203678507
+    ],
+    "cluster_mean": -0.003985810790306977,
+    "pos": 2,
+    "neg": 4,
+    "firm": false,
+    "family": {
+     "counting": {
+      "delta": 0.0,
+      "lo": -0.010453417735374063,
+      "hi": 0.009615384615384616,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": -0.010380622837370242,
+      "lo": -0.025547445255474453,
+      "hi": 0.0,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.00411522633744856,
+      "lo": 0.0,
+      "hi": 0.016853932584269662,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": -0.003937007874015748,
+      "lo": -0.01764705882352941,
+      "hi": 0.010582010582010581,
+      "n": 254,
+      "clusters": 19,
+      "star": false
+     },
+     "path_object": {
+      "delta": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "vlm_full_board_vs_laptop": {
+    "delta": 0.002259036144578313,
+    "lo": -0.012950273701335502,
+    "hi": 0.013903061312634765,
+    "n": 1328,
+    "clusters": 21,
+    "star": false,
+    "signflip_p": 0.82421875,
+    "loso_cross_zero": 21,
+    "loso_min_lo": -0.01692869191862671,
+    "loso_max_hi": 0.016428286198377325,
+    "jackknife": [
+     -0.010804617320629982,
+     0.015322689609786609
+    ],
+    "cluster_mean": -0.005572241551440234,
+    "pos": 9,
+    "neg": 6,
+    "firm": false,
+    "family": {
+     "counting": {
+      "delta": -0.006622516556291391,
+      "lo": -0.046053389522192574,
+      "hi": 0.025210084033613446,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.010380622837370242,
+      "lo": -0.004425270403146509,
+      "hi": 0.025380710659898477,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": 0.0,
+      "lo": -0.025974025974025976,
+      "hi": 0.029914529914529916,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": 0.015748031496062992,
+      "lo": -0.024632062275740437,
+      "hi": 0.05038841117842479,
+      "n": 254,
+      "clusters": 19,
+      "star": false
+     },
+     "path_object": {
+      "delta": -0.008333333333333333,
+      "lo": -0.03636547662863452,
+      "hi": 0.015504477827531364,
+      "n": 240,
+      "clusters": 18,
+      "star": false
+     }
+    }
+   },
+   "vlm_lr_vs_laptop_vlm": {
+    "delta": -0.024849397590361446,
+    "lo": -0.04861779380650366,
+    "hi": -0.010289223749576387,
+    "n": 1328,
+    "clusters": 21,
+    "star": true,
+    "signflip_p": 0.00244140625,
+    "loso_cross_zero": 0,
+    "loso_min_lo": -0.0547112462006079,
+    "loso_max_hi": -0.008076656145725808,
+    "jackknife": [
+     -0.04426994932613697,
+     -0.005428845854585921
+    ],
+    "cluster_mean": -0.034351410987260834,
+    "pos": 2,
+    "neg": 13,
+    "firm": true,
+    "family": {
+     "counting": {
+      "delta": -0.016556291390728478,
+      "lo": -0.07118671493609785,
+      "hi": 0.034400152503600595,
+      "n": 302,
+      "clusters": 21,
+      "star": false
+     },
+     "direction": {
+      "delta": 0.0034602076124567475,
+      "lo": -0.013653045958202813,
+      "hi": 0.019157088122605363,
+      "n": 289,
+      "clusters": 19,
+      "star": false
+     },
+     "nearest_class": {
+      "delta": -0.00411522633744856,
+      "lo": -0.06511880687563194,
+      "hi": 0.051064606305326846,
+      "n": 243,
+      "clusters": 20,
+      "star": false
+     },
+     "nearest_dist": {
+      "delta": -0.051181102362204724,
+      "lo": -0.10599252897639994,
+      "hi": 0.0,
+      "n": 254,
+      "clusters": 19,
+      "star": false
+     },
+     "path_object": {
+      "delta": -0.0625,
+      "lo": -0.11695906432748537,
+      "hi": -0.029288702928870293,
+      "n": 240,
+      "clusters": 18,
+      "star": true
+     }
+    }
+   }
+  },
+  "balanced_min5": {
+   "O1_s3b_vs_vlm_lr": {
+    "a": 0.689723393100208,
+    "b": 0.5966255493122079,
+    "delta": 0.09309784378800012,
+    "lo": 0.059150706275892515,
+    "hi": 0.12223571690536722,
+    "star": true
+   },
+   "O2_s3b_vs_vlm_full": {
+    "a": 0.689723393100208,
+    "b": 0.6182915063910366,
+    "delta": 0.07143188670917144,
+    "lo": 0.020632858415775092,
+    "hi": 0.10208632178520605,
+    "star": true
+   },
+   "s1.5b_vs_vlm_lr": {
+    "a": 0.6749172828306851,
+    "b": 0.5966255493122079,
+    "delta": 0.07829173351847718,
+    "lo": 0.01146225266603511,
+    "hi": 0.1253159221457927,
+    "star": true
+   },
+   "s1.5b_vs_vlm_full": {
+    "a": 0.6749172828306851,
+    "b": 0.6182915063910366,
+    "delta": 0.0566257764396485,
+    "lo": -0.003754732437143346,
+    "hi": 0.08958342773376526,
+    "star": false
+   },
+   "s7b_vs_vlm_lr": {
+    "a": 0.7172520206620598,
+    "b": 0.5966255493122079,
+    "delta": 0.12062647134985194,
+    "lo": 0.059923680017972034,
+    "hi": 0.16211792229176372,
+    "star": true
+   },
+   "s7b_vs_vlm_full": {
+    "a": 0.7172520206620598,
+    "b": 0.6182915063910366,
+    "delta": 0.09896051427102326,
+    "lo": 0.03456125808571449,
+    "hi": 0.1318372432858258,
+    "star": true
+   },
+   "vlm_lr_vs_vlm_full": {
+    "a": 0.5966255493122079,
+    "b": 0.6182915063910366,
+    "delta": -0.02166595707882868,
+    "lo": -0.05964137279341869,
+    "hi": 0.005043631072512067,
+    "star": false
+   },
+   "hyb_lr_vs_s3b": {
+    "a": 0.769001453864764,
+    "b": 0.689723393100208,
+    "delta": 0.07927806076455601,
+    "lo": 0.04359834148969213,
+    "hi": 0.12949009520897756,
+    "star": true
+   },
+   "hyb_lr_vs_vlm_lr": {
+    "a": 0.769001453864764,
+    "b": 0.5966255493122079,
+    "delta": 0.17237590455255614,
+    "lo": 0.12807740887375013,
+    "hi": 0.22308275568938676,
+    "star": true
+   },
+   "hyb_lr_vs_vlm_full": {
+    "a": 0.769001453864764,
+    "b": 0.6182915063910366,
+    "delta": 0.15070994747372746,
+    "lo": 0.11451393809841164,
+    "hi": 0.17969893161508158,
+    "star": true
+   },
+   "hyb_lr_vs_s7b": {
+    "a": 0.769001453864764,
+    "b": 0.7172520206620598,
+    "delta": 0.0517494332027042,
+    "lo": 0.024058287702948933,
+    "hi": 0.10316238207427915,
+    "star": true
+   },
+   "s3b_vs_s1.5b": {
+    "a": 0.689723393100208,
+    "b": 0.6749172828306851,
+    "delta": 0.014806110269522943,
+    "lo": -0.027320098601188385,
+    "hi": 0.06713058206368322,
+    "star": false
+   },
+   "s7b_vs_s3b": {
+    "a": 0.7172520206620598,
+    "b": 0.689723393100208,
+    "delta": 0.027528627561851815,
+    "lo": -0.015021872816625334,
+    "hi": 0.06374513881086286,
+    "star": false
+   },
+   "s3b_board_vs_laptop": {
+    "a": 0.689723393100208,
+    "b": 0.6928027699662338,
+    "delta": -0.0030793768660257737,
+    "lo": -0.018597114089581566,
+    "hi": 0.009395383133930329,
+    "star": false
+   },
+   "s7b_board_vs_laptop": {
+    "a": 0.7172520206620598,
+    "b": 0.7155875299567371,
+    "delta": 0.0016644907053227076,
+    "lo": -0.005388314261409325,
+    "hi": 0.00820787994212048,
+    "star": false
+   },
+   "vlm_full_board_vs_laptop": {
+    "a": 0.6182915063910366,
+    "b": 0.6327448381278321,
+    "delta": -0.014453331736795527,
+    "lo": -0.034321474008081485,
+    "hi": 0.0061032743822222275,
+    "star": false
+   },
+   "vlm_lr_vs_laptop_vlm": {
+    "a": 0.5966255493122079,
+    "b": 0.6327448381278321,
+    "delta": -0.036119288815624206,
+    "lo": -0.06937869784349217,
+    "hi": -0.011134376456751072,
+    "star": true
+   }
+  },
+  "first_process": {
+   "O2_s3b_vs_vlm_full": {
+    "delta": 0.047474747474747475,
+    "lo": 0.001540305169046605,
+    "hi": 0.07971748668852024,
+    "n": 990,
+    "clusters": 15,
+    "star": true,
+    "acc_a": 0.7424242424242424,
+    "acc_b": 0.694949494949495
+   },
+   "s1.5b_vs_vlm_full": {
+    "delta": 0.052525252525252523,
+    "lo": 0.014193548387096775,
+    "hi": 0.08090661653291426,
+    "n": 990,
+    "clusters": 15,
+    "star": true,
+    "acc_a": 0.7474747474747475,
+    "acc_b": 0.694949494949495
+   },
+   "s7b_vs_vlm_full": {
+    "delta": 0.08686868686868687,
+    "lo": 0.04048457068019972,
+    "hi": 0.11257042831354948,
+    "n": 990,
+    "clusters": 15,
+    "star": true,
+    "acc_a": 0.7818181818181819,
+    "acc_b": 0.694949494949495
+   },
+   "vlm_lr_vs_vlm_full": {
+    "delta": -0.020202020202020204,
+    "lo": -0.04606796497395016,
+    "hi": 0.0,
+    "n": 990,
+    "clusters": 15,
+    "star": false,
+    "acc_a": 0.6747474747474748,
+    "acc_b": 0.694949494949495
+   },
+   "hyb_lr_vs_vlm_full": {
+    "delta": 0.1202020202020202,
+    "lo": 0.09723183305732985,
+    "hi": 0.1557523122715196,
+    "n": 990,
+    "clusters": 15,
+    "star": true,
+    "acc_a": 0.8151515151515152,
+    "acc_b": 0.694949494949495
+   },
+   "vlm_full_board_vs_laptop": {
+    "delta": 0.006060606060606061,
+    "lo": -0.010014526755371424,
+    "hi": 0.019512308459515813,
+    "n": 990,
+    "clusters": 15,
+    "star": false,
+    "acc_a": 0.694949494949495,
+    "acc_b": 0.6888888888888889
+   }
+  },
+  "perception": {
+   "n_frames": 1328,
+   "wall_s": 679.4870266914368,
+   "n_folds": 4,
+   "loop_s": 656.9376792907715,
+   "power_w": 14.262,
+   "min_avail_gb": 4.404310016
   }
  }
 }

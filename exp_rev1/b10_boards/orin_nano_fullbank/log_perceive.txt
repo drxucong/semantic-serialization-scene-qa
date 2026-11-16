@@ -1,0 +1,1 @@
+full bank perceived: 1328 frames; wall 679.5 s; {'vdd_in_mean_mw': 14589, 'power_samples': 6214, 'min_avail_kb': 4301084}

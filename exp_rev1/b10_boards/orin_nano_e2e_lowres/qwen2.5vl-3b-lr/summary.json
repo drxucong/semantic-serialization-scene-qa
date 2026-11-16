@@ -1,0 +1,39 @@
+{
+ "name": "qwen2.5vl-3b-lr",
+ "model": "models/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf",
+ "mmproj": "models/mmproj-Qwen2.5-VL-3B-Instruct-f16.gguf",
+ "threads": 6,
+ "cpus": "",
+ "server": "/home/cong/rev1/llama.cpp-11fe021/build-cuda/bin/llama-server",
+ "mem_max": "none",
+ "mem_available_before_kb": 5444404,
+ "load_status": "ok",
+ "load_s": 43.0,
+ "t_measure_start": 1794790641.7761204,
+ "t_measure_end": 1794790745.401986,
+ "power_idle_mw": {
+  "VDD_CPU_GPU_CV": 601,
+  "VDD_IN": 3678,
+  "VDD_SOC": 1168
+ },
+ "power_run_mw": {
+  "VDD_CPU_GPU_CV": 6278,
+  "VDD_IN": 13810,
+  "VDD_SOC": 3628
+ },
+ "power_samples": {
+  "idle": 46,
+  "run": 981
+ },
+ "peak_sys_used_mb": 3924.3,
+ "nvpmodel": "NV Power Mode: 25W\n1",
+ "oom_in_journal": false,
+ "peak_rss_mb": 782.9,
+ "n": 50,
+ "acc": 0.6,
+ "parse": 1.0,
+ "agree_laptop": 0.88,
+ "latency_median_s": 2.058,
+ "latency_p95_s": 2.08,
+ "latency_mean_s": 2.0612599999999994
+}

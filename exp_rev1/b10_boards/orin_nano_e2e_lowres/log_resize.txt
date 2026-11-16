@@ -1,0 +1,3 @@
+reduced images: 50 size 672x560 = 376320 pixels
+wrote probe50_lr.jsonl 50
+wrote series_onboard_lr.jsonl 10

@@ -1,0 +1,48 @@
+{
+ "name": "full-qwen2.5vl-3b-guard",
+ "model": "models/Qwen2.5-VL-3B-Instruct-Q4_K_M.gguf",
+ "mmproj": "models/mmproj-Qwen2.5-VL-3B-Instruct-f16.gguf",
+ "threads": 6,
+ "server": "/home/cong/rev1/llama.cpp-11fe021/build-cuda/bin/llama-server",
+ "mem_max": "none",
+ "mem_available_before_kb": 5658500,
+ "rule": "restart after a degenerate output, ask once more",
+ "t_measure_start": 1794816607.6703289,
+ "t_measure_end": 1794821488.0195413,
+ "power_idle_mw": {
+  "VDD_CPU_GPU_CV": 555,
+  "VDD_IN": 3469,
+  "VDD_SOC": 1059
+ },
+ "power_run_mw": {
+  "VDD_CPU_GPU_CV": 5386,
+  "VDD_IN": 12062,
+  "VDD_SOC": 3101
+ },
+ "power_samples": {
+  "idle": 46,
+  "run": 41584
+ },
+ "nvpmodel": "NV Power Mode: 25W\n1",
+ "restarts": 8,
+ "load_s": [
+  39.0,
+  42.0,
+  41.5,
+  39.9,
+  39.4,
+  39.5,
+  41.5,
+  42.0,
+  40.0
+ ],
+ "n": 438,
+ "acc": 0.684931506849315,
+ "parse": 0.9908675799086758,
+ "agree_laptop": 0.9269406392694064,
+ "n_degenerate": 4,
+ "n_asked_twice": 4,
+ "latency_median_s": 10.033,
+ "latency_p95_s": 10.145,
+ "latency_mean_s": 10.035680365296804
+}

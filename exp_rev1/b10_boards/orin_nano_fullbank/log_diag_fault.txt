@@ -1,0 +1,26 @@
+Console output of scripts/rev1/b10_diag_fault.py on the Jetson Orin Nano, 2026-11-16, about 03:05 (board time).
+Positions are 0-based positions in data/full_onboard.jsonl (position 990 = question 991 of the bank).
+
+(1) python3 b10_diag_fault.py --no-start 989 1327
+    (the server of the stopped repeat run, still running in its failed state)
+text-only warm-up: '????????' (0.5 s)
+position 989 coda_3_12069_path_object: '????????' (10.5 s) gold B
+position 1327 coda_9_9595_nearest_dist: '????????' (10.2 s) gold A
+text-only at the end: '????????' (0.4 s)
+
+(2) python3 b10_diag_fault.py 990 991 989 990 1327 0
+    (a newly started server)
+server started in 42 s
+text-only warm-up: 'A' (0.3 s)
+position 990 coda_3_12072_counting: '????????' (11.1 s) gold A
+position 991 coda_3_12075_nearest_class: '????????' (10.5 s) gold A
+position 989 coda_3_12069_path_object: '????????' (10.4 s) gold B
+position 990 coda_3_12072_counting: '????????' (10.4 s) gold A
+position 1327 coda_9_9595_nearest_dist: '????????' (10.3 s) gold A
+position 0 coda_0_421_counting: '????????' (10.3 s) gold B
+text-only at the end: '????????' (0.4 s)
+
+(3) At about 03:10:55 the script was started once more by mistake (with the argument --help, which it does
+    not know) while the run with the reload rule (full-qwen2.5vl-3b-guard) was answering its fifth and sixth
+    questions. Its own server could not bind the port and exited at once; the script sent two text-only
+    requests to the server of that run. Those questions belong to the 100 that do not enter the comparison.

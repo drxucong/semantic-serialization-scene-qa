@@ -1,0 +1,7 @@
+19:46:47 start; gdm active; NV Power Mode: 25W; Mem:            7619        2150        3580          10        1889        5225
+19:47:07 resize done
+19:56:30 bench qwen2.5vl-3b done
+19:59:06 bench qwen2.5vl-3b-lr done
+20:02:02 series full done
+20:03:14 series lr done
+20:03:14 session done

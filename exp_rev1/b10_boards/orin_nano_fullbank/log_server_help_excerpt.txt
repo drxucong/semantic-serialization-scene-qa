@@ -1,0 +1,11 @@
+-ngl,  --gpu-layers, --n-gpu-layers N   max. number of layers to store in VRAM, either an exact number,
+                                        'auto', or 'all' (default: auto)
+                                        (env: LLAMA_ARG_N_GPU_LAYERS)
+--
+--spec-draft-ngl, -ngld, --gpu-layers-draft, --n-gpu-layers-draft N
+                                        max. number of draft model layers to store in VRAM, either an exact
+                                        number, 'auto', or 'all' (default: auto)
+--
+--mmproj-offload, --no-mmproj-offload   whether to enable GPU offloading for multimodal projector (default:
+                                        enabled)
+                                        (env: LLAMA_ARG_MMPROJ_OFFLOAD)

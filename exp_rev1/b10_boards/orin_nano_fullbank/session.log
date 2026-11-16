@@ -1,0 +1,23 @@
+20:08:35 start; gdm active; NV Power Mode: 25W; Mem:            7619        1957        1790           9        3871        5392
+20:19:59 perceive done (rc 0)
+20:26:24 prompts done (rc 0)
+20:35:20 bench full-qwen2.5-3b done
+20:40:25 bench full-qwen2.5-1.5b done
+20:56:56 bench full-qwen2.5-7b done
+21:06:30 bench hyb-qwen2.5vl-3b done
+21:09:15 bench hyb-qwen2.5vl-3b-lr done
+21:56:19 bench full-qwen2.5vl-3b-lr done
+21:56:19 serialized system, hybrid and reduced-resolution VLM done
+01:41:58 bench full-qwen2.5vl-3b done
+01:41:58 session done
+01:42:26 hybrid follow-up start; NV Power Mode: 25W; Mem:            7619        1857        4699          26        1062        5506
+01:42:27 hybrid prompts done (rc 0)
+02:34:42 bench full-hyb-qwen2.5vl-3b-lr done
+02:34:42 hybrid (reduced image) on the full bank done
+02:43:30 full-image repeat run start; NV Power Mode: 25W; Mem:            7619        1860        4245          25        1513        5515
+02:43:31 repeat-run question file done (rc 0)
+03:04:41 bench full-qwen2.5vl-3b-rerun done
+03:04:41 full-image repeat run done
+03:09:12 full-image run with the reload rule start; NV Power Mode: 25W; Mem:            7619        1846        4435          22        1338        5532
+04:31:29 bench full-qwen2.5vl-3b-guard done (rc 0)
+04:31:29 full-image run with the reload rule done

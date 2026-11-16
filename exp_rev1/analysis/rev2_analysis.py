@@ -100,6 +100,11 @@ for name, pat in {"ctrl_scoped_3b": "ctrl_text/d0_3b", "ctrl_scoped_7b": "ctrl_t
     ps = glob.glob(str(E / pat / "*forced.jsonl"))
     if ps and sum(1 for _ in open(ps[0], encoding="utf-8")) == len(ids):
         ARMS[name] = corr(ps[0])
+# object-list scene graphs with the sign convention of the bearing stated (control of 2026-11-15)
+for name in ("sgc_triples_3b", "sgc_triples_7b", "sgc_json_3b", "sgc_json_7b"):
+    ps = glob.glob(str(E / "b4c_scenegraph_convention" / name / "*forced.jsonl"))
+    if ps and sum(1 for _ in open(ps[0], encoding="utf-8")) == len(ids):
+        ARMS[name] = corr(ps[0])
 for k, v in ARMS.items():
     assert set(ids) <= set(v), (k, len(v))
 out["acc"] = {k: float(np.mean([v[i] for i in ids])) for k, v in ARMS.items()}
@@ -198,6 +203,24 @@ out["counting_miss"] = {k: (v if isinstance(v, int) else {"n": len(v), **{a: (fl
                                                                        for a in ("scoped_3b", "scoped_7b", "pixel_3b", "pixel_7b")}})
                         for k, v in miss.items()}
 
+# ------------------------------------------------------------------ A0. the first criterion, on the development bank
+# (history reported in Section VI) 7B only: system minus VLM, bootstrap over the 21 recordings,
+# lower end of the 95% interval above zero. Applied first to system v8, then to v9 (Flat).
+devd = {it["qa_id"]: it for it in dev}
+def dev_contrast(pa, pb):
+    A_, B_ = arm_jsonl(pa), arm_jsonl(pb)
+    common = [i for i in devd if i in A_ and i in B_]
+    d = pd.DataFrame({"seq": [int(devd[i]["scene_name"]) for i in common], "diff": [float(A_[i]["correct"]) - float(B_[i]["correct"]) for i in common]})
+    cs = RB.cluster_stats(d); bs = RB.paired_cluster_bootstrap(cs, B=B, seed=SEED); lo, hi = np.percentile(bs, [2.5, 97.5])
+    return {"delta": float(d["diff"].mean()), "lo": float(lo), "hi": float(hi), "n": len(d), "star": bool(lo > 0 or hi < 0),
+            "acc_a": float(np.mean([A_[i]["correct"] for i in common])), "acc_b": float(np.mean([B_[i]["correct"] for i in common]))}
+fc = {}
+P10 = REL / "results/phase10"
+for key, a_dir in (("v8_vs_vlm_7b", "results_system8_kf_7b"), ("flat_vs_vlm_7b", "results_system9_kf_7b")):
+    if glob.glob(str(P10 / a_dir / "*forced.jsonl")) and glob.glob(str(P10 / "results_qwen2.5vl_7b" / "*forced.jsonl")):
+        fc[key] = dev_contrast(P10 / a_dir / "*forced.jsonl", P10 / "results_qwen2.5vl_7b" / "*forced.jsonl")
+out["first_criterion"] = fc
+
 # ------------------------------------------------------------------ B. battery
 pairs = {"primary_3b": ("scoped_3b", "pixel_3b"), "primary_7b": ("scoped_7b", "pixel_7b"),
          "nostereo_vs_pixel_3b": ("nostereo_3b", "pixel_3b"), "nostereo_vs_pixel_7b": ("nostereo_7b", "pixel_7b"),
@@ -244,6 +267,11 @@ for sc in ("3b", "7b"):
             pairs[f"{m}_vs_pixelrerun_{sc}"] = (f"{m}_{sc}", f"pixel_rerun_{sc}")
             if f"ctrl_scoped_{sc}" in ARMS:
                 pairs[f"{m}_vs_ctrl_scoped_{sc}"] = (f"{m}_{sc}", f"ctrl_scoped_{sc}")
+for sc in ("3b", "7b"):
+    for m in ("triples", "json"):
+        if f"sgc_{m}_{sc}" in ARMS:
+            pairs[f"sgc_{m}_vs_sg_{sc}"] = (f"sgc_{m}_{sc}", f"sg_{m}_{sc}")
+            pairs[f"sgc_{m}_vs_pixelrerun_{sc}"] = (f"sgc_{m}_{sc}", f"pixel_rerun_{sc}")
 out["battery"] = {k: battery(a, b) for k, (a, b) in pairs.items()}
 # per-family contrasts (same bootstrap, items of one family)
 out["family_contrast"] = {}
@@ -466,7 +494,8 @@ if qa2p.exists():
           "n_location": dict(collections.Counter(loc2.values())), "arms": {}, "contrast": {}}
     A2 = {}
     for name in ("s_3b", "s_7b", "sraw_3b", "sraw_7b", "gt_3b", "gt_7b", "blind_3b", "blind_7b", "pixel_ollama_7b",
-                 "hf_pixel_3b", "hf_pixel_7b", "hf_hybrid_3b", "hf_hybrid_7b", "hf_reason_3b", "hf_reason_7b", "readerR_3b", "readerR_7b"):
+                 "hf_pixel_3b", "hf_pixel_7b", "hf_hybrid_3b", "hf_hybrid_7b", "hf_reason_3b", "hf_reason_7b", "readerR_3b", "readerR_7b",
+                 "d1_3b", "d1_7b", "sg_triples_3b", "sg_triples_7b"):          # the last four: amendment A8
         rows = rows_of(E / f"c2_nusc/{name}/*forced.jsonl")
         if rows is None or not set(ids2) <= set(rows):
             continue
@@ -517,7 +546,12 @@ if qa2p.exists():
                                 "s_vs_vlmR_3b": ("s_3b", "hf_reason_3b", False), "s_vs_vlmR_7b": ("s_7b", "hf_reason_7b", False),
                                 "readerR_vs_vlmR_3b": ("readerR_3b", "hf_reason_3b", False), "readerR_vs_vlmR_7b": ("readerR_7b", "hf_reason_7b", False),
                                 "vlmR_vs_vlm_3b": ("hf_reason_3b", "hf_pixel_3b", False), "vlmR_vs_vlm_7b": ("hf_reason_7b", "hf_pixel_7b", False),
-                                "readerR_vs_s_3b": ("readerR_3b", "s_3b", False), "readerR_vs_s_7b": ("readerR_7b", "s_7b", False)}.items():
+                                "readerR_vs_s_3b": ("readerR_3b", "s_3b", False), "readerR_vs_s_7b": ("readerR_7b", "s_7b", False),
+                                # amendment A8: two less answer-aligned texts on this bank (exploratory)
+                                "d1_vs_vlm_3b": ("d1_3b", "hf_pixel_3b", True), "d1_vs_vlm_7b": ("d1_7b", "hf_pixel_7b", True),
+                                "d1_vs_s_3b": ("d1_3b", "s_3b", True), "d1_vs_s_7b": ("d1_7b", "s_7b", True),
+                                "sg_vs_vlm_3b": ("sg_triples_3b", "hf_pixel_3b", True), "sg_vs_vlm_7b": ("sg_triples_7b", "hf_pixel_7b", True),
+                                "sg_vs_s_3b": ("sg_triples_3b", "s_3b", True), "sg_vs_s_7b": ("sg_triples_7b", "s_7b", True)}.items():
         if a_ in A2 and b_ in A2:
             n2["contrast"][key] = c2(a_, b_, full=full)
     # nearest-distance: does an arm choose a nearer or a farther band than the correct one?
@@ -579,10 +613,188 @@ if qa2p.exists():
     n2["mini_fixed"] = fixm
 out["nuscenes2"] = n2
 
+# ------------------------------------------------------------------ H. nearest-distance family: answer key and choices
+# (added after a simulated review, 2026-11-15) The key is the band of the ground distance from the
+# sensor to the CENTER of the box. key_audit.py recomputed the distance to the NEAREST POINT of the
+# box footprint; questions whose band differs between the two definitions are left out here.
+BANDS3 = ["under 5 meters away", "5 to 15 meters away", "over 15 meters away"]
+
+
+def nd_choices(bank, order, famof, rows):
+    """what an arm chooses in the nearest-distance family: by band and by option letter"""
+    band_c = collections.Counter(); letter_c = collections.Counter(); gold_c = collections.Counter(); goldletter_c = collections.Counter()
+    for i in order:
+        if famof[i] != "nearest_dist":
+            continue
+        it = bank[i]
+        texts = [v for k_, v in sorted(it["choices"].items()) if k_ != it.get("abstain_letter")]
+        gold_c[it["choices"][it["answer"]]] += 1; goldletter_c["ABC"[texts.index(it["choices"][it["answer"]])]] += 1
+        pred = rows[i].get("pred")
+        if pred is None:
+            band_c["none"] += 1; letter_c["none"] += 1
+        else:
+            band_c[texts["ABC".index(pred)]] += 1; letter_c[pred] += 1
+    return {"chosen_band": {b_: band_c.get(b_, 0) for b_ in BANDS3 + ["none"]}, "chosen_letter": {l_: letter_c.get(l_, 0) for l_ in ("A", "B", "C", "none")},
+            "gold_band": {b_: gold_c.get(b_, 0) for b_ in BANDS3}, "gold_letter": {l_: goldletter_c.get(l_, 0) for l_ in ("A", "B", "C")}}
+
+
+ka = {}
+kp = REL / "exp_rev1/key_audit/nearest_dist_key_audit.jsonl"
+if kp.exists():
+    rowsK = jl(kp)
+    for bname in ("confirm", "nusc2"):
+        rs = [r for r in rowsK if r["bank"] == bname]
+        ka[bname] = {"n": len(rs), "key_is_center_band": int(sum(r["gold"] == r["band_center"] for r in rs)),
+                     "band_changes": int(sum(r["band_center"] != r["band_nearest"] for r in rs)),
+                     "median_gap_m": float(np.median([r["d_center"] - r["d_nearest"] for r in rs]))}
+    amb = {r["qa_id"] for r in rowsK if r["band_center"] != r["band_nearest"]}
+    keep = [i for i in ids if i not in amb]
+    ka["confirm"]["n_kept"] = len(keep)
+    for sc in ("3b", "7b"):
+        ka["confirm"][f"primary_{sc}"] = contrast(f"scoped_{sc}", f"pixel_{sc}", keep)[2]
+        ka["confirm"][f"nd_{sc}"] = contrast(f"scoped_{sc}", f"pixel_{sc}", [i for i in keep if fam[i] == "nearest_dist"])[2]
+    if n2:
+        keep2 = [i for i in ids2 if i not in amb]
+        ka["nusc2"]["n_kept"] = len(keep2)
+        for sc, key_ in (("3b", "E1"), ("7b", "E2")):
+            ka["nusc2"][f"{key_}_{sc}"] = c2(f"s_{sc}", f"hf_pixel_{sc}", keep2)
+            ka["nusc2"][f"nd_{sc}"] = c2(f"s_{sc}", f"hf_pixel_{sc}", [i for i in keep2 if fam2[i] == "nearest_dist"])
+            # the difference without the nearest-distance family
+            ka["nusc2"][f"without_nd_{sc}"] = c2(f"s_{sc}", f"hf_pixel_{sc}", [i for i in ids2 if fam2[i] != "nearest_dist"])
+    for sc in ("3b", "7b"):
+        ka["confirm"][f"without_nd_{sc}"] = contrast(f"scoped_{sc}", f"pixel_{sc}", [i for i in ids if fam[i] != "nearest_dist"])[2]
+out["key_audit"] = ka
+ndc = {"confirm": {}, "nusc2": {}}
+for name, rel_ in (("pixel_3b", "results/phase10/results_cf_px3b_robust"), ("pixel_7b", "results/phase10/results_cf_px_7b"),
+                   ("scoped_3b", "results/phase10/results_cf_v15_3b"), ("scoped_7b", "results/phase10/results_cf_v15_7b")):
+    ndc["confirm"][name] = nd_choices(cfd, ids, fam, arm_jsonl(REL / rel_ / "*forced.jsonl"))
+if n2:
+    for name in ("hf_pixel_3b", "hf_pixel_7b", "s_3b", "s_7b", "blind_3b", "blind_7b"):
+        if name in A2:
+            ndc["nusc2"][name] = nd_choices(b2, ids2, fam2, A2[name])
+out["nd_choices"] = ndc
+
+# ------------------------------------------------------------------ I. the confirmatory bank on the board (amendment A7)
+# Source: exp_rev1/b10_boards/orin_nano_fullbank/ (copy of ~/rev1/out_e2e_full1328 on the board,
+# written by scripts/rev1/run_b10_orin_fullbank.sh). An arm enters only when all 1328 answers exist.
+OBD = E / "b10_boards/orin_nano_fullbank"
+OB_ARMS = {"s_3b": "full-qwen2.5-3b", "s_1.5b": "full-qwen2.5-1.5b", "s_7b": "full-qwen2.5-7b",
+           "vlm_lr": "full-qwen2.5vl-3b-lr", "vlm_full": "full-qwen2.5vl-3b",
+           "hyb_lr": "full-hyb-qwen2.5vl-3b-lr"}          # A7 addendum 1 (exploratory)
+OB_LAPTOP = {"s_3b": E / "b5_light/infer/cf_d0_light1_3b/*forced.jsonl", "s_7b": E / "b5_light/infer/cf_d0_light1_7b/*forced.jsonl",
+             "vlm_full": REL / "results/phase10/results_cf_px3b_robust/*forced.jsonl"}
+# amendments/A7_addendum2.md and A7_addendum3.md: a server that has failed returns this string for
+# every question. It is not an answer. The failed questions take the answers of the run with the
+# reload rule (<dir>-guard: the server is restarted after a degenerate output and the question is
+# asked once more; a question that fails again counts as wrong). An arm with failed answers and
+# no such run is not used.
+OB_FAIL = "????????"
+ob = {"arms": {}, "contrast": {}, "balanced_min5": {}, "first_process": {}}
+OB_FIRST = {}
+for name, d in OB_ARMS.items():
+    pth = OBD / d / "items.jsonl"
+    if not pth.exists():
+        continue
+    order = [r["qa_id"] for r in jl(pth)]
+    rows = {r["qa_id"]: r for r in jl(pth)}
+    if set(rows) != set(ids):
+        ob["arms"][name] = {"incomplete": len(rows)}
+        continue
+    sm = json.load(open(OBD / d / "summary.json", encoding="utf-8"))
+    watt = {i: sm["power_run_mw"]["VDD_IN"] / 1000 for i in ids}
+    failed = [i for i in order if rows[i]["raw"] == OB_FAIL]
+    fail = None
+    if failed:
+        rp = OBD / (d + "-guard")
+        if not (rp / "items.jsonl").exists():
+            ob["arms"][name] = {"failed_answers": len(failed), "repeat_run": "pending"}
+            continue
+        rr = {r["qa_id"]: r for r in jl(rp / "items.jsonl")}
+        rsm = json.load(open(rp / "summary.json", encoding="utf-8"))
+        first = order.index(failed[0])
+        assert failed == order[first:], name                       # the failure runs from one question to the end
+        overlap = [i for i in order if i in rr and i not in set(failed)]
+        assert set(failed) <= set(rr) and overlap == order[first - len(overlap):first], name   # the questions just before the failure
+        again = [i for i in failed if rr[i]["degenerate"]]         # failed again after a restart: these count as wrong
+        assert all(rr[i]["pred"] is None and not rr[i]["correct"] for i in again), name
+        assert not any(rr[i]["degenerate"] for i in overlap), name
+        ok = order[:first]
+        fail = {"n_failed": len(failed), "n_first": first, "repeat_n": len(rr), "overlap_n": len(overlap),
+                "overlap_same_answer": int(sum(rr[i]["pred"] == rows[i]["pred"] for i in overlap)),
+                "overlap_acc_first": float(np.mean([rows[i]["correct"] for i in overlap])),
+                "overlap_acc_repeat": float(np.mean([rr[i]["correct"] for i in overlap])),
+                "first_acc": float(np.mean([rows[i]["correct"] for i in ok])),
+                "first_time_mean_s": float(np.mean([rows[i]["latency_s"] for i in ok])),
+                "failed_time_mean_s": float(np.mean([rows[i]["latency_s"] for i in failed])),
+                "repeat_acc_failed": float(np.mean([rr[i]["correct"] for i in failed])),
+                "repeat_time_mean_s": float(np.mean([rr[i]["latency_s"] for i in rr])),
+                "first_power_w": sm["power_run_mw"]["VDD_IN"] / 1000, "repeat_power_w": rsm["power_run_mw"]["VDD_IN"] / 1000,
+                "acc_failed_counted_wrong": float(np.mean([rows[i]["correct"] for i in ids])),
+                "still_failed": again, "restarts": int(rsm["restarts"]), "asked_twice": int(sum(rr[i]["attempts"] == 2 for i in rr)),
+                "overlap_same_correct": int(sum(bool(rr[i]["correct"]) == bool(rows[i]["correct"]) for i in overlap)),
+                "first_recordings": sorted({seq[i] for i in ok}), "failed_recordings": sorted({seq[i] for i in failed})}
+        OB_FIRST[name] = ok
+        for i in failed:
+            rows[i] = rr[i]; watt[i] = rsm["power_run_mw"]["VDD_IN"] / 1000
+    ARMS["ob_" + name] = {i: bool(rows[i]["correct"]) for i in ids}
+    w = float(np.mean([watt[i] for i in ids]))
+    lat = np.array([rows[i]["latency_s"] for i in ids])
+    a = {"n": len(ids), "acc": float(np.mean([rows[i]["correct"] for i in ids])),
+         "parse": float(np.mean([rows[i]["pred"] is not None for i in ids])),
+         "family": {f: float(np.mean([rows[i]["correct"] for i in ids if fam[i] == f])) for f in FAMS},
+         "time_mean_s": float(lat.mean()), "time_median_s": float(np.median(lat)), "time_p95_s": float(np.percentile(lat, 95)),
+         "time_max_s": float(lat.max()), "power_w": w, "energy_j": float(np.mean([watt[i] * rows[i]["latency_s"] for i in ids])),
+         "prompt_tokens_median": float(np.median([rows[i]["prompt_tokens"] for i in ids])),
+         "peak_sys_used_mb": sm.get("peak_sys_used_mb"), "load_status": sm.get("load_status"), "oom": sm.get("oom_in_journal")}
+    if fail is None:
+        assert abs(a["acc"] - sm["acc"]) < 1e-9 and abs(a["time_mean_s"] - sm["latency_mean_s"]) < 1e-6, name
+        assert abs(a["energy_j"] - w * a["time_mean_s"]) < 1e-9, name
+    else:
+        a["fail"] = fail
+    if name in OB_LAPTOP:
+        lp = arm_jsonl(OB_LAPTOP[name])
+        same = [i for i in ids if rows[i]["pred"] == lp[i].get("pred")]
+        assert all(bool(rows[i]["correct"]) == bool(lp[i]["correct"]) for i in same if rows[i]["pred"] is not None), name   # same key on board and laptop
+        a["agree_laptop"] = len(same); a["laptop_acc"] = float(np.mean([bool(lp[i]["correct"]) for i in ids]))
+    ob["arms"][name] = a
+OB_PAIRS = {"O1_s3b_vs_vlm_lr": ("ob_s_3b", "ob_vlm_lr"), "O2_s3b_vs_vlm_full": ("ob_s_3b", "ob_vlm_full"),
+            "s1.5b_vs_vlm_lr": ("ob_s_1.5b", "ob_vlm_lr"), "s1.5b_vs_vlm_full": ("ob_s_1.5b", "ob_vlm_full"),
+            "s7b_vs_vlm_lr": ("ob_s_7b", "ob_vlm_lr"), "s7b_vs_vlm_full": ("ob_s_7b", "ob_vlm_full"),
+            "vlm_lr_vs_vlm_full": ("ob_vlm_lr", "ob_vlm_full"),
+            "hyb_lr_vs_s3b": ("ob_hyb_lr", "ob_s_3b"), "hyb_lr_vs_vlm_lr": ("ob_hyb_lr", "ob_vlm_lr"), "hyb_lr_vs_vlm_full": ("ob_hyb_lr", "ob_vlm_full"),
+            "hyb_lr_vs_s7b": ("ob_hyb_lr", "ob_s_7b"), "s3b_vs_s1.5b": ("ob_s_3b", "ob_s_1.5b"), "s7b_vs_s3b": ("ob_s_7b", "ob_s_3b"),
+            "s3b_board_vs_laptop": ("ob_s_3b", "light1_3b"), "s7b_board_vs_laptop": ("ob_s_7b", "light1_7b"),
+            "vlm_full_board_vs_laptop": ("ob_vlm_full", "pixel_3b"), "vlm_lr_vs_laptop_vlm": ("ob_vlm_lr", "pixel_3b")}
+_setup5 = bal_setup(5)
+for k, (a_, b_) in OB_PAIRS.items():
+    if a_ in ARMS and b_ in ARMS:
+        r = battery(a_, b_)
+        r["firm"] = bool(r["star"] and r["signflip_p"] < 0.05 and r["loso_cross_zero"] == 0)
+        r["family"] = {f: contrast(a_, b_, [i for i in ids if fam[i] == f])[2] for f in FAMS}
+        ob["contrast"][k] = r
+        (pa, ra), (pb, rb) = bal_arm(a_, _setup5), bal_arm(b_, _setup5)
+        lo, hi = np.percentile(ra - rb, [2.5, 97.5])
+        ob["balanced_min5"][k] = {"a": pa, "b": pb, "delta": pa - pb, "lo": float(lo), "hi": float(hi), "star": bool(lo > 0 or hi < 0)}
+# the comparisons with a repaired arm, on the questions that its first process answered (addendum 2, rule 5)
+for name, ok in OB_FIRST.items():
+    for k, (a_, b_) in OB_PAIRS.items():
+        if "ob_" + name in (a_, b_) and a_ in ARMS and b_ in ARMS:
+            ob["first_process"][k] = contrast(a_, b_, ok)[2]
+            ob["first_process"][k]["acc_a"] = float(np.mean([ARMS[a_][i] for i in ok])); ob["first_process"][k]["acc_b"] = float(np.mean([ARMS[b_][i] for i in ok]))
+pp = OBD / "fullbank_perception.json"
+if pp.exists():
+    fp = json.load(open(pp, encoding="utf-8"))
+    ob["perception"] = {"n_frames": fp["n_frames"], "wall_s": fp["wall_s"], "n_folds": fp["n_folds"], "loop_s": fp.get("loop_s"),
+                        "power_w": fp["whole"]["vdd_in_mean_mw"] / 1000, "min_avail_gb": fp["whole"]["min_avail_kb"] * 1024 / 1e9}
+out["onboard"] = ob
+
 json.dump(out, open(HERE / "rev2_results.json", "w"), indent=1, default=float)
 
 # ------------------------------------------------------------------ print
 print(f"prior rule: {out['acc']['prior']:.4f}; strata {out['prior_strata']}")
+print("on board:", {k: (round(a["acc"], 4), round(a["time_mean_s"], 2), a.get("agree_laptop")) if "acc" in a else a for k, a in out["onboard"]["arms"].items()})
+for k, r in out["onboard"]["contrast"].items():
+    print(f"  {k:26s} {r['delta']:+.4f} [{r['lo']:+.4f},{r['hi']:+.4f}]{'*' if r['star'] else ' '} p={r['signflip_p']:.4f} loso0={r['loso_cross_zero']:2d}/21 firm={r['firm']}  balanced {out['onboard']['balanced_min5'][k]['delta']:+.4f} [{out['onboard']['balanced_min5'][k]['lo']:+.4f},{out['onboard']['balanced_min5'][k]['hi']:+.4f}]")
 print("error split:", json.dumps(out["error_split"]))
 print("queried class present:", json.dumps(out["queried_present"]), out["queried_present_total"]); print("net by family:", out["net_by_family"]); print("nearest-class errors:", out["nearest_class_errors"])
 hdr = ["prior", "blind_3b", "blind_7b", "pixel_3b", "pixel_7b", "scoped_3b", "scoped_7b", "ftvlm_3b", "fttext_3b", "gt_3b", "gt_7b"]

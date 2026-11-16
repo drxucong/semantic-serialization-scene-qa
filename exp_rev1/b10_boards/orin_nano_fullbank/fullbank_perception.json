@@ -1,0 +1,27 @@
+{
+ "n_frames": 1328,
+ "wall_s": 679.4870266914368,
+ "n_folds": 4,
+ "idle": {
+  "vdd_in_mean_mw": 3556,
+  "power_samples": 46,
+  "min_avail_kb": 5517352
+ },
+ "whole": {
+  "vdd_in_mean_mw": 14262,
+  "power_samples": 6426,
+  "min_avail_kb": 4301084
+ },
+ "tail": [
+  "[fold3] 250/350",
+  "[fold3] 300/350",
+  "fold 3 done: {\"kept\": 3212, \"dropped\": 984, \"lowconf\": 107, \"ndet\": 4196, \"noimg\": 0}",
+  "[list] merged 1328 frames -> /home/cong/rev1/e2e/outputs/coda/states_confirm_light1_orin.json"
+ ],
+ "loop_s": 656.9376792907715,
+ "loop": {
+  "vdd_in_mean_mw": 14589,
+  "power_samples": 6214,
+  "min_avail_kb": 4301084
+ }
+}
